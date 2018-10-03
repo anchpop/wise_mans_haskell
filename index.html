@@ -3,10 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809681-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126809681-1');
+</script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,300i,700" rel="stylesheet">
   <meta name="author" content="Andre Popovitch">
-  <meta name="dcterms.date" content="2018-09-30">
+  <meta name="dcterms.date" content="2018-10-03">
   <title>Wise Man’s Haskell</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -376,7 +386,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 <header>
 <h1 class="title">Wise Man’s Haskell</h1>
 <p class="author">Andre Popovitch</p>
-<p class="date">2018-09-30</p>
+<p class="date">2018-10-03</p>
 </header>
 <h1 id="preface">Preface</h1>
 <p><span class="newthought">I’m Andre Popovitch</span>. This is my book on learning Haskell, an excellent functional programming language. I assume some programming knowledge, but nothing too in depth. If you’ve played with Python or Javascript and know how to open a command prompt/terminal, that’ll be plenty.</p>
@@ -456,7 +466,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 <label for="figure-1" class="margin-toggle">⊕</label> <input type="checkbox" id="figure-1" class="margin-toggle"/> <span class="marginnote">Demonstration of how <code>addOne</code> works.</span> <img src="assets/exp_addOneDemo.svg" alt="Demonstration of how `addOne` works." />
 </figure>
 <hr />
-<h2 id="exercises">Exercises:</h2>
+<p>__***Exercises:</p>
 <ol type="1">
 <li>Write a function that adds two to a number, called <code>addTwo</code>.</li>
 </ol>
@@ -497,7 +507,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 <p><code>:load</code> is a special GHCi command<label for="marginnote-16" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-16" class="margin-toggle"/> <span class="marginnote">Anything that starts with a <code>:</code> is a GHCi command, not real Haskell.</span> - it tells GHCi to interpret the file you give it, and load it into your interpreter so you can play with it. You defined <code>addOne</code> in <code>myProgram.hs</code>, so by typing <code>:load myProgram.hs</code> you load all the functions in that file.</p>
 <p>You might have also noticed <code>Prelude&gt;</code> changed to <code>*Main&gt;</code>, and I’ll explain why that happens in the future. But for now, you can have fun playing with it - try running <code>:set prompt &quot;Haskell is fun&gt; &quot;</code>.</p>
 <hr />
-<h2 id="exercises-1">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>What do you think that the following function will do?</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb15-1" data-line-number="1">foo x <span class="fu">=</span> x <span class="fu">*</span> <span class="dv">3</span></a></code></pre></div>
@@ -675,7 +685,7 @@ i :: Char</code></pre>
 <a class="sourceLine" id="cb47-2" data-line-number="2">head<span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> a</a></code></pre></div>
 <p>So this is telling us <code>head</code> takes a List of some type, and returns an element of that type. This is what we would expect! It’d be very strange if we gave it a List of <code>Bool</code>s and it said the first element was a <code>Char</code>.</p>
 <hr />
-<h2 id="exercises-2">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>What type will <code>head</code> give us if we give it a <code>[Char]</code>?</p></li>
 <li><p>There’s a function called <code>tail</code> which is similar to <code>head</code>. It takes a List and returns a List of everything except the first element. So <code>tail &quot;abc&quot; == &quot;bc&quot;</code> and <code>tail [1,2,3] == [2,3]</code>. Can you guess what type signature tail has? To check your answer, run <code>:type tail</code> in GHCi.</p></li>
@@ -757,7 +767,7 @@ i :: Char</code></pre>
 <p>That’s right, this one involves two different typeclasses. If you have more than one typeclass in your function’s type signature, they should have <code>()</code> parentheses around them and be separated by commas. You can describe this function as taking an Integral and returning a Num.</p></li>
 </ol>
 <hr />
-<h2 id="exercises-3">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li>What do you think the type signature of <code>+</code> is? Type <code>:type (+)</code> to check your answer.</li>
 </ol>
@@ -889,7 +899,7 @@ i :: Char</code></pre>
 <a class="sourceLine" id="cb76-3" data-line-number="3"><span class="dt">Prelude</span><span class="fu">&gt;</span> child&#39;sName myName <span class="st">&quot;Claire&quot;</span></a>
 <a class="sourceLine" id="cb76-4" data-line-number="4">(<span class="st">&quot;Claire&quot;</span>,<span class="st">&quot;Doe&quot;</span>)</a></code></pre></div>
 <hr />
-<h2 id="exercises-4">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>Sometimes you can guess what a function does just by looking at its type signature. Here’s the type signature for the <code>zip</code> function:</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb77-1" data-line-number="1">zip<span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> [b] <span class="ot">-&gt;</span> [(a, b)]</a></code></pre></div>
@@ -971,7 +981,7 @@ length&#39; (_:xs) = 1 + length&#39; xs  </code></pre>
 <a class="sourceLine" id="cb89-2" data-line-number="2">length&#39;&#39; xs <span class="fu">=</span> <span class="kw">case</span> xs <span class="kw">of</span> []     <span class="ot">-&gt;</span> []   </a>
 <a class="sourceLine" id="cb89-3" data-line-number="3">                        (_<span class="fu">:</span>xs) <span class="ot">-&gt;</span> <span class="dv">1</span><span class="fu">+</span> length&#39; xs  </a></code></pre></div>
 <hr />
-<h2 id="exercises-5">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>What do you think will happen if we called <code>factorial</code> with a negative number? Hint: try running it, but don’t hold your breath for an answer</p></li>
 <li><p>What do you think will happen if you call our <code>neck [1]</code>? What do you think will happen if you call <code>head []</code>?</p></li>
@@ -1337,7 +1347,7 @@ map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code></pre>
 </figure>
 <p>There’s another function, <code>foldr1</code>, that does the same thing except it goes right-to-left instead of left-to-right. If possible, you should use <code>foldr1</code> instead of <code>foldl1</code> because <code>foldr1</code> is much more efficient. I only introduced <code>foldl1</code> first because it’s a bit easier to explain.</p>
 <hr />
-<h2 id="exercises-6">Exercises</h2>
+<p><strong><strong><em>Exercises</em></strong></strong></p>
 <ol type="1">
 <li><p>Write a function called <code>product'</code> which multiplies the items in the list, instead of folding.</p></li>
 <li><p>Write the <code>foldl1</code> function yourself, calling it <code>foldl1'</code>. The answer is in the <code>writefoldl1.hs</code> file.</p>
@@ -1362,7 +1372,7 @@ map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code></pre>
 </figure>
 <p>Of course, there’s also <code>foldr</code>, which is much faster than <code>foldl</code>.</p>
 <hr />
-<h2 id="exercises-7">Exercises</h2>
+<p><strong><strong><em>Exercises</em></strong></strong></p>
 <ol type="1">
 <li><p>Rewrite <code>sum'</code> using <code>foldl</code> instead of <code>foldl1</code>. Hint: you can add anything to 0 and get the same number.</p></li>
 <li><p>Write the <code>foldl1</code> function yourself. The base case is the empty list. Look at your <code>foldl1'</code> function for inspiration.</p></li>
@@ -1450,7 +1460,7 @@ map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code></pre>
 <div class="sourceCode" id="cb159"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="ot">maybeAddOne ::</span> (<span class="dt">Num</span> a) <span class="ot">=&gt;</span> <span class="dt">Maybe</span> a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</a></code></pre></div>
 <p>Which is better because it’s more general. If this seems confusing, don’t worry, in the next chapter we’ll address it more.</p>
 <hr />
-<h2 id="exercises-8">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>Write a function with the type signature:</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="ot">maybeSquare ::</span> (<span class="dt">Num</span> a) <span class="ot">=&gt;</span> <span class="dt">Maybe</span> a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</a></code></pre></div>
@@ -1609,7 +1619,7 @@ map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code></pre>
 <a class="sourceLine" id="cb174-2" data-line-number="2"><span class="dt">Prelude</span><span class="fu">&gt;</span> <span class="dt">Song</span> <span class="st">&quot;Dirty Diana&quot;</span> <span class="st">&quot;Michael Jackson&quot;</span> <span class="fl">4.47</span></a>
 <a class="sourceLine" id="cb174-3" data-line-number="3"><span class="dt">Song</span> <span class="st">&quot;Dirty Diana&quot;</span> <span class="st">&quot;Michael Jackson&quot;</span> <span class="fl">4.47</span></a></code></pre></div>
 <hr />
-<h2 id="exercises-9">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>Write a data type that has the possible values <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, and <code>None</code>, that you might use to store the user’s answer if you were writing a program to administer multiple choice tests.</p></li>
 <li><p>Write some data types used to store the information about a car. You should have one data type for <code>Make</code> (<code>Honda</code>, <code>Toyota</code>, <code>GM</code>, or <code>Tesla</code>) and one for <code>EngineCylinders</code> (<code>Four</code>, <code>Six</code>, and <code>N/A</code>). Then make a data type <code>CarInfo</code> which stores the <code>Make</code> and the <code>EngineCylinders</code>, plus a <code>String</code> representing the name of the owner. Don’t forget to add <code>deriving (Show)</code>! This may seem difficult but once you’ve done it, it won’t seem bad at all.</p></li>
@@ -1740,7 +1750,7 @@ data Dog = Dog {name :: String}
 <a class="sourceLine" id="cb194-6" data-line-number="6"><span class="fu">*</span><span class="dt">Main</span><span class="fu">&gt;</span> eitherDivide <span class="dv">3</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb194-7" data-line-number="7"><span class="dt">Left</span> <span class="st">&quot;Sorry, can&#39;t divide by zero&quot;</span></a></code></pre></div>
 <hr />
-<h2 id="exercises-10">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>In <code>data Either a b = Left a | Right b</code>, find the type constructor(s), and find the value constructor(s).</p>
 <p>Really try this, because understanding Haskell data types is important.</p>
@@ -1828,7 +1838,7 @@ data Dog = Dog {name :: String}
 <p>You can probably see how this would be useful! Imagine we had a function that returned a <code>Maybe Int</code>, and we wanted to do some calculations on the <code>Int</code> inside. We can do them all with <code>fmap</code>s, and wouldn’t have to first check if it was really a <code>Nothing</code>.</p>
 <p>I hope this made sense. Types and kinds of types are probably the trickiest part of Haskell, so don’t feel discouraged if it takes some time to understand this.</p>
 <hr />
-<h2 id="exercises-11">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>Do you remember the <code>foldr</code> function? We used it to sum a list with <code>sum xs = foldr (\x acc -&gt; acc + x) 0 xs</code>. Here is its type:</p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="dt">Prelude</span><span class="fu">&gt;</span> <span class="fu">:</span>t foldr</a>
@@ -1943,7 +1953,7 @@ data Dog = Dog {name :: String}
 <p>What this does is check if the first element in the List is odd, and if so, combine it with <code>odds</code> called on the rest of the list. Otherwise, we’ll just return <code>odds</code> called of the rest of the List. And as usual, if the List is empty, we return the empty List.</p></li>
 </ol>
 <hr />
-<h2 id="exercises-12">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>Write the <code>filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code> function, call it <code>filter'</code>. It takes a function of type <code>(a -&gt; Bool)</code> and a List of type <code>[a]</code>, and then <em>filters</em> the List by removing the elements where the function returns <code>false</code> when that element is passed into it. For example,</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="dt">Prelude</span><span class="fu">&gt;</span> filter (\x <span class="ot">-&gt;</span> x <span class="fu">&gt;</span> <span class="dv">5</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="fu">-</span><span class="dv">20</span>,<span class="dv">400</span>] </a>
@@ -1963,7 +1973,7 @@ data Dog = Dog {name :: String}
 <ol type="1">
 <li><p><strong>GHC</strong> is a Haskell compiler. It reads your Haskell source code and <em>compiles</em> it into a form readable by a computer. There are many other Haskell compilers, but GHC is the best<label for="marginnote-71" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-71" class="margin-toggle"/> <span class="marginnote">It’s somewhat unfortunate that there’s only one popular Haskell compiler, since it’s not without issues. But in general it’s very nice, especially with all the nonstandard but very useful language extensions it contains.</span>. You got it when you installed the Haskell platform.</p></li>
 <li><p><strong>Cabal</strong> is a file format for describing certain information about your project. There’s also a tool called Cabal, but we won’t be using it. Well, we’ll be using Stack, which uses Cabal in the backend. The file you describe your package in is normally called <code>projectName.cabal</code><label for="sidenote-59" class="margin-toggle sidenote-number"></label> <input type="checkbox" id="sidenote-59" class="margin-toggle"/> <span class="sidenote">Obviously, <code>projectName</code> replaced with the name of your project.</span>.</p></li>
-<li><p><strong>Stack</strong> is a program for managing the packages you use in your project. It is mostly used to aid in using 3rd party code and installing the correct version of GHC. It has a file called <code>stack.yaml</code>, but also reads <code>projectName.cabal</code>. An important goal of Stack is that if it works on my machine, it should work the exact same way on yours, too. This is called <em>reproducible builds</em><label for="marginnote-72" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-72" class="margin-toggle"/> <span class="marginnote">The goal actually is that it creates the exact same binary, so it’s <em>guaranteed</em> to run the same way.</span>, and is a very helpful property. You already got Stack when you installed the Haskell platform.</p></li>
+<li><p><strong>Stack</strong> is a program for managing the packages you use in your project. It is mostly used to aid in using 3rd party code and installing the correct version of GHC. It has a file called <code>stack.yaml</code>, but also reads <code>&lt;projectName&gt;.cabal</code>, and confusingly a file named <code>package.yaml</code> that overrides <code>&lt;projectName&gt;.cabal</code>. An important goal of Stack is that if it works on my machine, it should work the exact same way on yours, too. This is called <em>reproducible builds</em><label for="marginnote-72" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-72" class="margin-toggle"/> <span class="marginnote">The goal actually is that it creates the exact same binary, so it’s <em>guaranteed</em> to run the same way.</span>, and is a very helpful property. You already got Stack when you installed the Haskell platform.</p></li>
 </ol>
 <h2 id="creating-a-project">Creating a Project</h2>
 <p><span class="newthought">Stack contains</span> many useful features. One is that it allows you to instantly create projects according to some <a href="https://github.com/commercialhaskell/stack-templates">common templates</a>. The one we will use is <code>simple</code>. In a terminal, navigate to your development directory and run the following.</p>
@@ -2885,7 +2895,7 @@ Prelude&gt; readFromFoo 387
 <a class="sourceLine" id="cb348-9" data-line-number="9"><span class="dt">Just</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]</a></code></pre></div>
 <p>Notice how we use <code>&lt;$&gt;</code> first, to apply <code>fmap</code> from <code>(++)</code> to <code>Just &quot;Haskell&quot;</code> to get <code>Just (&quot;Haskell&quot;++)</code>. We then use <code>&lt;*&gt;</code> on <code>Just &quot;!&quot;</code> to apply <code>(&quot;Haskell&quot;++)</code> to <code>&quot;!&quot;</code>. So if you want to use a normal function on values wrapped up in <code>Applicative</code>s (also called <em>applicative functors</em>), you can just use <code>&lt;$&gt;</code> and <code>&lt;*&gt;</code> as required. Don’t worry if this seems confusing, try looking at the second example (with <code>take</code>) and try and work through it.</p>
 <hr />
-<h2 id="exercises-13">Exercises:</h2>
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
 <ol type="1">
 <li><p>Rewrite</p>
 <div class="sourceCode" id="cb349"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb349-1" data-line-number="1">take <span class="fu">&lt;$&gt;</span> <span class="dt">Just</span> <span class="dv">5</span> <span class="fu">&lt;*&gt;</span> <span class="dt">Just</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>]<span class="ot">`</span></a></code></pre></div>
@@ -3041,7 +3051,7 @@ Prelude&gt; readFromFoo 387
 <a class="sourceLine" id="cb375-2" data-line-number="2"><span class="dt">Nothing</span></a></code></pre></div>
 <p>You may think this is strange, since <code>y &lt;- Nothing</code> seems like it shouldn’t influence the result at all. But consider what would happen if you then tried to use <code>y</code>. When you write <code>x &lt;- Just 3</code>, <code>x</code> becomes <code>3</code> (Not <code>Just 3</code>). What would <code>y</code> be?</p>
 <h2 id="monad-laws">Monad Laws</h2>
-<p>Like functors and monoids, monads have laws that your <code>Monad</code> instances should obey.</p>
+<p><span class="newthought">Like functors</span> and monoids, monads have laws that your <code>Monad</code> instances should obey.</p>
 <p>The first law is that <code>pure x &gt;&gt;= f</code> should be equivalent to <code>f x</code>. Remember, <code>pure</code> just wraps a value up in some other type, like <code>Maybe</code>. Then <code>&gt;&gt;=</code> unwraps it and passes it to <code>f</code>. Together, they undo each other.</p>
 <p>The second law is that <code>m &gt;&gt;= pure</code> should be equivalent to <code>m</code>. This is because <code>&gt;&gt;=</code> is responsible for unwrapping <code>m</code> and passing it to the function on the right (in this case <code>pure</code>). Then <code>pure</code> wraps it right back up. This means they should undo each other the other way, too.</p>
 <p>The third law is that <code>(m &gt;&gt;= f) &gt;&gt;= g</code> should be equivalent to <code>m &gt;&gt;= (\x -&gt; f x &gt;&gt;= g)</code>. What it’s basically saying is that monads should be associative - the parentheses shouldn’t really matter<label for="marginnote-123" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-123" class="margin-toggle"/> <span class="marginnote">This might remind you of monoids, and that’s because monads and monoids are closely related in category theory. If you’re interested in how exactly, I recommend reading <a href="https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/">Category Theory for Programmers</a>.</span>.</p>
@@ -3066,25 +3076,320 @@ Prelude&gt; readFromFoo 387
 <p>Well… that’s disappointing. When you run <code>sqrt</code> on a negative number, it returns <code>NaN</code><label for="marginnote-124" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-124" class="margin-toggle"/> <span class="marginnote">If you run <code>sqrt</code> on a complex number it will return the correct result, not <code>Nan</code> (complex numbers are available in <code>Data.Complex</code> and made using the <code>:+</code> operator).</span>.</p>
 <p>Anyway, I hope this communicates what the list monad is doing. Monads aren’t anything super complicated or hard - they’re just an additional context for a different value.</p>
 <h1 id="important-information-for-using-haskell">Important Information For Using Haskell</h1>
-<p>This chapter will tell you the last few things you still need to know to become a genuine Haskell dev. After this, you’ll have the skills you need to start being really productive! The next project we’ll be making is going to be called <code>irc</code>, so go ahead and run <code>stack new irc simple</code> somewhere to generate it.</p>
+<p><span class="newthought">This chapter</span> will tell you the last few things you still need to know to become a genuine Haskell dev. After this, you’ll have the skills you need to start being really productive! A project we’ll be making soon is going to be called <code>irc</code>, so go ahead and run <code>stack new irc</code> somewhere to generate it (notice we don’t use <code>stack new irc simple</code> - we’ll be using some features not in the <code>simple</code> template). We’ll actually be making a little IRC client! If you’re not familiar, IRC is an internet protocol for making online chat rooms. Anyone can host an <em>IRC server</em>, which can have multiple chat rooms inside it called <em>channels</em>.</p>
 <h2 id="getting-3rd-party-code-with-stack">Getting 3rd-Party Code With Stack</h2>
-<p>You may remember the tool we used earlier, Stack. Stack isn’t a package manager, it’s responsible for building your code, which occasionally involves downloading packages from the internet. It doesn’t try to manage the packages your program uses, it just builds what’s called “targets” (and their dependencies). To build a target, you want to use <code>stack build &lt;target&gt;</code>. You very rarely want to use <code>stack install</code>. <code>stack install</code> is for installing Haskell <em>programs</em> to your computer, it’s totally different from <code>npm install</code> or <code>pip install</code>. You <strong>probably don’t want to use <code>stack install</code></strong> (It almost got removed entirely to eliminate this exact confusion).</p>
-<p>To add a dependency, you write its name in the <code>&lt;projectname&gt;.cabal</code> folder under the <code>build-depends</code> section, and in <code>stack.yaml</code> under the <code>packages</code> section. Let’s add one called Lens. Lens is a library that has many useful things related to getting and setting values.</p>
-<p>Go to our <code>irc</code> folder and look at <code>irc.yaml</code>. Change the build-depends line from</p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb381-1" data-line-number="1">  build<span class="fu">-</span>depends<span class="fu">:</span>       base <span class="fu">&gt;=</span> <span class="fl">4.7</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span> <span class="dv">5</span></a></code></pre></div>
+<p><span class="newthought">You may</span> remember the tool we used earlier, Stack. Stack isn’t a package manager, it’s responsible for building your code, which occasionally involves downloading packages from the internet. It doesn’t try to manage the packages your program uses, it just builds what’s called “targets” (and their dependencies). To build a target, you want to use <code>stack build &lt;target&gt;</code>. You very rarely want to use <code>stack install</code>. <code>stack install</code> is for installing Haskell <em>programs</em> to your computer, it’s totally different from <code>npm install</code> or <code>pip install</code>. You <strong>probably don’t want to use <code>stack install</code></strong> (It almost got removed entirely to eliminate this exact confusion).</p>
+<p>To add a dependency, you write its name in the <code>package.yaml</code> file under the <code>dependencies</code> section. Let’s add one called <code>lens</code> (Lens is a library that has many useful things related to getting and setting values). We’ll also add one called <code>hspec</code> and <code>QuickCheck</code> for testing our project, and one called <code>network</code> which we’ll use to communicate to IRC servers.</p>
+<p>Go to our <code>irc</code> folder and look at <code>package.yaml</code>. Change the <code>dependencies:</code> line (line 22) from</p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb381-1" data-line-number="1"><span class="fu">dependencies:</span></a>
+<a class="sourceLine" id="cb381-2" data-line-number="2"><span class="kw">-</span> base &gt;= 4.7 &amp;&amp; &lt; 5</a></code></pre></div>
 <p>To</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb382-1" data-line-number="1">  build<span class="fu">-</span>depends<span class="fu">:</span>       lens,</a>
-<a class="sourceLine" id="cb382-2" data-line-number="2">                       base <span class="fu">&gt;=</span> <span class="fl">4.7</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span> <span class="dv">5</span></a></code></pre></div>
-<p>This change tells <code>stack</code> that our code depends on a library called <code>lens</code> (You can ignore the <code>base</code> stuff for now).</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb382-1" data-line-number="1"><span class="fu">dependencies:</span></a>
+<a class="sourceLine" id="cb382-2" data-line-number="2"><span class="kw">-</span> base &gt;= 4.7 &amp;&amp; &lt; 5</a>
+<a class="sourceLine" id="cb382-3" data-line-number="3"><span class="kw">-</span> hspec</a>
+<a class="sourceLine" id="cb382-4" data-line-number="4"><span class="kw">-</span> QuickCheck</a>
+<a class="sourceLine" id="cb382-5" data-line-number="5"><span class="kw">-</span> lens</a>
+<a class="sourceLine" id="cb382-6" data-line-number="6"><span class="kw">-</span> network</a></code></pre></div>
+<p>This change tells <code>stack</code> that our code depends on a library called <code>hspec</code>, a library called <code>lens</code>, and a library called <code>network</code>. <code>base</code> is the basic stuff all Haskell programs use, like numbers (the <code>&gt;=4.7 &amp;&amp; &lt; 5</code> tells cabal which versions of <code>base</code> it can expect our code to work for).</p>
 <p>To test it out, run <code>stack ghci</code> while in the <code>irc</code> folder. This will build your project and open a new GHCi instance from which you can import libraries you’ve added to your project.</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb383-1" data-line-number="1"><span class="dt">Building</span> all executables for <span class="ot">`irc&#39; once. After a successful build of all of them, only specified executables will be rebuilt.</span></a>
-<a class="sourceLine" id="cb383-2" data-line-number="2"><span class="ot">[...]</span></a>
-<a class="sourceLine" id="cb383-3" data-line-number="3"><span class="ot">*Main&gt;</span></a></code></pre></div>
-<p>If you see <code>unexpected 'b'</code> instead of this, you forgot a comma in your <code>irc.cabal</code>.</p>
-<p>To test this out, import the Lens library with <code>import Control.Lens</code>. Then, let’s see how it’s useful for getting values from tuples.</p>
-<div class="sourceCode" id="cb384"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb384-1" data-line-number="1"><span class="fu">*</span><span class="dt">Main</span><span class="fu">&gt;</span> <span class="kw">import</span> <span class="dt">Control.Lens</span></a>
-<a class="sourceLine" id="cb384-2" data-line-number="2"><span class="fu">*</span><span class="dt">Main</span> <span class="dt">Control.Lens</span><span class="fu">&gt;</span> (<span class="st">&quot;hello&quot;</span>,<span class="st">&quot;world&quot;</span>)<span class="fu">^.</span>_2</a>
-<a class="sourceLine" id="cb384-3" data-line-number="3"><span class="st">&quot;world&quot;</span></a></code></pre></div>
-<p>That’s right, you can use <code>^._n</code> to get the <code>n</code>th value from a tuple. There’s no other way to do that - Haskell comes with <code>fst</code> and <code>snd</code> but after that you’re forced to use pattern matching to extract values. With lens, you’re able to use <code>^._2</code> (or any other number) on any tuple.</p>
+<p>By default, our program just prints the text <code>somefunc</code>. Let’s test that out by typing <code>main</code> (remember, <code>main</code> is the function run by Haskell when you turn it into an .exe).</p>
+<div class="sourceCode" id="cb383"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb383-1" data-line-number="1"><span class="fu">*</span><span class="dt">Main</span> <span class="dt">Lib</span><span class="fu">&gt;</span> main</a>
+<a class="sourceLine" id="cb383-2" data-line-number="2">someFunc</a></code></pre></div>
+<p>Also, we have access to the libraries we just imported. To test that out, import the Lens library with <code>import Control.Lens</code>. Then, I’ll show you how it’s useful for getting values from tuples.</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb384-1" data-line-number="1"><span class="fu">*</span><span class="dt">Main</span> <span class="dt">Lib</span><span class="fu">&gt;</span> <span class="kw">import</span> <span class="dt">Control.Lens</span></a>
+<a class="sourceLine" id="cb384-2" data-line-number="2"><span class="fu">*</span><span class="dt">Main</span> <span class="dt">Lib</span> <span class="dt">Control.Lens</span><span class="fu">&gt;</span> view _1 (<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;goodbye&quot;</span>, <span class="st">&quot;how&quot;</span>)</a>
+<a class="sourceLine" id="cb384-3" data-line-number="3"><span class="st">&quot;hello&quot;</span></a></code></pre></div>
+<p>You’ll see that confusingly, Lens indices for tuples start at 1. But what can you do.</p>
+<p>Let’s briefly discuss the structure of this project. The <code>main</code> function for our project is in <code>app/Main.hs</code>. It imports the <code>Lib</code> module which we define in <code>src/Lib.hs</code>. Inside <code>Lib.hs</code> we define a function called <code>someFunc</code>, so we’re able to call it inside <code>Main.hs</code>.</p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb385-1" data-line-number="1"><span class="co">-- app/Main.hs</span></a>
+<a class="sourceLine" id="cb385-2" data-line-number="2"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb385-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb385-4" data-line-number="4"><span class="kw">import</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb385-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb385-6" data-line-number="6"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb385-7" data-line-number="7">main <span class="fu">=</span> someFunc</a></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb386-1" data-line-number="1"><span class="co">-- src/Lib.hs</span></a>
+<a class="sourceLine" id="cb386-2" data-line-number="2"><span class="kw">module</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb386-3" data-line-number="3">    ( someFunc</a>
+<a class="sourceLine" id="cb386-4" data-line-number="4">    ) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb386-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb386-6" data-line-number="6"><span class="ot">someFunc ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb386-7" data-line-number="7">someFunc <span class="fu">=</span> putStrLn <span class="st">&quot;someFunc&quot;</span></a></code></pre></div>
+<p>The first couple lines in <code>src/Lib.hs</code> are new to us. They’re written like:</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb387-1" data-line-number="1"><span class="kw">module</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb387-2" data-line-number="2">    ( someFunc</a>
+<a class="sourceLine" id="cb387-3" data-line-number="3">    ) <span class="kw">where</span></a></code></pre></div>
+<p>But that’s just for ease of input, they could have also written it like this:</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb388-1" data-line-number="1"><span class="kw">module</span> <span class="dt">Lib</span> (someFunc) <span class="kw">where</span></a></code></pre></div>
+<p>What this means is that <code>Lib</code> only <em>exports</em> the <code>someFunc</code> function (when you import a module, you only get what it exported). By default modules export everything, adding <code>(someFunc)</code> tells it to only export <code>someFunc</code>. Only exporting what you have to is considered good practice in Haskell.</p>
+<p>The idea is that all of our little helper functions go in <code>Lib</code>, and then our actual code to run our app goes in <code>Main</code>. This is because any code in the <code>src</code> folder can be automatically tested, but code in the <code>app</code> folder cannot. We write our automatic tests in <code>Spec.hs</code>, and I’ll explain how tests work in a moment.</p>
+<h2 id="how-to-test-our-code">How To Test Our Code</h2>
+<p>You may be familiar with the Stack command <code>stack build</code>. It’s what we used to build our <code>textAdventure</code> project into an executable we could distribute to our friends and family. We could run this executable to test our project manually, but thats a bit repetitive. A more modern haskell-ey way is to <em>write our tests in code</em>, then have those run. The library we do that with is one called <code>hspec</code>, which we set up in the last chapter.</p>
+<p>To run our tests, we just run <code>stack build --test</code> (or just <code>stack test</code> for short). This will build our code and then run the tests. <code>stack build</code> can be pretty slow because GHC spends a lot of time optimizing, so you can use <code>stack build --fast --test</code> instead. But you shouldn’t use <code>fast</code> to make a production build, since it trades fast builds for slow code. If you run this, you should see:</p>
+<div class="sourceCode" id="cb389"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb389-1" data-line-number="1"><span class="dt">Test</span> suite not yet implemented</a></code></pre></div>
+<p>That’s because we haven’t added any tests yet! Let’s write our first function and then test it. As a reminder, we’re making a program that’ll let us talk in IRC chatrooms. We’ll let the user enter a <em>channel</em> (the IRC term for a chatroom) which our program will join and talk in. Channels in IRC must begin with a <code>#</code> and can’t contain a space. Let’s start writing a function that will take a <code>String</code> and return a <code>Bool</code> telling us whether it’s a valid name for a channel. We’ll do this in <code>src/Lib.hs</code>, so we can test it.</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb390-1" data-line-number="1"><span class="co">-- src/Lib.hs</span></a>
+<a class="sourceLine" id="cb390-2" data-line-number="2"><span class="kw">module</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb390-3" data-line-number="3">    ( someFunc,</a>
+<a class="sourceLine" id="cb390-4" data-line-number="4">      isValidChannelName <span class="co">-- We also want to export isValidChannelName, so we add it here.</span></a>
+<a class="sourceLine" id="cb390-5" data-line-number="5">    ) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb390-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb390-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb390-8" data-line-number="8"><span class="co">-- We&#39;ll just check if the first letter is &#39;#&#39;.</span></a>
+<a class="sourceLine" id="cb390-9" data-line-number="9"><span class="ot">isValidChannelName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb390-10" data-line-number="10">isValidChannelName s <span class="fu">=</span> (head s) <span class="fu">==</span> <span class="ch">&#39;#&#39;</span></a>
+<a class="sourceLine" id="cb390-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb390-12" data-line-number="12"><span class="ot">someFunc ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb390-13" data-line-number="13">someFunc <span class="fu">=</span> putStrLn <span class="st">&quot;someFunc&quot;</span></a></code></pre></div>
+<p>Now, let’s write a test for this! Go into <code>test/Spec.hs</code>.</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb391-1" data-line-number="1"><span class="co">-- test/Spec.hs</span></a>
+<a class="sourceLine" id="cb391-2" data-line-number="2"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb391-3" data-line-number="3">main <span class="fu">=</span> putStrLn <span class="st">&quot;Test suite not yet implemented&quot;</span></a></code></pre></div>
+<p>Not much to it. Add <code>import Test.Hspec</code> and <code>import Lib</code> to the top.</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb392-1" data-line-number="1"><span class="co">-- test/Spec.hs</span></a>
+<a class="sourceLine" id="cb392-2" data-line-number="2"><span class="kw">import</span> <span class="dt">Test.Hspec</span></a>
+<a class="sourceLine" id="cb392-3" data-line-number="3"><span class="kw">import</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb392-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb392-5" data-line-number="5"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb392-6" data-line-number="6">main <span class="fu">=</span> putStrLn <span class="st">&quot;Test suite not yet implemented&quot;</span></a></code></pre></div>
+<p>This will give us access to the <code>hspec</code> functions, which we’ll use for testing the functions in <code>Lib</code>. Then, we’ll add a test. Tests are easy to understand once you’ve seen them.</p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb393-1" data-line-number="1"><span class="co">-- test/Spec.hs</span></a>
+<a class="sourceLine" id="cb393-2" data-line-number="2"><span class="kw">import</span> <span class="dt">Test.Hspec</span></a>
+<a class="sourceLine" id="cb393-3" data-line-number="3"><span class="kw">import</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb393-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb393-5" data-line-number="5"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb393-6" data-line-number="6">main <span class="fu">=</span> hspec <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb393-7" data-line-number="7">    describe <span class="st">&quot;Lib.isValidChannelName&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb393-8" data-line-number="8">      it <span class="st">&quot;allows channels with # in the first character&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb393-9" data-line-number="9">        isValidChannelName <span class="st">&quot;#haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb393-10" data-line-number="10">        isValidChannelName <span class="st">&quot;#ghc&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a></code></pre></div>
+<p><code>hspec</code> uses a lot of nested <code>do</code>s. Let’s add another test to make sure we don’t just accept anything.</p>
+<div class="sourceCode" id="cb394"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb394-1" data-line-number="1"><span class="co">-- test/Spec.hs</span></a>
+<a class="sourceLine" id="cb394-2" data-line-number="2"><span class="co">-- [...]</span></a>
+<a class="sourceLine" id="cb394-3" data-line-number="3"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb394-4" data-line-number="4">main <span class="fu">=</span> hspec <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb394-5" data-line-number="5">    describe <span class="st">&quot;Lib.isValidChannelName&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb394-6" data-line-number="6">      it <span class="st">&quot;allows a channel with # in the first character&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb394-7" data-line-number="7">        isValidChannelName <span class="st">&quot;#haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb394-8" data-line-number="8">        isValidChannelName <span class="st">&quot;#ghc&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb394-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb394-10" data-line-number="10">      it <span class="st">&quot;disallows channels without # in the first character&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb394-11" data-line-number="11">        isValidChannelName <span class="st">&quot;haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">False</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a></code></pre></div>
+<p>Now, run <code>stack build --fast --test</code> and see what it says! Both of our tests will pass. This kind of testing is known as <em>spec testing</em>, and is very useful. But it has some flaws: we have to write every test ourselves, which is time consuming. Also, we might miss some edge case we didn’t think about! That’s where <em>property testing</em> comes in, with <code>QuckCheck</code> (which comes with <code>Hspec</code>). Import <code>Test.Quickcheck</code> at the top.</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb395-1" data-line-number="1"><span class="co">-- test/Spec.hs</span></a>
+<a class="sourceLine" id="cb395-2" data-line-number="2"><span class="kw">import</span> <span class="dt">Test.Hspec</span></a>
+<a class="sourceLine" id="cb395-3" data-line-number="3"><span class="kw">import</span> <span class="dt">Test.QuickCheck</span></a>
+<a class="sourceLine" id="cb395-4" data-line-number="4"><span class="kw">import</span> <span class="dt">Lib</span></a>
+<a class="sourceLine" id="cb395-5" data-line-number="5"><span class="co">-- [...]</span></a></code></pre></div>
+<p>The idea behind property testing is instead of giving specific tests, you give a function that does a test based off a random input. Here’s how it works:</p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb396-1" data-line-number="1"><span class="co">-- test/Spec.hs</span></a>
+<a class="sourceLine" id="cb396-2" data-line-number="2"><span class="co">-- ...</span></a>
+<a class="sourceLine" id="cb396-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb396-4" data-line-number="4"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb396-5" data-line-number="5">main <span class="fu">=</span> hspec <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb396-6" data-line-number="6">    describe <span class="st">&quot;Lib.isValidChannelName&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb396-7" data-line-number="7">      it <span class="st">&quot;allows a channel with # in the first character&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb396-8" data-line-number="8">        isValidChannelName <span class="st">&quot;#haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb396-9" data-line-number="9">        isValidChannelName <span class="st">&quot;#ghc&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb396-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb396-11" data-line-number="11">      it <span class="st">&quot;disallows channels without # in the first character&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb396-12" data-line-number="12">        isValidChannelName <span class="st">&quot;haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">False</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb396-13" data-line-number="13">        </a>
+<a class="sourceLine" id="cb396-14" data-line-number="14">      it <span class="st">&quot;allows channels should contain a &#39;#&#39;&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb396-15" data-line-number="15">        property <span class="fu">$</span> \xs <span class="ot">-&gt;</span> <span class="kw">if</span> isValidChannelName xs</a>
+<a class="sourceLine" id="cb396-16" data-line-number="16">                           <span class="kw">then</span> elem <span class="ch">&#39;#&#39;</span> (<span class="ot">xs ::</span> <span class="dt">String</span>)</a>
+<a class="sourceLine" id="cb396-17" data-line-number="17">                           <span class="kw">else</span> <span class="dt">True</span></a></code></pre></div>
+<p>instead of using <code>shouldBe</code>, we’ve made a property. The property is a function that should always return True if your function works correctly. The property I wrote down here tests that if our function says something is a valid channel name, that channel name should contain a <code>#</code>. QuickCheck will generate a load of random values<label for="marginnote-125" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-125" class="margin-toggle"/> <span class="marginnote">By default, QuickCheck does around 100 tests.</span> and pass them to your function, and if your function ever returns <code>False</code> it’ll be counted as a test failure. It also tries edge cases, like very small numbers, very large numbers, empty lists, lists that only contain <code>0</code>, etc. Anyway, let’s run our tests with <code>stack build --fast --test</code>. Lo and behold, we find a bug!</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb397-1" data-line-number="1"><span class="dt">Failures</span><span class="fu">:</span></a>
+<a class="sourceLine" id="cb397-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb397-3" data-line-number="3">  test\Spec.hs<span class="fu">:</span><span class="dv">14</span><span class="fu">:</span><span class="dv">7</span><span class="fu">:</span></a>
+<a class="sourceLine" id="cb397-4" data-line-number="4">  <span class="dv">1</span>) Lib.isValidChannelName <span class="dt">Allowed</span> channels should contain a <span class="ch">&#39;#&#39;</span></a>
+<a class="sourceLine" id="cb397-5" data-line-number="5">       uncaught exception<span class="fu">:</span> <span class="dt">ErrorCall</span></a>
+<a class="sourceLine" id="cb397-6" data-line-number="6">       Prelude.head<span class="fu">:</span> empty list</a>
+<a class="sourceLine" id="cb397-7" data-line-number="7">       (after <span class="dv">1</span> test)</a>
+<a class="sourceLine" id="cb397-8" data-line-number="8">         <span class="st">&quot;&quot;</span></a></code></pre></div>
+<p>It says our function threw an <em>uncaught exception</em>, specifically, it throws an exception when we pass it an empty list! Let’s fix our function.</p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb398-1" data-line-number="1"><span class="co">-- src/Lib.hs</span></a>
+<a class="sourceLine" id="cb398-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb398-3" data-line-number="3"><span class="ot">isValidChannelName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb398-4" data-line-number="4"><span class="co">-- Use pattern matching to return False when passed an empty list.</span></a>
+<a class="sourceLine" id="cb398-5" data-line-number="5">isValidChannelName [] <span class="fu">=</span> <span class="dt">False</span>          </a>
+<a class="sourceLine" id="cb398-6" data-line-number="6">isValidChannelName s <span class="fu">=</span> (head s) <span class="fu">==</span> <span class="ch">&#39;#&#39;</span></a></code></pre></div>
+<p>Now when running <code>stack build --fast --test</code>, we get <code>3 examples, 0 failures</code>! Property tests with QuickCheck can be a powerful tool to validate that your programs run properly, in addition to spec tests with Hspec. Any time you fix a bug in one of your functions, you should write a spec or property test to make sure it doesn’t pop up again. This is called regression testing, and it often comes easy, since if you think a function has a bug the first thing you should to is write some tests for it.</p>
+<p>You can also see how much of your code you’ve tested by telling stack to run a <em>code coverage report</em>. You can do this with <code>stack build --fast --test --coverage</code>. This should generate something like:</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb399-1" data-line-number="1">irc<span class="fu">-</span><span class="fl">0.1</span><span class="fu">.</span><span class="fl">0.0</span><span class="fu">:</span> <span class="dt">Test</span> suite irc<span class="fu">-</span>test passed</a>
+<a class="sourceLine" id="cb399-2" data-line-number="2"><span class="dt">Generating</span> coverage report for irc&#39;s test<span class="fu">-</span>suite <span class="st">&quot;irc-test&quot;</span></a>
+<a class="sourceLine" id="cb399-3" data-line-number="3"> <span class="dv">71</span><span class="fu">%</span> expressions used (<span class="dv">5</span><span class="fu">/</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb399-4" data-line-number="4"><span class="dv">100</span><span class="fu">%</span> boolean coverage (<span class="dv">0</span><span class="fu">/</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb399-5" data-line-number="5">     <span class="dv">100</span><span class="fu">%</span> guards (<span class="dv">0</span><span class="fu">/</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb399-6" data-line-number="6">     <span class="dv">100</span><span class="fu">%</span> &#39;if&#39; conditions (<span class="dv">0</span><span class="fu">/</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb399-7" data-line-number="7">     <span class="dv">100</span><span class="fu">%</span> qualifiers (<span class="dv">0</span><span class="fu">/</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb399-8" data-line-number="8"><span class="dv">100</span><span class="fu">%</span> alternatives used (<span class="dv">2</span><span class="fu">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb399-9" data-line-number="9"><span class="dv">100</span><span class="fu">%</span> local declarations used (<span class="dv">0</span><span class="fu">/</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb399-10" data-line-number="10"> <span class="dv">50</span><span class="fu">%</span> top<span class="fu">-</span>level declarations used (<span class="dv">1</span><span class="fu">/</span><span class="dv">2</span>)</a></code></pre></div>
+<p>The most important one is the last one - <code>50% top-level declarations used</code>. This essentially tests how many top-level functions (functions not inside another function) you’ve got at least one test for. Our <code>Lib</code> module has two, <code>someFunc</code> and <code>isValidChannelName</code>, and we’ve only tested the latter so that leaves us with 50% top-level declarations. We’ll be getting rid of <code>someFunc</code> soon so we won’t bother testing it.</p>
+<p>Also, if you don’t feel like writing a test, you can just write <code>pending</code>, like this.</p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb400-1" data-line-number="1"><span class="ot">main ::</span> <span class="dt">IO</span> ()</a>
+<a class="sourceLine" id="cb400-2" data-line-number="2">main <span class="fu">=</span> hspec <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb400-3" data-line-number="3">    describe <span class="st">&quot;Lib.isValidChannelName&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb400-4" data-line-number="4">      it <span class="st">&quot;allows a channel with # in the first character&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb400-5" data-line-number="5">        isValidChannelName <span class="st">&quot;#haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb400-6" data-line-number="6">        isValidChannelName <span class="st">&quot;#ghc&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">True</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb400-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb400-8" data-line-number="8">      it <span class="st">&quot;disallows channels without # in the first character&quot;</span> <span class="fu">$</span></a>
+<a class="sourceLine" id="cb400-9" data-line-number="9">        isValidChannelName <span class="st">&quot;haskell&quot;</span> <span class="ot">`shouldBe`</span> (<span class="dt">False</span><span class="ot"> ::</span> <span class="dt">Bool</span>)</a>
+<a class="sourceLine" id="cb400-10" data-line-number="10">        </a>
+<a class="sourceLine" id="cb400-11" data-line-number="11">      it <span class="st">&quot;allowes channels should contain a &#39;#&#39;&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb400-12" data-line-number="12">        property <span class="fu">$</span> \xs <span class="ot">-&gt;</span> <span class="kw">if</span> isValidChannelName xs</a>
+<a class="sourceLine" id="cb400-13" data-line-number="13">                           <span class="kw">then</span> elem <span class="ch">&#39;#&#39;</span> (<span class="ot">xs ::</span> <span class="dt">String</span>)</a>
+<a class="sourceLine" id="cb400-14" data-line-number="14">                           <span class="kw">else</span> <span class="dt">True</span></a>
+<a class="sourceLine" id="cb400-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb400-16" data-line-number="16">      it <span class="st">&quot;disallows spaces&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb400-17" data-line-number="17">        pending</a></code></pre></div>
+<p>This is a helpful reminder that you still need to write that test (Stack will remind you when you run your tests). If there’s some reason you haven’t written the test besides laziness, you can use <code>pendingWith</code>.</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb401-1" data-line-number="1">      it <span class="st">&quot;disallows spaces&quot;</span> <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb401-2" data-line-number="2">        pendingWith <span class="st">&quot;This is an exercise for you, the reader! \</span></a>
+<a class="sourceLine" id="cb401-3" data-line-number="3"><span class="st">                    \Write a spec test to test if our function \</span></a>
+<a class="sourceLine" id="cb401-4" data-line-number="4"><span class="st">                    \allows a channel name with a space.&quot;</span></a></code></pre></div>
+<p>Yes, I’m serious! Replace this <code>pendingWith</code> with a spec test to see that our function won’t accept a channel with a space like <code>&quot;#haskell programming&quot;</code>. We haven’t implemented checking for spaces yet, so your test will fail until we do. It’s always a good idea to write a test for features you haven’t implemented yet, so you won’t forget. Also, you may have noticed the backslashes inside this string. That’s how you spread strings across multiple lines, which I like to do because I try to avoid any of my lines being more than 120 characters long.</p>
+<hr />
+<p><strong><strong><em>Exercises</em></strong></strong>:</p>
+<ol type="1">
+<li><p>Write a spec test that ensures that <code>isValidChannelName</code> returns <code>False</code> when passed an empty string.</p></li>
+<li><p>Write a spec test that tests that <code>isValidChannelName</code> returns <code>False</code> when passed <code>&quot;#learn haskell&quot;</code>. This test should fail.</p></li>
+<li><p>Write a property test that takes a value <code>xs</code> and checks that <code>isValidChannelName (xs ++ &quot; &quot;)</code> is <code>False</code>.</p></li>
+<li><p>In <code>Lib.hs</code>’s <code>isValidChannelName</code>, use <code>not (elem ' ' s)</code> to check that the input <code>String</code> does not contain a space. You can do this with the binary <code>&amp;&amp;</code> operator, <code>if/then/else</code> syntax, or <a href="#guards">Guards</a>.</p></li>
+<li><p>After completing #4, rerun your tests. They should pass!</p></li>
+</ol>
+<hr />
+<h2 id="reading-and-writing-documentation">Reading and Writing Documentation</h2>
+<p>Often, we would like to explain what a certain function does, in a way that’s not easily represented in the function’s name. For example, maybe we would like to say that our <code>isValidChannelName</code> function will return <code>True</code> in cases where the first character is <code>#</code> and the <code>String</code> does not contain a space. This is called <em>documentation</em>. We can do this with a comment, but there’s a special way to annotate our comments so they can be made into a pretty website, using a tool called <em>Haddock</em>.</p>
+<p>Here’s our <code>isValidChannelName</code> function, with a descriptive comment:</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb402-1" data-line-number="1"><span class="co">-- |&#39;isValidChannelName&#39; takes a &#39;String&#39; and will return &#39;True&#39; if the &#39;String&#39; begins with a &#39;#&#39; and does not contain a space. </span></a>
+<a class="sourceLine" id="cb402-2" data-line-number="2"><span class="ot">isValidChannelName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb402-3" data-line-number="3">isValidChannelName [] <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb402-4" data-line-number="4">isValidChannelName s</a>
+<a class="sourceLine" id="cb402-5" data-line-number="5">   <span class="fu">|</span> (head s) <span class="fu">/=</span> <span class="ch">&#39;#&#39;</span> <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb402-6" data-line-number="6">   <span class="fu">|</span> (elem <span class="ch">&#39; &#39;</span> s)    <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb402-7" data-line-number="7">   <span class="fu">|</span> otherwise       <span class="fu">=</span> <span class="dt">True</span></a></code></pre></div>
+<p>The <code>-- |</code> is special syntax that informs GHC that this is Haddock documentation. It must be placed before the type signauture. We can also spread it out across multiple lines, like this:</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb403-1" data-line-number="1"><span class="co">-- |&#39;isValidChannelName&#39; takes a &#39;String&#39; and will return &#39;True&#39;</span></a>
+<a class="sourceLine" id="cb403-2" data-line-number="2"><span class="co">-- if the &#39;String&#39; begins with a &#39;#&#39; and does not contain a space. </span></a>
+<a class="sourceLine" id="cb403-3" data-line-number="3"><span class="ot">isValidChannelName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb403-4" data-line-number="4">isValidChannelName [] <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb403-5" data-line-number="5">isValidChannelName s</a>
+<a class="sourceLine" id="cb403-6" data-line-number="6">   <span class="fu">|</span> (head s) <span class="fu">/=</span> <span class="ch">&#39;#&#39;</span> <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb403-7" data-line-number="7">   <span class="fu">|</span> (elem <span class="ch">&#39; &#39;</span> s)    <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb403-8" data-line-number="8">   <span class="fu">|</span> otherwise       <span class="fu">=</span> <span class="dt">True</span></a></code></pre></div>
+<p>We can also use <code>-- ^</code> to give details about individual arguments and the return value:</p>
+<div class="sourceCode" id="cb404"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb404-1" data-line-number="1"><span class="co">-- |&#39;isValidChannelName&#39; takes a &#39;String&#39; and will return &#39;True&#39;</span></a>
+<a class="sourceLine" id="cb404-2" data-line-number="2"><span class="co">-- if the &#39;String&#39; begins with a &#39;#&#39; and does not contain a space. </span></a>
+<a class="sourceLine" id="cb404-3" data-line-number="3"><span class="ot">isValidChannelName ::</span> <span class="dt">String</span> <span class="co">-- ^ The channel name.</span></a>
+<a class="sourceLine" id="cb404-4" data-line-number="4">                   <span class="ot">-&gt;</span> <span class="dt">Bool</span>   <span class="co">-- ^ &#39;True&#39; if the channel name is valid, &#39;False&#39; otherwise.</span></a>
+<a class="sourceLine" id="cb404-5" data-line-number="5">isValidChannelName [] <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb404-6" data-line-number="6">isValidChannelName s</a>
+<a class="sourceLine" id="cb404-7" data-line-number="7">   <span class="fu">|</span> (head s) <span class="fu">/=</span> <span class="ch">&#39;#&#39;</span> <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb404-8" data-line-number="8">   <span class="fu">|</span> (elem <span class="ch">&#39; &#39;</span> s)    <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb404-9" data-line-number="9">   <span class="fu">|</span> otherwise       <span class="fu">=</span> <span class="dt">True</span></a></code></pre></div>
+<p>There’s a lot of special markup you can use to make your documenation prettier, you can read about it in the <a href="https://haskell-haddock.readthedocs.io/en/latest/markup.html#markup">Haddock documentation</a>.</p>
+<p>Now, you can <em>build</em> your haddock docuentation with stack using the <code>--haddock</code> flag. To build and test your code without optimization, plus build haddock, run <code>stack build --test --fast --haddock</code>. Now, Haddock often takes a long time to run, and you usually don’t really care that much about seeing your own haddock documentation, but instead you’re more interested in seeing the documentation of your depenancies (our current dependencies are <code>hspec</code>, <code>QuickCheck</code>, <code>lens</code>, and <code>network</code>). After the first time it’s much faster to only build those, and we can do that with <code>haddock-deps</code>, since it won’t run at all if nothing had changed. This is our new command:</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb405-1" data-line-number="1"><span class="ex">stack</span> build --test --fast --haddock-deps</a></code></pre></div>
+<p>Now, we can read the documentation for a dependancy with <code>stack haddock --open &lt;something&gt;</code>. For example, we can look at the documentation for <code>lens</code> with <code>stack haddock --open lens</code>. However, it’s written in a somewhat intimidating style so I reccomend looking at <code>hspec</code> instead. This is better than reading the docs online, because you’re guaranteed to be reading the docs for the right version of whatever library you’re using.</p>
+<p>You can also get a searchable version of these docs with <em>Hoogle</em>. You must first run a command to generate Hoogle’s index:</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb406-1" data-line-number="1"><span class="ex">stack</span> hoogle -- generate --local</a></code></pre></div>
+<p>This will probably take some time, especially since it’ll probably have to download hoogle. You’ll have to rerun this whenever you add any more dependencies but it should be much faster after the first time. After this you just need to start a stack server with one easy command:</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb407-1" data-line-number="1"><span class="ex">stack</span> hoogle -- server --local --port=8080</a></code></pre></div>
+<p>Then go to <a href="http://localhost:8080" class="uri">http://localhost:8080</a> and try doing a search! Maybe look at the type of the <code>property</code> function we used for writing property tests in QuickCheck. By the way, if you ever add a new dependency, you need to re-run <code>stack hoogle -- generate --local</code>.</p>
+<h2 id="warnings-and-editor-settings">Warnings and Editor Settings</h2>
+<p>GHC had the concept of “warnings” in addition to errors. This is when GHC sees things that it thinks might be the source of bugs in the future. Most warnings are turned off by default, but you can put something in your <code>package.yaml</code> to turn them on. Open your <code>package.yaml</code> find the dependancies section:</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb408-1" data-line-number="1"><span class="fu">dependencies:</span></a>
+<a class="sourceLine" id="cb408-2" data-line-number="2"><span class="kw">-</span> base &gt;= 4.7 &amp;&amp; &lt; 5</a>
+<a class="sourceLine" id="cb408-3" data-line-number="3"><span class="kw">-</span> hspec</a>
+<a class="sourceLine" id="cb408-4" data-line-number="4"><span class="kw">-</span> QuickCheck</a>
+<a class="sourceLine" id="cb408-5" data-line-number="5"><span class="kw">-</span> lens</a>
+<a class="sourceLine" id="cb408-6" data-line-number="6"><span class="kw">-</span> network</a></code></pre></div>
+<p>We’re gonna add something right below it:</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb409-1" data-line-number="1"><span class="fu">dependencies:</span></a>
+<a class="sourceLine" id="cb409-2" data-line-number="2"><span class="kw">-</span> base &gt;= 4.7 &amp;&amp; &lt; 5</a>
+<a class="sourceLine" id="cb409-3" data-line-number="3"><span class="kw">-</span> hspec</a>
+<a class="sourceLine" id="cb409-4" data-line-number="4"><span class="kw">-</span> QuickCheck</a>
+<a class="sourceLine" id="cb409-5" data-line-number="5"><span class="kw">-</span> lens</a>
+<a class="sourceLine" id="cb409-6" data-line-number="6"><span class="kw">-</span> network</a>
+<a class="sourceLine" id="cb409-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb409-8" data-line-number="8"><span class="fu">ghc-options:</span></a>
+<a class="sourceLine" id="cb409-9" data-line-number="9"><span class="kw">-</span> -Wall</a>
+<a class="sourceLine" id="cb409-10" data-line-number="10"><span class="kw">-</span> -Wcompat</a>
+<a class="sourceLine" id="cb409-11" data-line-number="11"><span class="kw">-</span> -Wincomplete-record-updates</a>
+<a class="sourceLine" id="cb409-12" data-line-number="12"><span class="kw">-</span> -Wincomplete-uni-patterns</a>
+<a class="sourceLine" id="cb409-13" data-line-number="13"><span class="kw">-</span> -Wredundant-constraints</a></code></pre></div>
+<p>This turns on the following warnings: <code>Wall</code>, <code>Wcompat</code>, <code>Wincomplete-record-updates</code>, <code>Wincomplete-uni-patterns</code>, and <code>Wredundant-constrsints</code>. I won’t explain what all of these do, but they aren’t too restrictive and if you see a warning you should fix it. In fact, you should try your hardest to never check in code with warnings to version control. This is under the setion <code>ghc-options</code> because these are just regular options passed to GHC - you don’t have to build your project with Stack, you could call GHC manually, but stack handling everything for you makes things much more convenient and reliable.</p>
+<p>Next up is the topic of GHC language extensions. Haskell is a vey nice language but sometimes it has some room for improvement through unoficial extensions implemented in GHC. To do this, we’re going to add another section beneath <code>ghc-options</code>, called <code>default-extensions</code>. You can turn an extension on by writing a special comment at the top of your source files, but this turns them on for all files and is much more convenient. This is a long list of extensions, and lots of them are fairly complicated so I’m not going to explain them all yet. I got this list from Alexis King, and some of the extensions are too complicated for me to easily explain here. Most I will be addressing through the course of this book, though, so stay tuned. If you’re interested in what a particular extension does, you can look it up on <a href="https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html">the GHC docs</a>.</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb410-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb410-2" data-line-number="2"><span class="fu">ghc-options:</span></a>
+<a class="sourceLine" id="cb410-3" data-line-number="3"><span class="kw">-</span> -Wall</a>
+<a class="sourceLine" id="cb410-4" data-line-number="4"><span class="kw">-</span> -Wcompat</a>
+<a class="sourceLine" id="cb410-5" data-line-number="5"><span class="kw">-</span> -Wincomplete-record-updates</a>
+<a class="sourceLine" id="cb410-6" data-line-number="6"><span class="kw">-</span> -Wincomplete-uni-patterns</a>
+<a class="sourceLine" id="cb410-7" data-line-number="7"><span class="kw">-</span> -Wredundant-constraints</a>
+<a class="sourceLine" id="cb410-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb410-9" data-line-number="9"><span class="fu">default-extensions:</span></a>
+<a class="sourceLine" id="cb410-10" data-line-number="10"><span class="kw">-</span> BangPatterns</a>
+<a class="sourceLine" id="cb410-11" data-line-number="11"><span class="kw">-</span> ConstraintKinds</a>
+<a class="sourceLine" id="cb410-12" data-line-number="12"><span class="kw">-</span> DataKinds</a>
+<a class="sourceLine" id="cb410-13" data-line-number="13"><span class="kw">-</span> DefaultSignatures</a>
+<a class="sourceLine" id="cb410-14" data-line-number="14"><span class="kw">-</span> DeriveFoldable</a>
+<a class="sourceLine" id="cb410-15" data-line-number="15"><span class="kw">-</span> DeriveFunctor</a>
+<a class="sourceLine" id="cb410-16" data-line-number="16"><span class="kw">-</span> DeriveGeneric</a>
+<a class="sourceLine" id="cb410-17" data-line-number="17"><span class="kw">-</span> DeriveLift</a>
+<a class="sourceLine" id="cb410-18" data-line-number="18"><span class="kw">-</span> DeriveTraversable</a>
+<a class="sourceLine" id="cb410-19" data-line-number="19"><span class="kw">-</span> DerivingStrategies</a>
+<a class="sourceLine" id="cb410-20" data-line-number="20"><span class="kw">-</span> EmptyCase</a>
+<a class="sourceLine" id="cb410-21" data-line-number="21"><span class="kw">-</span> ExistentialQuantification</a>
+<a class="sourceLine" id="cb410-22" data-line-number="22"><span class="kw">-</span> FlexibleContexts</a>
+<a class="sourceLine" id="cb410-23" data-line-number="23"><span class="kw">-</span> FlexibleInstances</a>
+<a class="sourceLine" id="cb410-24" data-line-number="24"><span class="kw">-</span> FunctionalDependencies</a>
+<a class="sourceLine" id="cb410-25" data-line-number="25"><span class="kw">-</span> GADTs</a>
+<a class="sourceLine" id="cb410-26" data-line-number="26"><span class="kw">-</span> GeneralizedNewtypeDeriving</a>
+<a class="sourceLine" id="cb410-27" data-line-number="27"><span class="kw">-</span> InstanceSigs</a>
+<a class="sourceLine" id="cb410-28" data-line-number="28"><span class="kw">-</span> KindSignatures</a>
+<a class="sourceLine" id="cb410-29" data-line-number="29"><span class="kw">-</span> LambdaCase</a>
+<a class="sourceLine" id="cb410-30" data-line-number="30"><span class="kw">-</span> MultiParamTypeClasses</a>
+<a class="sourceLine" id="cb410-31" data-line-number="31"><span class="kw">-</span> MultiWayIf</a>
+<a class="sourceLine" id="cb410-32" data-line-number="32"><span class="kw">-</span> NamedFieldPuns</a>
+<a class="sourceLine" id="cb410-33" data-line-number="33"><span class="kw">-</span> OverloadedStrings</a>
+<a class="sourceLine" id="cb410-34" data-line-number="34"><span class="kw">-</span> PatternSynonyms</a>
+<a class="sourceLine" id="cb410-35" data-line-number="35"><span class="kw">-</span> RankNTypes</a>
+<a class="sourceLine" id="cb410-36" data-line-number="36"><span class="kw">-</span> ScopedTypeVariables</a>
+<a class="sourceLine" id="cb410-37" data-line-number="37"><span class="kw">-</span> StandaloneDeriving</a>
+<a class="sourceLine" id="cb410-38" data-line-number="38"><span class="kw">-</span> TupleSections</a>
+<a class="sourceLine" id="cb410-39" data-line-number="39"><span class="kw">-</span> TypeApplications</a>
+<a class="sourceLine" id="cb410-40" data-line-number="40"><span class="kw">-</span> TypeFamilies</a>
+<a class="sourceLine" id="cb410-41" data-line-number="41"><span class="kw">-</span> TypeFamilyDependencies</a>
+<a class="sourceLine" id="cb410-42" data-line-number="42"><span class="kw">-</span> TypeOperators</a>
+<a class="sourceLine" id="cb410-43" data-line-number="43"><span class="kw">-</span> TemplateHaskell</a>
+<a class="sourceLine" id="cb410-44" data-line-number="44"><span class="kw">-</span> QuasiQuotes</a></code></pre></div>
+<h2 id="what-are-all-these-files-anyway">What Are All These Files, Anyway</h2>
+<p>You may have noticed we have 3 different files here, <code>stack.yaml</code>. <code>package.yaml</code>, and <code>irc.cabal</code>. Here’s the good news: you don’t have to worry about <code>irc.cabal</code>. In fact, you can delete it if you want (although it will reappear). Let me explain.</p>
+<p>In the beginning, there was just GHC. If you wanted to compile a program, you passed a list of all the files and all the settings to GHC, and GHC gave you an executable. Of course, this isn’t very good from a usability perspective. Because of that, Cabal was created. Cabal is a program which reads a file like <code>irc.cabal</code>, and uses information inside that file to tell GHC to build a program. You can tell it what options you want to provide GHC, what files to build, what your dependancies are, etc. and Cabal would automatically manage it all for you. But Cabal had lots of issues, and a poor user interface, so Stack was created. This added an additional file, <code>stack.yaml</code>, where you could write some extra information and then Stack would handle calling Cabal for you, and downloading packages, running tests, and some other things. You rarely need to mess with <code>stack.yaml</code>, thankfully. But then some people realized that Cabal’s file format was actually pretty bad - it’s verbose and often requires you write the same thing multiple times. That’s why the Hpack file format was created - it’s just a file named <code>package.yaml</code> which gets converted to a <code>.cabal</code> file in a fairly straightforward process. This means you can edit the much nicer <code>package.yaml</code> instead of the messier <code>irc.cabal</code>. In practice, you’ll spend most of your time editing <code>package.yaml</code>, occasionally editing <code>stack.yaml</code>, and you should never have to edit <code>irc.cabal</code>.</p>
+<p>When you want to add a dependency, you put it in the <code>dependencies</code> section in your <code>package.yaml</code>. Stack then looks in a library called “Stackage LTS” for a library by that name, and downloads that one if it finds it. There are multiple versions of Stackage LTS, and the one Stack looks at is determined by the <em>resolver</em> in <code>stack.yaml</code>. The reason for this complexity is for the goal of reproducible builds. You don’t write the version number of the library you’re using, you only write the name, and there’s only one version of each library of any particular instance of Stackage LTS. If you’d like to use a different version, or a version not in Stackage LTS, you must also specify a version number in <code>stack.yaml</code>. You’re essentially saying “if you have a need for this package, use this version”. If you forget to do this, Stack will fail to build since it won’t know which version to use, but it will give you a nice error message that will typically tell you what to add to the <code>extra-deps</code> section of your <code>stack.yaml</code> in order to fix it. In practice, most libraries you need should be in Stackage LTS so you don’t have to edit <code>stack.yaml</code> too much.</p>
+<p>Hopefully this cleared up some lingering confusion you may have had. Now that we’ve explained that, let’s write our IRC client!</p>
+<h2 id="how-to-develop-and-debug">How to Develop and Debug</h2>
+<p>The nice thing about having automatic tests for all your code is that Stack makes it very simple to develop this way. You can add the <code>--file-watch</code> flag to your stack command, and this will cause stack to automatically rebuild your code and rerun your tests every time you change your code. The full command with everything we’ve added is as follows:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb411-1" data-line-number="1"><span class="ex">stack</span> build --test --fast --haddock-deps --file-watch</a></code></pre></div>
+<p>If you’ve been writing tests for all your functions, preferably before you even implement them, this becomes a very nice way to develop. Another option is to open your project in <code>stack ghci</code> and run your code with <code>main</code>, and reload your code with <code>:r</code> when you make a change. You can also run your actual project after you’ve built it with:</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb412-1" data-line-number="1"><span class="ex">stack</span> exec irc-exe</a></code></pre></div>
+<p>Change <code>irc</code> to something else if your project is named differently.</p>
+<p>Debugging in Haskell is somewhat difficult. The general process should be:</p>
+<ol type="1">
+<li><p>Observe a bug.</p></li>
+<li><p>Figure out how to reproduce the bug consistently.</p></li>
+<li><p>Try to think about what functions are involved in that bug.</p></li>
+<li><p>Think about what those functions inputs and outputs should be in the case that causes the bug.</p></li>
+<li><p>Start writing tests for how your function <em>should</em> work - when these tests fail, you’ve probably identified one bug or another.</p></li>
+<li><p>Change your functions to fix whatever was causing the tests to fail.</p></li>
+<li><p>Check if the bug still exists. If so, return to step 4.</p></li>
+</ol>
+<p>One very helpful tool is the <code>trace</code> function. Inside <code>Debug.Trace</code>, the <code>trace</code> function takes a <code>String</code> and a value and returns that value. But invisibly in the background, it also prints the <code>String</code> you passed in. There is also <code>traceShow</code> which takes any value in the <code>Show</code> typeclass instead of a <code>String</code>. If you want to see if a function is being called, you can replace its output with <code>trace &quot;yep, it's being called&quot; &lt;output&gt;</code>. If a function is returning <code>x</code>, you can see that with <code>traceShow x x</code>. This is common so you can use <code>traceIdShow</code> which just prints and returns whatever you pass it.</p>
+<h1 id="writing-an-irc-client">Writing an IRC client</h1>
 </body>
 </html>
