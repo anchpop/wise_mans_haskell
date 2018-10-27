@@ -1,0 +1,3 @@
+{-# LANGUAGE GADTs #-}
+
+data Uninhabited 
