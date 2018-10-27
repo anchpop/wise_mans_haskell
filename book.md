@@ -148,7 +148,7 @@ Can you see what's going on here? We've written a function called `addOne`!margi
 
 ---
 
-__***Exercises:
+__***Exercises***__:
 
 1) Write a function that adds two to a number, called `addTwo`. 
 
