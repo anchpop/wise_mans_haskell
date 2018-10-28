@@ -905,20 +905,31 @@ Prelude> child'sName myName "Claire"
 ("Claire","Doe")
 ```
 
+!newthought(Another useful) function is `zip`. It's very simple, so you might even be able to guess what it does just from it's function signature!
+
+```haskell
+zip :: [a] -> [b] -> [(a, b)]
+```
+
+What it does is take two lists, and *zip* them up into a list of 2-tuples.
+
+```haskell
+Prelude> zip [1,2,3] "abc"
+[(1,'a'),(2,'b'),(3,'c')]
+```
+
+If one list is longer than the other, it cuts off at the shorter list. This is useful because it means you can easily use infinite lists with it!
+
+```haskell
+Prelude> zip [1..] "abc"
+[(1,'a'),(2,'b'),(3,'c')]
+```
 
 ---
 
 __***Exercises***__:
 
-1) Sometimes you can guess what a function does just by looking at its type signature. Here's the type signature for the `zip` function:
-
-    ```haskell
-    zip :: [a] -> [b] -> [(a, b)]
-    ```
-
-    Can you guess what it does? For a hint, try running `zip [1,2,3] "abc"`.
-
-2) I wrote:
+1) I wrote:
 
     ```haskell
     points = [((0 :: Double), (1 :: Double)), (-2, 4), (5, 2)]
@@ -3261,19 +3272,14 @@ data Message = Speaking {texts :: [String], speaker :: String}  | Info {texts ::
 
 We're using record syntax here - reread [Creating New Data Types] if you've forgotten how this works. 
 
-We also want to be able to display choices to the user. Let's make a data type to store a single choice.
+We also want to be able to display choices to the user. Let's make a data type to store a single choice, and a data type to store our whole adventure.
 
 ```haskell
 data Choice = Choice {choice :: String, result :: Adventure}
-```
-
-Now you might be wondering, what the heck is an `Adventure`? Well, `Adventure` is a data type which we haven't written yet (remember, the order of declarations in Haskell doesn't matter). And it's not just any data type, it's recursive!marginnote(A recursive data type is a data type for values that may contain other values of the same type. Haskell lists are actually defined recursively, so you've already used recursive data types.)! Let's write it now.
-
-```haskell
 data Adventure = StoryEnd | StoryMessage Message Adventure | StoryChoice [Choice]
 ```
 
-That's right, in Haskell, it's fully allowed to have a data type which can contain values of its own type. `Choice` can contain a value of type `Adventure`, and `Adventure` can contain a value of type `Choice`. What we're going to do is use this to have our game basically be a stack of nested `Adventure`s. 
+You might notice that `Choice` can contain an `Adventure` and an `Adventure` can contain a `Choice`. This makes it a *recursive data type*. Nesting the data types like this will allow us to have an Adventure as long as we want.
 
 !newthought(Let's write) an `IO` function, `tellStory`, which will take an `Adventure` and recursively!marginnote(Recursive data types often demand recursive functions.) present it to to the user.
 
@@ -3288,128 +3294,41 @@ tellAdventure StoryEnd =
   putStrLn "Story over!"
 ```
 
-That's the easy one. `StoryEnd` represents the end of our story!marginnote(`StoryEnd` is the base case for our recursive function.), so there isn't much to do.
-
 Now, if the `Adventure` our function gets is a `StoryMessage Message Adventure`, we want to print out the messages, and then continue on with the nested `Adventure`.
 
 ```haskell
 tellAdventure (StoryMessage message adventure) = do
-  sequence . map putStrLn . texts $ message -- sequence is a function I haven't introduced before.
+  sequence . map putStrLn . texts $ message 
   tellAdventure adventure
 ```
 
-This uses a big chain of function composition, plus a new function. I love function composition but it can be confusing if you're not used to it!marginnote(Since the order of execution with function composition goes ⬅️this way⬅️, we're going to go over the expression backwards.). Let's break it down:
+This is pretty simple. The text gets extracted from the message with `texts`, yielding a list of `String`s. `map putStrLn` converts all of those `String`s to IO Actions that print that string. `sequence` converts that list of IO Actions to a single IO action which will execute every action in the list. The end result is that every `String` inside `message` gets printed to the terminal. Then, we call `tellAdventure` on the `adventure` inside the `StoryMessage` to continue the story.
 
-```haskell
-  sequence . map putStrLn . texts $ message
---  [4]         [3]          [2]     [1]
-```
-
-1) `message` - This is the message that was passed to our function to be printed.  
-
-2) `texts` - This is a function we got for free from defining `Message` with record syntax. It takes a `Message` and returns the List of `String`s inside. 
-
-3) `map putStrLn` - If you recall, `map` is a function that takes a function and a List, and returns a new List where the function has been applied to every member of the old List. And `putStrLn` is a function that takes a `String` and returns an IO action that prints that string. So `map putStrLn` will take a List of `String`s, and return a List of IO actions that prints those strings.
-
-4) `sequence` - This is a function that takes a List of IO actions, and returns an IO action that executes all of them, one after another. 
-
-So `message` gets passed to `texts`, which returns the `[String]` inside. That gets passed to `map putStrLn`, which makes a List of `IO` actions, each of which will print a line from the List of messages. That gets passed to `sequence`, which turns a List of IO actions to an IO action which, when executed, will execute every item in the List. The result of this is that every text item in `message` will get printed to the screen.
-
-So that's 2/3 done, the last thing we need is to do is to show the users a List of choices, allow them to choose one, and then continue with the adventure that's contained within that choice. We'll do this by numbering the choices, use `getLine` to let the user enter a number, and continue with the adventure in the corresponding `Choice`!marginnote(Remember, each `Choice` contains an `Adventure`.).
+The last thing we need is to do is to show the users a List of choices, allow them to choose one, and then continue with the adventure that's contained within that choice. We'll do this by numbering the choices, use `getLine` to let the user enter a number, and continue with the adventure in the corresponding `Choice`!marginnote(Remember, each `Choice` contains an `Adventure`.).
 
 ```haskell
 tellAdventure (StoryChoice choices) = do
-  sequence . map putStrLn . map (\x -> "  " ++ (show . fst $ x) ++ ": " ++ (choice . snd $ x)) $ indexedChoices
+  sequence . map putStrLn . map choiceToString $ indexedChoices
   putStr "Choice: "
   userChoiceIndex <- getLine
-  tellAdventure . result . ((choices - 1) !!) . read $ userChoiceIndex
-  where indexedChoices = zip [1..] choices 
+  tellAdventure . result . (choices !!) . (\x -> x-1) . read $ userChoiceIndex
+  where indexedChoices = zip [1..] choices
+        choiceToString (i, c) = "  " ++ (show i) ++ ": " ++ (choice c)
 ```
 
-You may think that the first line is a bit intimidating!marginnote(It's actually really not so bad when you see it only composes four functions.). But I'm only writing it like this because lots of Haskell code is a big mess of function composition, and you have to learn to work through it. You'll also notice that we use the `zip` function which I spoke about in an earlier chapter but never actually explained. Let's break this all down.
+We use `zip` to get a list of tuples of choices and their respective number. Then we convert the choices to strings, which is just some simple string manipulation in the `choiceToString` function. We then print all those strings using `sequence . map putStrLn` like we did in the last function.
 
-```haskell
-   sequence . map putStrLn . map (\x -> "  " ++ (show . fst $ x) ++ ": " ++ (choice . snd $ x)) $ indexedChoices 
---  [5]           [4]                                            [3]                                  [2]
-
-   where indexedChoices = zip [1..] choices 
---                             [1] 
-```
-
-Remember, what we want here is to go from a List of `Choice`s to an IO action which will print all the choices, with their index.
-
-1) `zip [1..] choices` - `zip` is a function that takes two lists, of possibly different types, and returns a List of 2-tuples. The first 2-tuple is the first element of the first List, and the first element of the second List, the second 2-tuple is the second element of the first List, and the second element of the second List, and so on.
-
-    For example, if you run `zip [1,2,3] ['a', 'b', 'c']`, the result will be `[(1,'a'), (2,'b'), (3,'c')]`. If one List is longer than the other, then the zipped List is chopped at the shorter List. This means that `zip [1..] choices` will return a List of tuples, where the first element is `(1, <the first choice>)`, the second element is `(2, <the second choice>)`, etc. 
-    
-    We do this because we want to show the indices of each choice when we're printing them, so the user can just type the index of the choice they'd like. The result of this is a List of `(Integer, Choice)`s. 
-
-2) `indexedChoices` - This is the List of 2-tuples that represent the choice and the index of that choice!marginnote(`[(1, <the first choice>), (2, <the second choice>), ...]`). Remember it is a List of `(Integer, Choice)`s.
-
-3) ```haskell
-    map (\x -> "  " ++ (show . fst $ x) 
-                    ++ ": " 
-                    ++ (choice . snd $ x))
-    ```
-                    
-    It may seem intimidating, but what it does is very simple. It maps over the List of `(Integer, Choice)`s and returns a list of `String`s. This `String` will look like the 
-    
-    ```haskell
-      3: I have a good feeling about the light to my left
-    ```
-    
-    that we saw earlier.
-
-    We start out with `"  "`, to offset the text to the right which will differentiate it from the rest of the rest of the story!marginnote(Offsetting the choices to differentiate them isn't necessary, it's just good visual design.). 
-    
-    We then want to add the index of the choice. We do this by adding `(show . fst $ x)`. Remember, `x` is a `(Integer, Choice)`, so `fst` will take out the `Integer`, and then `show` will turn it into a `String`, so it can be appended to `"  "`. 
-    
-    Next, we add `": "`. So far what we have will look something like `  3: `.  
-
-    Now we just need to add the actual text of the question. We do that by adding `(choice . snd $ x)`. `snd` gets the `Choice` out of `(Integer, Choice)`. Then we extract the text of the `Choice` with the `choice` we got from record syntax. 
-
-    The result of all this is a List of `String`s that look like: 
-    
-    ```haskell
-      3: I have a good feeling about the light to my left
-    ``` 
-
-4) `map putStrLn` - This looks like something we've seen before! It turns the List of `String`s that we made previously into a List of `IO ()` actions which, when executed, will print the strings we made in the last function.
-
-5) `sequence` - This will take a List of IO actions and return an IO action that, when executed, will execute each action in the List. 
-
-The result of this is we've gone from a List of `Choice`s to an IO action which will print all the choices, with their index.
-
-The next thing this function does is run `putStr "Choice: "`. What this does is write `"Choice: "` to the terminal, *without* a newline at the end (If we wanted a newline, we'd use `putStrLn`).
-
-Next, we run `userChoiceIndex <- getLine` which allows the user to type a `String` to the terminal. The `String` is assigned to the name `userChoiceIndex`.
+Next, we run `userChoiceIndex <- getLine` which allows the user to type in the terminal, and we bind whatever they typed to the name `userChoiceIndex`.
 
 The last part of the function is the line: 
 
 ```haskell
-tellAdventure . result . ((choices - 1) !!) . read $ userChoiceIndex
+tellAdventure . result . (choices !!) . (\x -> x-1) . read $ userChoiceIndex
 ```
 
-Again, this is a big mess of function composition. Let's break it down.
+Which turns `userChoiceIndex` into a number with `read`, subtracts `1` from it, gets the `choice` at that index with `!!`, gets the `Adventure` from that choice with `result`, then calls `tellAdventure`. Easy as pie!  
 
-```haskell
-  tellAdventure . result . (choices !!) . (\x -> x-1) . read $ userChoiceIndex
---    [6]          [5]          [4]           [3]       [2]         [1]
-```
-
-1) `userChoiceIndex` - This is a `String` of what the user entered when prompted for a choice.
-
-2) `read` - This is a function that takes a `String`, and returns whatever type is necessary, in this case, `Integer`. 
-
-3) `(\x -> x-1)` - This is a function that will take a number, and return that number lowered by one. This is because Haskell List indices start at `0`, but the indices we showed at screen started at `1`. So if they entered `1`, we want `0`. This function takes an `Integer` and returns an `Integer`.
-
-4) `(choices !!)` - This is a function that takes a number, and returns whatever element of `choices` is at that index. Remember, that is what `!!` does, `"abcde" !! 3` will return `'d'`. `choices` is a List of `Choice`s, so this returns a `Choice`.
-
-6) `result` - This is a function we got from `Choice`'s record syntax. It takes a `Choice` and returns the `Adventure` contained within.
-
-7) `tellAdventure` - Finally, this recursively calls `tellAdventure` again with the `Adventure` returned by `result`. 
-
-There! That's the function that does all the work here. Quite a lot of explanation for an 11 line function, which you can take as a testimony to Haskell's terseness. If you look at the whole function at once, it doesn't seem so bad.
+Here's the whole `tellAdventure` function, for those following along:
 
 ```haskell
 tellAdventure :: Adventure -> IO ()
@@ -3421,11 +3340,12 @@ tellAdventure (StoryMessage message adventure) = do
   tellAdventure adventure
 
 tellAdventure (StoryChoice choices) = do
-  sequence . map putStrLn . map (\x -> "  " ++ (show . fst $ x) ++ ": " ++ (choice . snd $ x)) $ indexedChoices
+  sequence . map putStrLn . map choiceToString $ indexedChoices
   putStr "Choice: "
   userChoiceIndex <- getLine
   tellAdventure . result . (choices !!) . (\x -> x-1) . read $ userChoiceIndex
   where indexedChoices = zip [1..] choices
+        choiceToString (i, c) = "  " ++ (show i) ++ ": " ++ (choice c)
 ```
 
 Now, we just need to write the `Main` function and put it all together.
