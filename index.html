@@ -388,6 +388,88 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 <p class="author">Andre Popovitch</p>
 <p class="date">2018-10-27</p>
 </header>
+<nav id="TOC">
+<ul>
+<li><a href="#preface">Preface</a></li>
+<li><a href="#functional-programming-and-purity">Functional Programming and Purity</a></li>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#types-and-type-signatures">Types and type signatures</a><ul>
+<li><a href="#more-types">More types!</a></li>
+<li><a href="#type-signatures">Type signatures</a></li>
+<li><a href="#typeclasses">Typeclasses</a></li>
+<li><a href="#handy-typeclasses-and-more-examples">Handy typeclasses and more examples</a></li>
+</ul></li>
+<li><a href="#lists-and-tuples">Lists and Tuples</a><ul>
+<li><a href="#useful-functions-on-lists">Useful Functions on Lists</a></li>
+<li><a href="#enumerations-and-infinite-lists">Enumerations and Infinite Lists</a></li>
+<li><a href="#list-comprehensions">List Comprehensions</a></li>
+<li><a href="#tuples">Tuples</a></li>
+</ul></li>
+<li><a href="#more-about-functions---useful-syntax">More About Functions - Useful Syntax</a><ul>
+<li><a href="#pattern-matching">Pattern matching</a></li>
+<li><a href="#ifthenelse">If/Then/Else</a></li>
+<li><a href="#guards">Guards</a></li>
+<li><a href="#let-expressions-and-where-statements">Let Expressions and Where Statements</a></li>
+</ul></li>
+<li><a href="#fixing-errors">Fixing Errors</a></li>
+<li><a href="#problem-solving-practice">Problem Solving Practice</a></li>
+<li><a href="#functions-first-class">Functions First Class</a><ul>
+<li><a href="#currying">Currying</a></li>
+<li><a href="#map">Map</a></li>
+<li><a href="#filter">Filter</a></li>
+<li><a href="#function-composition">Function composition</a></li>
+<li><a href="#function-application">Function Application</a></li>
+<li><a href="#folds">Folds</a></li>
+</ul></li>
+<li><a href="#a-brief-note-on-undefined">A Brief Note on Undefined</a></li>
+<li><a href="#when-things-might-go-wrong.">When things might go wrong.</a></li>
+<li><a href="#creating-new-data-types">Creating New Data Types</a><ul>
+<li><a href="#basic-data-types">Basic data types</a></li>
+<li><a href="#data-types-with-other-values">Data Types With Other Values</a></li>
+<li><a href="#type-aliases">Type Aliases</a></li>
+<li><a href="#parameterized-types">Parameterized Types</a></li>
+<li><a href="#kinds">Kinds</a></li>
+<li><a href="#making-our-own-typeclasses">Making Our Own Typeclasses</a></li>
+</ul></li>
+<li><a href="#recursion-practice">Recursion Practice</a></li>
+<li><a href="#newtype">Newtype</a></li>
+<li><a href="#writing-real-haskell-programs">Writing Real Haskell Programs</a><ul>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#stack-projects">Stack Projects</a></li>
+<li><a href="#definitions">Definitions</a></li>
+<li><a href="#creating-a-project">Creating a Project</a></li>
+<li><a href="#running-the-project">Running the Project</a></li>
+<li><a href="#containing-impurity">Containing Impurity</a></li>
+<li><a href="#the-sequencing-operator">The Sequencing Operator</a></li>
+<li><a href="#the-bind-operator">The Bind Operator</a></li>
+<li><a href="#do-notation">Do Notation</a></li>
+<li><a href="#useful-io-functions">Useful IO Functions</a></li>
+<li><a href="#project-1---a-text-adventure-game">Project 1 - A Text Adventure Game</a></li>
+<li><a href="#exceptions">Exceptions</a></li>
+<li><a href="#building-projects-for-distribution">Building Projects for Distribution</a></li>
+</ul></li>
+<li><a href="#more-helpful-typeclasses">More Helpful Typeclasses</a><ul>
+<li><a href="#functors">Functors</a></li>
+<li><a href="#monoids">Monoids</a></li>
+<li><a href="#semigroups">Semigroups</a></li>
+<li><a href="#applicatives">Applicatives</a></li>
+<li><a href="#monads">Monads</a></li>
+<li><a href="#monad-laws">Monad Laws</a></li>
+</ul></li>
+<li><a href="#more-monads">More Monads</a><ul>
+<li><a href="#the-list-monad">The List Monad</a></li>
+</ul></li>
+<li><a href="#important-information-for-using-haskell">Important Information For Using Haskell</a><ul>
+<li><a href="#getting-3rd-party-code-with-stack">Getting 3rd-Party Code With Stack</a></li>
+<li><a href="#how-to-test-our-code">How To Test Our Code</a></li>
+<li><a href="#reading-and-writing-documentation">Reading and Writing Documentation</a></li>
+<li><a href="#warnings-and-editor-settings">Warnings and Editor Settings</a></li>
+<li><a href="#what-are-all-these-files-anyway">What Are All These Files, Anyway</a></li>
+<li><a href="#how-to-develop-and-debug">How to Develop and Debug</a></li>
+</ul></li>
+<li><a href="#generalized-algebraic-data-types-and-data-kinds">Generalized Algebraic Data Types and Data Kinds</a></li>
+</ul>
+</nav>
 <h1 id="preface">Preface</h1>
 <p><span class="newthought">I’m Andre Popovitch</span>. This is my book on learning Haskell, an excellent functional programming language.It’s not finished yet but hopefully it will be soon - it should be useful already, I assume some programming knowledge, but nothing too in depth. If you’ve played with Python or Javascript and know how to open a command prompt/terminal, that’ll be plenty.</p>
 <p><span class="newthought">I wrote</span> this book because all the other good haskell tutorials either cost money or were too verbose. That’s surprising, considering GHC (the most popular Haskell compiler) has been around since 1992. Hopefully this will be better than ones that came before it, too.</p>

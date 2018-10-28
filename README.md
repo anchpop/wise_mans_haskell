@@ -2,7 +2,7 @@ To build the book, enter `andretips\wise_mans_haskell\wise_mans_haskell\`  and r
 
 
 ```
-pp -html -import=formatting/pp-macros/all.pp book.md | pandoc -o build/book.html -s --template=./formatting/templates/tufte.html5
+pp -html -import=formatting/pp-macros/all.pp book.md | pandoc --toc -o build/book.html -s --template=./formatting/templates/tufte.html5
 ```
 
 You may need to create a `build/` folder and copy the `assets` folder into it. Requires `pandoc` and [pp](https://github.com/CDSoft/pp) to be on your path. 
