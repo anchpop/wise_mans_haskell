@@ -3259,7 +3259,7 @@ The first thing to do is think about what we want. We need to be able to show so
 data Message = Speaking {texts :: [String], speaker :: String}  | Info {texts :: [String]}  
 ```
 
-We're using record syntax here - reread [#Creating New Data Types] if you've forgotten how this works. 
+We're using record syntax here - reread [Creating New Data Types] if you've forgotten how this works. 
 
 We also want to be able to display choices to the user. Let's make a data type to store a single choice.
 
