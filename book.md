@@ -1115,7 +1115,7 @@ describeLetter c
 
 # Fixing Errors
 
-!newthought(You need) some practice reading compile errors, because you'll be doing it a lot. Luckily, the time you lose in fixing a battery of compile errors, you gain by having a dought of runtime errors! Not all of these examples are fair, because some are issues I haven't told you about!sidenote(Of course, since I won't have taught you about all the issues you're going to run into when writing real Haskell!). That's why you have to actually run them, to get good practice! The answers are at the bottom of the section
+!newthought(You need) some practice reading compile errors, because you'll be doing it a lot. Luckily, the time you lose in fixing a battery of compile errors, you gain by removing many opportunities runtime errors! Not all of these examples are fair, because some are issues I haven't told you about!sidenote(Of course, since I won't have taught you about all the issues you're going to run into when writing real Haskell!). That's why you have to actually run them, to get good practice! The answers are at the bottom of the section
 
 1) Run this in GHCi: 
 
