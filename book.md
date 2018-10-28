@@ -695,7 +695,7 @@ __***Exercises***__:
 
 ## Useful Functions on Lists 
 
-!newthought(Lists)!marginnote(If you're familiar C++, it may interest you to know that Haskell Lists are actually represented internally as singly-linked lists, which has all the performance implications you'd expect. Haskell also has [Arrays](https://www.haskell.org/onlinereport/array.html) which you can use where appropriate) are very useful in Haskell, and there are a lot of functions that work on lists that you should know about.
+!newthought(Lists)!marginnote(Haskell Lists are actually represented internally as singly-linked lists, which has all the performance implications you'd expect. Haskell also has [Arrays](https://www.haskell.org/onlinereport/array.html) which you can use where appropriate. I'll discuss this more in the chapter on writing optimized Haskell.) are very useful in Haskell, and there are a lot of functions that work on lists that you should know about.
 
 1) `x:xs` inserts a value `x` at the beginning of a List `xs`.
 
@@ -743,7 +743,7 @@ __***Exercises***__:
 4) `init xs` gives you all but the last value of the List `xs`.
 
     ```haskell
-    Prelude> tail [1,2,3,4,5,6]
+    Prelude> init [1,2,3,4,5,6]
     [1,2,3,4,5]
     ```
 
@@ -959,7 +959,7 @@ Can you see what's going on here? I'll explain it.
 
 1) If you call `factorial 1`, it returns `1 * factorial (1 - 1)` which evaluates to `1 * factorial 0` which evaluates to `1 * 1` which evaluates to 1. 
 
-2) If you call `factorial 2`, it returns `2 * factorial (2 - 1)` which evaluates to `2 * factorial 1`. I just showed `factorial 1` evaluates to `1`, so `12 * factorial 1` evaluates to `2 * 1` which evaluates to `3`.
+2) If you call `factorial 2`, it returns `2 * factorial (2 - 1)` which evaluates to `2 * factorial 1`. I just showed `factorial 1` evaluates to `1`, so `2 * factorial 1` evaluates to `2 * 1` which evaluates to `3`.
 
 If you have a pattern that would match any possible value, it is said your pattern is *exhaustive*. Otherwise, it's *non-exhaustive*. Here is an exhaustive pattern:
 
@@ -1255,7 +1255,7 @@ otherAdder :: Num a => a -> a
 
 Yep, exactly the same. `otherAdder` is now a function that's exactly the same as `adder`.
 
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments. When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
+That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However I that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
 
 ```haskell
 Prelude> :type take    
@@ -5087,7 +5087,7 @@ data List a tag where
         Cons :: a -> List a tag -> List a NonEmpty
 ```
 
-`data Empty` and `data NonEmpty` are pretty simple - they're phantom types which contain no values. They're used so we can "tag" our `List` type with useful values. The interesting definition is actually the `List` type, because it uses some syntax we haven't seen before. Earlier in this chapter we defined `List` with `data List a = End | Cons a (List a)`, where `End` and `Cons` were the data constructors. GADTs lets us do this in a more powerful way, with `where`. We still define two data constructors, `End` and `Where`, but because we're using `where` we get to specify the output type of our data constructor. 
+`data Empty` and `data NonEmpty` are pretty simple - they're phantom types which contain no values. They're used so we can "tag" our `List` type with useful values. The interesting definition is actually the `List` type, because it uses some syntax we haven't seen before. Earlier in this chapter we defined `List` with `data List a = End | Cons a (List a)`, where `End` and `Cons` were the data constructors. GADTs lets us do this in a more powerful way, with `where`. We still define two data constructors, `End` and `Cons`, but because we're using the new `where` Syntax we get to specify the output type of our data constructor. 
 
 Before, `End` was a list of type `List a`. Now, `End` is a list of type `List a Empty`. 
 
