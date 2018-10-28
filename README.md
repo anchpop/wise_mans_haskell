@@ -1,8 +1,8 @@
-To build the book, enter `andretips\wise_mans_haskell\wise_mans_haskell\`  and run:
+To build the book, enter `wise_mans_haskell\wise_mans_haskell\`  and run:
 
 
 ```
-pp -html -import=formatting/pp-macros/all.pp book.md | pandoc --toc -o build/book.html -s --template=./formatting/templates/tufte.html5
+pp -html -import=formatting/pp-macros/all.pp book.md | pandoc --toc -o build/index.html -s --template=./formatting/templates/tufte.html5
 ```
 
 You may need to create a `build/` folder and copy the `assets` folder into it. Requires `pandoc` and [pp](https://github.com/CDSoft/pp) to be on your path. 
@@ -33,7 +33,7 @@ The macros we have access to are:
 !fullwidthfigure(This is a full-width figure caption)(./image/path/image.jpg)
 ```
 
-To build the test formatter in HTML, enter `andretips\wise_mans_haskell\wise_mans_haskell\formatting` and run:
+To build the test formatter in HTML, enter `wise_mans_haskell\wise_mans_haskell\formatting` and run:
 
 ```
 pp -html -import=pp-macros/all.pp sample-handout.md | pandoc -o sample-handout.html -s --template=./templates/tufte.html5

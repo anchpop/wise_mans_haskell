@@ -10,7 +10,7 @@ date: !today
 !newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language.It's not finished yet but hopefully it will be soon - it should be useful already, 
 I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
 
-!newthought(I wrote) this book because all the other good haskell tutorials either cost money or were too verbose. 
+!newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. 
 That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992. 
 Hopefully this will be better than ones that came before it, too.
 
@@ -26,6 +26,7 @@ A great resource is the #haskell channel in the [Functional Programming Discord]
 **A note on exercises**: I've put a few exercises in here, and they're very important for reinforcing your knowledge. **Don't skip them**!marginnote(This book also has margin notes scattered throughout, I recommend reading them because they often provide extra context or supplemental info.)
 
 I said this book wouldn't be verbose, so let's move on. And have fun!
+
 
 # Functional Programming and Purity
 
@@ -768,7 +769,7 @@ __***Exercises***__:
     14
     ```
 
-7) `null xs` returns whether the List is empty. It is better to use this than `xs == []`, but it doesn the same thing.
+7) `null xs` returns whether the List is empty. It is better to use this than `xs == []`, but it does the same thing.
 
     ```haskell
     Prelude> null "Ice, ice, baby"
@@ -825,7 +826,7 @@ Prelude> [1..]
 Prelude> [0,10..]
 -- Again, have your control-c key ready.
 
--- To do anything useful with infinite lists, you iusually need to limit which ones you get.
+-- To do anything useful with infinite lists, you usually need to limit which ones you get.
 Prelude> take 10 [10,20..]
 [10,20,30,40,50,60,70,80,90,100]
 ```
@@ -845,11 +846,11 @@ Prelude> xs
 Prelude> [x | x <- xs]
 [1,2,3,4,5]
 
--- Here is a List comprehension doubles all the values in xs.
+-- Here is a List comprehension that doubles all the values in xs.
 Prelude> [x * 2 | x <- xs]
 [2,4,6,8,10]
 
--- Here is a List comprehension squares all values in xs, and keeps the result if the value is higher than 10.
+-- Here is a List comprehension that squares all values in xs, and keeps the result if the value is higher than 10.
 Prelude> [x ^ 2 | x <- xs, (x ^ 2) > 10]
 [16,25]
 ```
@@ -4185,7 +4186,7 @@ Look at the `Maybe` type in particular.
 --       1st argument    2nd argument   output
 ```
 
-`Maybe` can be `Just <something>` or `Nothing`. If the first argument is `Nothing`, or the second argument is `Nothing`, the output is `Nothing`. That can be thought of as an assiciative binary function! This is kind of vague for `Maybe` but for some types like `(String, a)` it's much more clear.
+`Maybe` can be `Just <something>` or `Nothing`. If the first argument is `Nothing`, or the second argument is `Nothing`, the output is `Nothing`. That can be thought of as an associative binary function! This is kind of vague for `Maybe` but for some types like `(String, a)` it's much more clear.
 
 ```haskell
 Prelude> ("hello ", (4+)) <*> ("world", 10)
@@ -4693,7 +4694,7 @@ main = hspec $ do
       it "disallows channels without # in the first character" $
         isValidChannelName "haskell" `shouldBe` (False :: Bool)
         
-      it "allowes channels should contain a '#'" $ do
+      it "allows channels should contain a '#'" $ do
         property $ \xs -> if isValidChannelName xs
                            then elem '#' (xs :: String)
                            else True
@@ -4772,16 +4773,16 @@ isValidChannelName s
    | otherwise       = True
 ```
 
-There's a lot of special markup you can use to make your documenation prettier, you can read about it in the [Haddock documentation](https://haskell-haddock.readthedocs.io/en/latest/markup.html#markup).
+There's a lot of special markup you can use to make your documentation prettier, you can read about it in the [Haddock documentation](https://haskell-haddock.readthedocs.io/en/latest/markup.html#markup).
 
-Now, you can *build* your haddock docuentation with stack using the `--haddock` flag. To build and test your code without optimization, plus build haddock, run `stack build --test --fast --haddock`. Now, Haddock often takes a long time to run, and you usually don't really care that much about seeing your own haddock documentation, but instead you're more interested in seeing the documentation of your depenancies (our current dependencies are `hspec`, `QuickCheck`, `lens`, and `network`). After the first time it's much faster to only build those, and we can do that with `haddock-deps`, since it won't run at all if nothing had changed. This is our new command:
+Now, you can *build* your haddock documentation with stack using the `--haddock` flag. To build and test your code without optimization, plus build haddock, run `stack build --test --fast --haddock`. Now, Haddock often takes a long time to run, and you usually don't really care that much about seeing your own haddock documentation, but instead you're more interested in seeing the documentation of your dependencies (our current dependencies are `hspec`, `QuickCheck`, `lens`, and `network`). After the first time it's much faster to only build those, and we can do that with `haddock-deps`, since it won't run at all if nothing had changed. This is our new command:
 
 
 ```bash
 stack build --test --fast --haddock-deps
 ```
 
-Now, we can read the documentation for a dependancy with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open lens`. However, it's written in a somewhat intimidating style so I reccomend looking at `hspec` instead. This is better than reading the docs online, because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
+Now, we can read the documentation for a dependency with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open lens`. However, it's written in a somewhat intimidating style so I recommend looking at `hspec` instead. This is better than reading the docs online, because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
 
 You can also get a searchable version of these docs with *Hoogle*. You must first run a command to generate Hoogle's index:
 
@@ -4829,9 +4830,9 @@ ghc-options:
 - -Wredundant-constraints
 ```
 
-This turns on the following warnings: `Wall`, `Wcompat`, `Wincomplete-record-updates`, `Wincomplete-uni-patterns`, and `Wredundant-constrsints`. I won't explain what all of these do, but they aren't too restrictive and if you see a warning you should fix it. In fact, you should try your hardest to never check in code with warnings to version control. This is under the setion `ghc-options` because these are just regular options passed to GHC - you don't have to build your project with Stack, you could call GHC manually, but stack handling everything for you makes things much more convenient and reliable.
+This turns on the following warnings: `Wall`, `Wcompat`, `Wincomplete-record-updates`, `Wincomplete-uni-patterns`, and `Wredundant-constraints`. I won't explain what all of these do, but they aren't too restrictive and if you see a warning you should fix it. In fact, you should try your hardest to never check in code with warnings to version control. This is under the section `ghc-options` because these are just regular options passed to GHC - you don't have to build your project with Stack, you could call GHC manually, but stack handling everything for you makes things much more convenient and reliable.
 
-Next up is the topic of GHC language extensions. Haskell is a vey nice language but sometimes it has some room for improvement through unoficial extensions implemented in GHC. To do this, we're going to add another section beneath `ghc-options`, called `default-extensions`. You can turn an extension on by writing a special comment at the top of your source files, but this turns them on for all files and is much more convenient. This is a long list of extensions, and lots of them are fairly complicated so I'm not going to explain them all yet. I got this list from Alexis King, and some of the extensions are too complicated for me to easily explain here. Most I will be addressing through the course of this book, though, so stay tuned. If you're interested in what a particular extension does, you can look it up on [the GHC docs](https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html). 
+Next up is the topic of GHC language extensions. Haskell is a vey nice language but sometimes it has some room for improvement through unofficial extensions implemented in GHC. To do this, we're going to add another section beneath `ghc-options`, called `default-extensions`. You can turn an extension on by writing a special comment at the top of your source files, but this turns them on for all files and is much more convenient. This is a long list of extensions, and lots of them are fairly complicated so I'm not going to explain them all yet. I got this list from Alexis King, and some of the extensions are too complicated for me to easily explain here. Most I will be addressing through the course of this book, though, so stay tuned. If you're interested in what a particular extension does, you can look it up on [the GHC docs](https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html). 
 
 ```yaml
 
@@ -5072,7 +5073,7 @@ Our function `safeHead` takes a value of type `List a NonEmpty`. This means we c
 'a'
 ```
 
-It sucessfully extracted the first type! `safeHead` is pattern matching against `Cons a b`, and returning `a`. This works because `a` will be the first value in our list, and `b` will be the rest of the list (which is `Cons 'b' End`). Running `safeHead End` would give us a compile error, which is exactly what we want. Any time you can make your code give you a compile error instead of a runtime error is a win!
+It successfully extracted the first type! `safeHead` is pattern matching against `Cons a b`, and returning `a`. This works because `a` will be the first value in our list, and `b` will be the rest of the list (which is `Cons 'b' End`). Running `safeHead End` would give us a compile error, which is exactly what we want. Any time you can make your code give you a compile error instead of a runtime error is a win!
 
 Now, let's dig into the actual type definitions.
 
