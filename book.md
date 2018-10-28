@@ -9,7 +9,8 @@ date: !today
 
 !newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language.It's not finished yet but hopefully it will be soon - it should be useful already. I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
 
-**What to do if you see a typo**: @likliklik in the [Functional Programming Discord](https://discord.gg/cUEkjJ), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
+**What to do if you see a typo**: @
+ in the [Functional Programming Discord](https://discord.gg/cUEkjJ), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
 
 !newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. 
 That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992. 
@@ -561,7 +562,7 @@ __***Exercises***__:
 
 1) `Integer` - Exactly what it sounds like. Integers are numbers like `-1`, `0`, `1`, or `1000`, but not `2.5`. It has no maximum or minimum value, but if you try to express too large of a number, eventually your computer will run out of memory.
 
-2) `Int` - This is the the same "int" you might be familiar with from other languages. It has a maximum and minimum value, which can vary depening on what machine you're on, but it is usually very large (generally the maximum is 2^31-1 and the minimum is -2^31). The trade off is that it's more efficient than `Integer`.
+2) `Int` - This is the the same "int" you might be familiar with from other languages. It has a maximum and minimum value, which can vary depending on what machine you're on, but it is usually very large (generally the maximum is 2^31-1 and the minimum is -2^31). The trade off is that it's more efficient than `Integer`.
 
 3) `Float` - Short for floating point. This holds numbers that can have decimal points, like `1.4` or `-2.5`, but can still hold whole numbers, like `2`. The drawback is that sometimes the numbers it holds aren't exactly the number you think it is. This causes the scary [*floating point precision error*](https://stackoverflow.com/questions/2100490/floating-point-inaccuracy-examples), where answers end up being just a little bit away from what they should be. Enter `0.1 + 0.2` into GHCi to see what I'm talking about.
 
@@ -1115,7 +1116,7 @@ describeLetter c
 
 # Fixing Errors
 
-!newthought(You need) some practice reading compile errors, because you'll be doing it a lot. Luckily, the time you lose in fixing a battery of compile errors, you gain by removing many opportunities runtime errors! Not all of these examples are fair, because some are issues I haven't told you about!sidenote(Of course, since I won't have taught you about all the issues you're going to run into when writing real Haskell!). That's why you have to actually run them, to get good practice! The answers are at the bottom of the section
+!newthought(You need) some practice reading compile errors, because you'll be doing it a lot. Luckily, the time you lose in fixing a battery of compile errors, you gain by removing many opportunities for runtime errors! Not all of these examples are fair, because some are issues I haven't told you about!sidenote(Of course, since I won't have taught you about all the issues you're going to run into when writing real Haskell!). That's why you have to actually run them, to get good practice! The answers are at the bottom of the section
 
 1) Run this in GHCi: 
 
@@ -1956,7 +1957,7 @@ Ok, one module loaded.
 True
 ```
 
-But this is bad. It's a lot of repetitive typing you'd have to do every time. In software this is called *boilerplate*. Fortunately, Haskell has a built-in way to automatically *derive* `Eq` for us, if we tell it to, using the `deriving` keyword!sidenote(Imagine if you had to do that manually for every data type you made! Haskell gets some critisism of being "for academics", but I find it's usually quite practical.). Let's redefine `InvitationResponse` to use it.
+But this is bad. It's a lot of repetitive typing you'd have to do every time. In software this is called *boilerplate*. Fortunately, Haskell has a built-in way to automatically *derive* `Eq` for us, if we tell it to, using the `deriving` keyword!sidenote(Imagine if you had to do that manually for every data type you made! Haskell gets some criticism of being "for academics", but I find it's usually quite practical.). Let's redefine `InvitationResponse` to use it.
 
 ```haskell
 Prelude> data InvitationResponse = Attending | NotAttending | MightAttend deriving (Eq)
@@ -3653,7 +3654,7 @@ tellAdventure (StoryChoice choices) = do
   where indexedChoices = zip [1..] choices
 ```
 
-And voilà! We have now removed the two biggest bugs in our program. But it's not very user friendly. If the user enters `one` when they meant `1`, we just show `Choice: ` again. It doesn't give any instruction for what the user should do. Let's make one funal change to the `getChoice` function. Remember, `do` is just syntax sugar for an expression, so we can use it in the `where` block!marginnote(We can even use `do` expressions inside `do` expressions!).
+And voilà! We have now removed the two biggest bugs in our program. But it's not very user friendly. If the user enters `one` when they meant `1`, we just show `Choice: ` again. It doesn't give any instruction for what the user should do. Let's make one final change to the `getChoice` function. Remember, `do` is just syntax sugar for an expression, so we can use it in the `where` block!marginnote(We can even use `do` expressions inside `do` expressions!).
 
 ```haskell
 getChoice :: (Integral a, Read a, Show a) => a -> IO a   -- We need to call show on the input, so a needs to be a member of the show typeclass.
@@ -4404,7 +4405,7 @@ instance Monad [] where
     xs >>= f = concat (fmap f xs)  
 ```
 
-So, you pass `>>=` a list `[a]` and a function `a -> [b]`. It applies the function to every item in the list (creating a list of lists), then concatanates all the lists together. Here's a demonstration:
+So, you pass `>>=` a list `[a]` and a function `a -> [b]`. It applies the function to every item in the list (creating a list of lists), then concatenates all the lists together. Here's a demonstration:
 
 ```haskell
 *Main> [1,2,3] >>= \x -> [x, x*1000]
@@ -4606,7 +4607,7 @@ main = hspec $ do
         isValidChannelName "haskell" `shouldBe` (False :: Bool)
 ```
 
-Now, run `stack build --fast --test` and see what it says! Both of our tests will pass. This kind of testing is known as *spec testing*, and is very useful. But it has some flaws: we have to write every test ourselves, which is time consuming. Also, we might miss some edge case we didn't think about! That's where *property testing* comes in, with `QuckCheck` (which comes with `Hspec`). Import `Test.Quickcheck` at the top.
+Now, run `stack build --fast --test` and see what it says! Both of our tests will pass. This kind of testing is known as *spec testing*, and is very useful. But it has some flaws: we have to write every test ourselves, which is time consuming. Also, we might miss some edge case we didn't think about! That's where *property testing* comes in, with `QuickCheck` (which comes with `Hspec`). Import `Test.Quickcheck` at the top.
 
 ```haskell
 -- test/Spec.hs
@@ -4747,7 +4748,7 @@ isValidChannelName s
    | otherwise       = True
 ```
 
-The `-- |` is special syntax that informs GHC that this is Haddock documentation. It must be placed before the type signauture. We can also spread it out across multiple lines, like this:
+The `-- |` is special syntax that informs GHC that this is Haddock documentation. It must be placed before the type signature. We can also spread it out across multiple lines, like this:
 
 ```haskell
 -- |'isValidChannelName' takes a 'String' and will return 'True'
@@ -4801,7 +4802,7 @@ Then go to [http://localhost:8080](http://localhost:8080) and try doing a search
 
 ## Warnings and Editor Settings
 
-GHC had the concept of "warnings" in addition to errors. This is when GHC sees things that it thinks might be the source of bugs in the future. Most warnings are turned off by default, but you can put something in your `package.yaml` to turn them on. Open your `package.yaml` find the dependancies section:
+GHC had the concept of "warnings" in addition to errors. This is when GHC sees things that it thinks might be the source of bugs in the future. Most warnings are turned off by default, but you can put something in your `package.yaml` to turn them on. Open your `package.yaml` find the dependencies section:
 
 ```yaml
 dependencies:
