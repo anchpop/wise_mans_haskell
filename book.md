@@ -197,7 +197,7 @@ Prelude> always3
 3
 ```
 
-You've seen this before, only then you didn't know it was a function, because I called it a constant!sidenote(The proper name would be a *nullary function*.)! But in reality, it's a function that doesn't have any parameters and just returns 3. GHCi will allow you to define `i = 1` and then later define `i = 2`, but this is not allowed in "real" Haskell (which we'll go over in a moment).
+If you like, you can think of this as a function that takes 0 values and returns `3`!sidenote(The proper name for a function that takes no values would be a *nullary function*.). However, this is better thought of as just a plain value or constant. GHCi will allow you to define `i = 1` and then later define `i = 2`, but this is not allowed in "real" Haskell (which we'll go over in a moment).
 
 !newthought(Now, this) is all well and good, but not very conducive to writing actual programs. For that, you need to be able to write your code into a text file and run it. To do that, make a new file somewhere on your computer called `myProgram.hs`!marginnote(`.hs` is the extension used for most Haskell programs.). Inside it, write:
 
@@ -1255,7 +1255,7 @@ otherAdder :: Num a => a -> a
 
 Yep, exactly the same. `otherAdder` is now a function that's exactly the same as `adder`.
 
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments. When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
+That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 argument. When you write a function that seems to take multiple arguments, it's actually taking one argument and returning a new function. That probably seems horribly complicated, so let's see an example. Do you recall the `take` function? 
 
 ```haskell
 Prelude> :type take    

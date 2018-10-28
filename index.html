@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,300i,700" rel="stylesheet">
   <meta name="author" content="Andre Popovitch">
-  <meta name="dcterms.date" content="2018-10-27">
+  <meta name="dcterms.date" content="2018-10-28">
   <title>Wise Man’s Haskell</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -386,7 +386,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 <header>
 <h1 class="title">Wise Man’s Haskell</h1>
 <p class="author">Andre Popovitch</p>
-<p class="date">2018-10-27</p>
+<p class="date">2018-10-28</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -576,7 +576,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 <div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dt">Prelude</span><span class="fu">&gt;</span> always3 <span class="fu">=</span> <span class="dv">3</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="dt">Prelude</span><span class="fu">&gt;</span> always3</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="dv">3</span></a></code></pre></div>
-<p>You’ve seen this before, only then you didn’t know it was a function, because I called it a constant<label for="sidenote-3" class="margin-toggle sidenote-number"></label> <input type="checkbox" id="sidenote-3" class="margin-toggle"/> <span class="sidenote">The proper name would be a <em>nullary function</em>.</span>! But in reality, it’s a function that doesn’t have any parameters and just returns 3. GHCi will allow you to define <code>i = 1</code> and then later define <code>i = 2</code>, but this is not allowed in “real” Haskell (which we’ll go over in a moment).</p>
+<p>If you like, you can think of this as a function that takes 0 values and returns <code>3</code><label for="sidenote-3" class="margin-toggle sidenote-number"></label> <input type="checkbox" id="sidenote-3" class="margin-toggle"/> <span class="sidenote">The proper name for a function that takes no values would be a <em>nullary function</em>.</span>. However, this is better thought of as just a plain value or constant. GHCi will allow you to define <code>i = 1</code> and then later define <code>i = 2</code>, but this is not allowed in “real” Haskell (which we’ll go over in a moment).</p>
 <p><span class="newthought">Now, this</span> is all well and good, but not very conducive to writing actual programs. For that, you need to be able to write your code into a text file and run it. To do that, make a new file somewhere on your computer called <code>myProgram.hs</code><label for="marginnote-14" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-14" class="margin-toggle"/> <span class="marginnote"><code>.hs</code> is the extension used for most Haskell programs.</span>. Inside it, write:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">-- myProgram.hs</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="ot">addone ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
@@ -1220,7 +1220,7 @@ length&#39; (_:xs) = 1 + length&#39; xs  </code></pre>
 <a class="sourceLine" id="cb106-3" data-line-number="3"><span class="dt">Prelude</span><span class="fu">&gt;</span> <span class="fu">:</span><span class="kw">type</span> otherAdder</a>
 <a class="sourceLine" id="cb106-4" data-line-number="4"><span class="ot">otherAdder ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a</a></code></pre></div>
 <p>Yep, exactly the same. <code>otherAdder</code> is now a function that’s exactly the same as <code>adder</code>.</p>
-<p>That brings us to of one of the most famously complicated things in Haskell: Currying<label for="marginnote-37" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-37" class="margin-toggle"/> <span class="marginnote">Haskell was actually named after the mathematician Haskell Curry.</span>. The general idea is that functions in Haskell always take either 1 or 0 arguments. When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let’s see an example. Do you recall the <code>take</code> function?</p>
+<p>That brings us to of one of the most famously complicated things in Haskell: Currying<label for="marginnote-37" class="margin-toggle">⊕</label> <input type="checkbox" id="marginnote-37" class="margin-toggle"/> <span class="marginnote">Haskell was actually named after the mathematician Haskell Curry.</span>. The general idea is that functions in Haskell always take either 1 argument. When you write a function that seems to take multiple arguments, it’s actually taking one argument and returning a new function. That probably seems horribly complicated, so let’s see an example. Do you recall the <code>take</code> function?</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="dt">Prelude</span><span class="fu">&gt;</span> <span class="fu">:</span><span class="kw">type</span> take    </a>
 <a class="sourceLine" id="cb107-2" data-line-number="2">take<span class="ot"> ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</a>
 <a class="sourceLine" id="cb107-3" data-line-number="3"><span class="dt">Prelude</span><span class="fu">&gt;</span> take <span class="dv">3</span> <span class="st">&quot;abcdefg&quot;</span></a>
