@@ -9,8 +9,7 @@ date: !today
 
 !newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language.It's not finished yet but hopefully it will be soon - it should be useful already. I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
 
-**What to do if you see a typo**: @
- in the [Functional Programming Discord](https://discord.gg/cUEkjJ), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
+**What to do if you see a typo**: @likliklik in the [Functional Programming Discord](https://discord.gg/cUEkjJ), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
 
 !newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. 
 That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992. 
