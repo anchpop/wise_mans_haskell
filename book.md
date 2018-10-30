@@ -1266,11 +1266,7 @@ otherAdder :: Num a => a -> a
 
 Yep, exactly the same. `otherAdder` is now a function that's exactly the same as `adder`.
 
-<<<<<<< HEAD
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However I that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
-=======
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 argument. When you write a function that seems to take multiple arguments, it's actually taking one argument and returning a new function. That probably seems horribly complicated, so let's see an example. Do you recall the `take` function? 
->>>>>>> 6ff7313add1c5aa4b09b2cfa469348f6d60ba33e
+That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However I find that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function?
 
 ```haskell
 Prelude> :type take    
