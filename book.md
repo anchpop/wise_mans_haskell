@@ -9,7 +9,7 @@ date: !today
 
 !newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language. It's not finished yet but hopefully, it will be soon - it should be useful already. I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
 
-**What to do if you see a typo**: @likliklik in the [Functional Programming Discord](https://discord.gg/cUEkjJ), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
+**What to do if you see a typo**: @likliklik in the [Functional Programming Discord](https://discord.gg/6XQC7KA), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
 
 !newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. 
 That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992. 
@@ -864,11 +864,11 @@ Let me break down the structure of a List comprehension:
 --    [1]      [2]        [3]
 ```
 
-1) `x ^ 2`: This is the value that will appear in the final List. `x` is a variable that comes from [2]. This part is used to transform the contents of the List.
+1) `x ^ 2`: This is the value that will appear in the final List. `x` is a variable that comes `#2`. This part is used to transform the contents of the List.
 
 2) `x <- xs`: This can be translated as "iterate over the values in the List `xs` and assign them to `x`". It's used to decide which List you want to draw from.
 
-3) `x * x > 10`: This is a condition!marginnote(You can also have multiple conditions here, separated by commas.) that determines whether the result of [1] will be included in the List. This is used to filter the contents of a List.
+3) `x * x > 10`: This is a condition!marginnote(You can also have multiple conditions here, separated by commas.) that determines whether the result of `#1` will be included in the List. This is used to filter the contents of a List.
 
 In Python, this would be written as `[x*x for x in xs if (x * x) > 10]`!marginnote(When reading list comprehensions out, I tend to mentally convert it to the Python style, which was actually inspired by Haskell!).
 
@@ -1266,11 +1266,7 @@ otherAdder :: Num a => a -> a
 
 Yep, exactly the same. `otherAdder` is now a function that's exactly the same as `adder`.
 
-<<<<<<< HEAD
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However I that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
-=======
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 argument. When you write a function that seems to take multiple arguments, it's actually taking one argument and returning a new function. That probably seems horribly complicated, so let's see an example. Do you recall the `take` function? 
->>>>>>> 6ff7313add1c5aa4b09b2cfa469348f6d60ba33e
+That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However think I that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
 
 ```haskell
 Prelude> :type take    
@@ -1650,7 +1646,7 @@ __***Exercises***__
 
     2) Hint! The base case is a list with one value. If you get `foldl1' f [x]`, you can just return `x`.
 
-    3) Hint! Check out the chapter on [Recursion Practice] if you're stuck.
+    3) Hint! Check out the chapter on [Recursion Practice](../recursion-practice) if you're stuck.
 
 ---
 
@@ -1761,7 +1757,7 @@ Haskell is lazy and so our `weird` function doesn't even look at the value of it
 
 !newthought(Undefined can) also be a very useful tool. Let's say you're writing a program and you're not really sure how to write a function you need. You can just define it as `undefined` and then you can go work on something else. Your program won't work until you define that function for real, of course, but you can call it elsewhere and Haskell will do its work in making sure your types check out. Newer versions of GHC make this even easier, with what's called a *type holes*. Anywhere GHC expects a value you can add a `_` and GHC will still allow you to compile but gives you a warning that your function won't work at runtime.
 
-# When things might go wrong.
+# When things might go wrong
 
 !newthought(Often we) want to write a function that just doesn't make sense for all possible inputs. For example, the `head` function!marginnote(`head` extracts the first element from a list.). It works great for most lists, but for empty lists, it crashes your program.
 
@@ -2464,7 +2460,7 @@ Let's zoom in on this, although it's pretty simple.
 
 4) `where` - This keyword should look familiar! It means we're going to be defining bindings soon. Here though, all we've done is declare functions and give their type signature - we don't actually give the definition of the function.
 
-To make a data type an instance of this typeclass, we'd have to use the `instance` keyword!sidenote(see [Basic data types] for more). To make a type an instance of a typeclass, a definition for every function declared in the typeclass must be given, unless there is a default implementation. This is done in the `Eq` typeclass, like this.
+To make a data type an instance of this typeclass, we'd have to use the `instance` keyword!sidenote(see [Basic data types](../basic-data-types) for more). To make a type an instance of a typeclass, a definition for every function declared in the typeclass must be given, unless there is a default implementation. This is done in the `Eq` typeclass, like this.
 
 ```haskell
 class Eq a where  
@@ -2732,7 +2728,7 @@ Most of this is just data presented in the machine-readable format YAML. so some
 
 Every single line of this program contains something we haven't talked about yet. Let's go over them now.
 
-1) `module Main where`: This defines a new *module* called `Main`, which contains the full contents of the file below it. Modules are collections of related code - they're nice because if you break your project into small modules, you can reuse them in future projects or share them with the world!marginnote(There are many sites where you can share your code, but the largest is (Hackage)[https://hackage.haskell.org/]. It's often a good idea to search here if you're looking for third-party code, just beware because much of it is somewhat low quality.) for fame and fortune. 
+1) `module Main where`: This defines a new *module* called `Main`, which contains the full contents of the file below it. Modules are collections of related code - they're nice because if you break your project into small modules, you can reuse them in future projects or share them with the world!marginnote(There are many sites where you can share your code, but the largest is [Hackage](https://hackage.haskell.org/). It's often a good idea to search here if you're looking for third-party code, just beware because much of it is somewhat low quality.) for fame and fortune. 
 
 2) `main :: IO ()`: This is the type signature for the function `main`. Its type is `IO ()`, which seems like a very strange type. It would seem to be a function that takes no arguments, and returns a value of type `IO ()`? It won't make complete sense until the next chapter, but for now, remember two things.
 
@@ -3274,7 +3270,7 @@ The first thing to do is think about what we want. We need to be able to show so
 data Message = Speaking {texts :: [String], speaker :: String}  | Info {texts :: [String]}  
 ```
 
-We're using record syntax here - reread [Creating New Data Types] if you've forgotten how this works. 
+We're using record syntax here - reread [Creating New Data Types](../creating-new-data-types) if you've forgotten how this works. 
 
 We also want to be able to display choices to the user. Let's make a data type to store a single choice, and a data type to store our whole adventure.
 
@@ -4602,7 +4598,7 @@ __***Exercises***__:
 
 3) Write a property test that takes a value `xs` and checks that `isValidChannelName (xs ++ " ")` is `False`. 
 
-4) In `Lib.hs`'s `isValidChannelName`, use `not (elem ' ' s)` to check that the input `String` does not contain a space. You can do this with the binary `&&` operator, `if/then/else` syntax, or [Guards]. 
+4) In `Lib.hs`'s `isValidChannelName`, use `not (elem ' ' s)` to check that the input `String` does not contain a space. You can do this with the binary `&&` operator, `if/then/else` syntax, or [Guards](../more-about-functions-useful-syntax#Guards). 
 
 5) After completing #4, rerun your tests. They should pass!
 
@@ -4910,7 +4906,7 @@ Type constructors take some types and return a new type, and GADTs drastically i
 !include(haskelltests/should_compile/GADTsTest1.hs)
 ```
 
-`Uninhabited` is a type that contains no values!marginnote(`Uninhabited` actually does contain the special value `undefined`, which is contained by all types. But we'll ignore `undefined` for now.)  This means `Uninhabited` is almost entirely useless. Functions need to do two things: take and return values. If a function takes a value of type `Uninhabited`, we can never call it, because we'd have to pass it a value of type `Uninhabited` and there just aren't any. And if a function returned type `Uninhabited`, there'd be no way to even write it! For this reason it's called a *phantom type*, a type which exists but we can't use it to write any useful functions. 
+`Uninhabited` is a type that contains no values!marginnote(`Uninhabited` actually does contain the special value `undefined`, which is contained by all types. But we'll ignore `undefined` for now.)  This means `Uninhabited` is almost entirely useless. Functions need to do two things: take and return values. If a function takes a value of type `Uninhabited`, we can never call it, because we'd have to pass it a value of type `Uninhabited` and there aren't any. And if a function returned type `Uninhabited`, there'd be no way to even write it! For this reason it's called a *phantom type*, a type which exists but we can't use it to write any useful functions. 
 
 But we can use phantom types in a useful way, with type constructors! Those take types, not values, so the fact that our type doesn't have any values isn't an issue. `Maybe` is a type constructor which takes one types, so we can have `Maybe Int`, `Maybe Char`, and even `Maybe Uninhabited`. We can actually make a value of type `Maybe Uninhabited`, too!
 

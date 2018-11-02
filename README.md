@@ -1,48 +1,31 @@
-To build the book, enter `wise_mans_haskell\wise_mans_haskell\`  and run:
+This is a beginner's haskell guide by me, Andre Popovitch! I welcome any typo fixes, wording changes, etc. so if you have any of these to contribute, please leave an issue. If you have ideas for additional chapters, leave an issue! You can also find me on the [Functional Programming Discord](https://discord.gg/6XQC7KA) under the name @likliklik, or at my email (`haskell@popovit.com`). I'm always happy to help answer Haskell questions to the best of my knowledge.
 
+While this is a beginner's guide, I want to cover advanced and useful topics! Here are the topics that are currently on the agenda:
 
-```
-pp -html -import=formatting/pp-macros/all.pp book.md | pandoc --toc -o build/index.html -s --template=./formatting/templates/tufte.html5
-```
+1) A chapter on the Pipes library
 
-You may need to create a `build/` folder and copy the `assets` folder into it. Requires `pandoc` and [pp](https://github.com/CDSoft/pp) to be on your path. 
+2) A chapter on concurrency and parallelism 
 
-To try to build it to a PDF (although it does not currently work) use:
+3) A chapter on writing optimized Haskell 
 
-```
-pp -pdf -import=formatting/pp-macros/all.pp book.md | pandoc -o build/book.pdf -f markdown+raw_tex --pdf-engine=xelatex --template=./formatting/templates/tufte-handout.tex -V documentclass:tufte-handout
-```
+My goal is for this to be the *definitive* resource to give a Haskell newcomer. I welcome any and all help!
 
-
-The macros we have access to are:
-
-
-
+The styling is in traditional Markdown, but for our custom typesetting we have access to the following additions!
 
 ```
-!newthought(This is a new thought)
+!newthought(Makes text small caps - I may decide to remove this entirely)
 
-!sidenote(This is a sidenote)
+!sidenote(This is a sidenote - it has a number)
 
-!marginnote(This is a margin note)
+!marginnote(This is a margin note - like a sidenote, but without a number)
 
-!figure(This is a figure caption)(./image/path/image.jpg)
+!figure(This is the caption for a figure - the link to the figure goes next. The figure will be the width of the text, without the margin)(./image/path/image.jpg)
 
-!marginfigure(This is a margin figure caption)(./image/path/image.jpg)
+!marginfigure(This is a margin figure caption. The figure goes in the margin with the margin notes.)(./image/path/image.jpg)
 
-!fullwidthfigure(This is a full-width figure caption)(./image/path/image.jpg)
+!fullwidthfigure(This is a full-width figure caption. The figure can be the full width of the text + margin)(./image/path/image.jpg)
 ```
 
-To build the test formatter in HTML, enter `wise_mans_haskell\wise_mans_haskell\formatting` and run:
 
-```
-pp -html -import=pp-macros/all.pp sample-handout.md | pandoc -o sample-handout.html -s --template=./templates/tufte.html5
-```
 
-To build the test formatter in PDF, enter that same directory and run:
-
-```
-pp -pdf -import=pp-macros/all.pp sample-handout.md | pandoc -o sample-handout.pdf -f markdown+raw_tex --pdf-engine=xelatex --template=./templates/tufte-handout.tex -V documentclass:tufte-handout
-```
-
-Note that this creates some junk folders that should not be checked in.
+The text is licensed under [this creative commons licence](https://creativecommons.org/licenses/by-nc-sa/4.0/). If this licence is too restricive for you, leave an issue or email me.
