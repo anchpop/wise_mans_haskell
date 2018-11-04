@@ -8,6 +8,8 @@ While this is a beginner's guide, I want to cover advanced and useful topics! He
 
 3) A chapter on writing optimized Haskell 
 
+4) A chapter on Template Haskell
+
 If you're knowledgable in any of these topics and are willing to answer a few questions, please shoot me an email. Any other ideas are welcome!
 
 The styling is in traditional Markdown, but for our custom typesetting we have access to the following additions!
