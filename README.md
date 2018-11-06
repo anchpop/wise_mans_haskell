@@ -1,4 +1,4 @@
-This is a beginner's haskell guide by me, Andre Popovitch! My goal is for this to be the *definitive* resource to give a Haskell newcomer. I welcome any typo fixes, wording changes, etc. so if you have any of these to contribute, please leave an issue/pull request. You can also find me on the [Functional Programming Discord](https://discord.gg/6XQC7KA) under the name @likliklik, or at my email (`andre@popovit.com`). I'm always happy to help answer Haskell questions.
+This is a beginner's Haskell guide by me, Andre Popovitch! My goal is for this to be the *definitive* resource to give a Haskell newcomer. I welcome any typo fixes, wording changes, etc. so if you have any of these to contribute, please leave an issue/pull request. You can also find me on the [Functional Programming Discord](https://discord.gg/6XQC7KA) under the name @likliklik, or at my email (`andre@popovit.ch`). I'm always happy to help answer Haskell questions.
 
 While this is a beginner's guide, I want to cover advanced and useful topics! Here are the topics that are currently on the agenda:
 
@@ -7,6 +7,8 @@ While this is a beginner's guide, I want to cover advanced and useful topics! He
 2) A chapter on concurrency and parallelism 
 
 3) A chapter on writing optimized Haskell 
+
+4) A chapter on Template Haskell
 
 If you're knowledgable in any of these topics and are willing to answer a few questions, please shoot me an email. Any other ideas are welcome!
 
