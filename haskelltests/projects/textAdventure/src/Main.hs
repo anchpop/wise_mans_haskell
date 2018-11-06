@@ -33,10 +33,11 @@ tellAdventure (StoryMessage message adventure) = do
   tellAdventure adventure
 
 tellAdventure (StoryChoice choices) = do
-  sequence . map putStrLn . map (\x -> "  " ++ (show . fst $ x) ++ ": " ++ (choice . snd $ x)) $ indexedChoices
+  sequence . map putStrLn . map choiceToString $ indexedChoices
   userChoiceIndex <- getChoice (length choices)
   tellAdventure . result . (choices !!) . (\x -> x-1) $ userChoiceIndex
   where indexedChoices = zip [1..] choices
+        choiceToString (i, c) = "  " ++ (show i) ++ ": " ++ (choice c)
   
 
 main :: IO ()
@@ -48,4 +49,4 @@ main = do
                                     "Could they be exits?"]) 
                              (StoryChoice [Choice "Probably not, better to sit here and wait for someone to find me." StoryEnd, 
                                            Choice "Hmm... I'll go explore the possible exit on my right." StoryEnd, 
-                                           Choice "I have a good feeling about light to my left" StoryEnd]) 
+                                           Choice "I have a good feeling about the light to my left" StoryEnd]) 

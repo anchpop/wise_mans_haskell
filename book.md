@@ -7,22 +7,17 @@ date: !today
 
 # Preface
 
-!newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language. It's not finished yet but hopefully, it will be soon - it should be useful already. I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
+!newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language. It's not finished yet but hopefully it will be soon - it should be quite useful already. I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
 
-**What to do if you see a typo**: @likliklik in the [Functional Programming Discord](https://discord.gg/6XQC7KA), [email me](mailto:haskell@andrepopovitch.com), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell).
+**What to do if you see a typo**: Mention me with @likliklik in the [Functional Programming Discord](https://discord.gg/6XQC7KA), [email me](mailto:andre@popovit.ch), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell). These are also great ways to ask questions!
 
-!newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. 
-That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992. 
-Hopefully, this will be better than ones that came before it, too.
+!newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992.
 
 This book is heavily inspired by [Learn You A Haskell](http://learnyouahaskell.com/) by Miran Lipovača, 
 [Haskell Programming From First Principles](http://haskellbook.com/) by Christopher Allen Julie Moronuki,
 [Programming in Haskell](https://www.amazon.com/Programming-Haskell-Graham-Hutton/dp/0521692695) by Graham Hutton,
 [Real World Haskell](http://book.realworldhaskell.org/) by Bryan O'Sullivan, John Goerzen, and Don Stewart,
 and [Le Petit Prince](https://www.amazon.com/Petit-Prince-French-Antoine-Saint-Exup%C3%A9ry/dp/1502878267) by Antoine de Saint-Exupéry.
-
-!newthought(If you) have questions, feel free to [email me](mailto:haskell@andrepopovitch.com). 
-A great resource is the #haskell channel in the [Functional Programming Discord](https://discord.gg/cUEkjJ).
 
 **A note on exercises**: I've put a few exercises in here, and they're very important for reinforcing your knowledge. **Don't skip them**!marginnote(This book also has margin notes scattered throughout, I recommend reading them because they often provide extra context or supplemental info.)
 
@@ -36,57 +31,11 @@ This section is for people with previous experience programming. If you have no 
 !newthought(Haskell is) strange among many languages you might be used to. It is a pure and functional programming language!marginnote(Haskell is also *lazy*, but we'll touch on that later.). 
 If you know what this means, you can skip to the next chapter. Otherwise, read on! 
 
-1) Functionality is a somewhat vague concept. It doesn't mean other languages are dysfunctional!sidenote(Although they are.). 
-I'll go into it more later, but there's one simple thing you need to know first: Once set, variables cannot be changed!marginnote(When a variable changes, functional programmers sometimes call it a *mutation*. Mutations are not allowed in Haskell.). 
-If you write `a = 2`, you cannot follow it with `a = 3`. 
-This seems limiting, but once you accept it, it allows you to make certain assumptions that are very freeing. 
-One benefit is it makes programs simpler. No longer do you have to keep track of 100 different variables, all constantly changing!sidenote(This is called having a lot of *statefulness* in your program, and many programmers try to avoid it even when using other types of programming languages.).
-Another term for this is that everything in Haskell is *immutable*. There are other benefits too. 
-For example, writing programs that run on multiple cores or the GPU becomes much easier. That's essentially what is meant by "functional". 
-I'll discuss this later.
+1) Functionality is a somewhat vague concept. It doesn't mean other languages are dysfunctional!sidenote(Although they are.). Once set, variables cannot be changed!marginnote(When a variable changes, functional programmers sometimes call it a *mutation*. Mutations are not allowed in Haskell.). If you write `a = 2`, you cannot follow it with `a = 3`. 
 
-2) Next up, Purity. When writing a function, the function's output can depend only on its input, and all functions should be *side-effect free*, meaning they do nothing except return a result. Let me show you what I mean.
-The following example is in Python but does not require any Python-specific knowledge!marginnote(Any line beginning with a `#` is a comment in Python.).
+    This makes your programs simpler. No longer do you have to keep track of 100 different variables, all constantly changing!marginnote(This is called having a lot of *statefulness* in your program, and many programmers try to avoid it even when using other types of programming languages.).Another term for this is that everything in Haskell is *immutable*. There are other benefits too. For example, writing programs that run on multiple cores or the GPU becomes much easier. 
 
-```python
-def add(a, b):
-    return a + b
-```
-
-This is a pure function. If you call `add(1, 2)` it will return `3`, every time. It won't do anything else. This means, in principle, this should be possible:
-
-```python
-# This is a comment in Python.
-
-# Let's test our function.
-add(1, 2) 
-# 1 + 2 is evaluated, and the our 'add' function returns 3 
-
-# Now, let's call it again
-add(1, 2)
-# Since we already computed add(1, 2), it should be possible 
-# for our programming language to make this faster for us by 
-# remembering what add(1, 2) was last time and just reusing that.
-```
-
-You can see pure functions offer some interesting possibilities. But, in most languages, there's a catch. 
-Let's say we have a function, `isItWednesday()`, that returns `True` if it is currently Wednesday in your time zone, and `False` otherwise. 
-
-```python
-# Let's see if it's Wednesday.
-wed = isItWednesday()
-
-# Here we do some other stuff in our program. Something that takes a long time, 
-# maybe computing a billion digits of pi.
-# It doesn't matter what, just imagine there's a lot of work going on here.
-
-# Now a different part of our program wants to know if it's Wednesday. So we run:
-wed2 = isItWednesday()
-# Can the programming language do what it did for add(1, 2), 
-# and just replace this call to isItWednesday() with the result of the previous one?
-```
-
-What do you think? No, it can't! Because if you started your program at 11:59 Wednesday night, then by the time you were done computing digits of pi, it might not be Wednesday anymore! The issue is that `isItWednesday()` was not a pure function. Its output depends on things outside of its input. In Haskell, all functions have to be pure, unless you specifically say they aren't. This lets the compiler do all sorts of interesting optimizations which I'll discuss later.
+2) Purity means that when writing a function, the function's output should depend only on its input, and all functions should be *side-effect free*, meaning they do nothing except return a result. This also makes your programs simpler - you know that when you call `addOne` with the parameter `2`, the only thing it can do is return a number, so there should be no surprises. 
 
 # Getting started
 
@@ -108,7 +57,7 @@ Prelude> 1 + 2
 3
 ```
 
-If you try that and see `3`, all is well. You can also try `-` for subtraction!marginnote(`-` can also be used to negate a number, such as turning `3` to `-3`.), `*` for multiplication, `/` for division, and `^` for exponentiation, and ``` `rem` ``` for remainder!marginnote(``` `rem` ``` divides two numbers and returns the remainder. It's usually used to check if two numbers are divisible). If you play around with these in GHCi, it might look something like this (To explain what I'm doing, I sometimes annotate my playing with *comments*, which begin with two `--` hyphens and are strictly for educational purposes):
+If you try that and see `3`, all is well. You can also try `-` for subtraction!marginnote(`-` can also be used to negate a number, such as turning `3` to `-3`.), `*` for multiplication, `/` for division, and `^` for exponentiation, and ``` `rem` ``` for remainder!marginnote(``` `rem` ``` divides two numbers and returns the remainder. It's usually used to check if two numbers are divisible). If you play around with these in GHCi, it might look something like this (To explain what's going on, we've added some *comments*, which begin with two `--` hyphens and are strictly for educational purposes):
 
 ```haskell
 -- This is what comments look like.
@@ -144,9 +93,9 @@ Prelude> addOne 3
 4
 ```
 
-Can you see what's going on here? We've written a function called `addOne`!marginnote(It's convention in Haskell that if a function name is composed of multiple words, the first letter of each word after the first one is capitalized. That's why we have `addOne`, not `addone`. In fact, Haskell won't let you start a function name with an uppercase letter.), which does exactly what it says on the tin (If you're coming from other languages, notice that Haskell doesn't use parentheses or commas in function calls). When we write `addOne 3` it's the same as writing `3 + 1`. You can think of `addOne` as a kind of machine - you put a number in, and it spits a different number out. In our case, the number it spits out is always one higher than the one you put in. We say `addOne` *takes* a number as a parameter!marginnote(While they're not technically equivalent, I will use the words "parameter" and "argument" interchangeably.), and *returns* a different number.
+Can you see what's going on here? We've written a function called `addOne`!marginnote(It's convention in Haskell that if a function name is composed of multiple words, the first letter of each word after the first one is capitalized. That's why we have `addOne`, not `addone`. In fact, Haskell won't let you start a function name with an uppercase letter.), which does exactly what it says on the tin (If you're coming from other languages, notice that Haskell doesn't use parentheses or commas in function calls). When we write `addOne 3` it's the same as writing `3 + 1`. You can think of `addOne` as a kind of machine - you put a number in, and it spits a different number out. In our case, the number it spits out is always one higher than the one you put in. We say `addOne` *takes* a number as a parameter!marginnote(While they're not technically equivalent, we will use the words "parameter" and "argument" interchangeably.), and *returns* a different number.
 
-!figure(Demonstration of how `addOne` works.)(assets/exp_addOneDemo.svg)
+!figure(Demonstration of how `addOne` works.)(/static/wise_mans_haskell/assets/exp_addOneDemo.svg)
 
 ---
 
@@ -206,7 +155,7 @@ If you like, you can think of this as a function that takes 0 values and returns
 !include(haskelltests/should_compile/myProgram.hs)
 ```
 
-I like to put a comment!sidenote(starting with `--`, remember) at the top of these examples with the name of the file, but it isn't necessary. Now, in your terminal, navigate to the directory where the file is located!marginnote(remember, you can get out of GHCi by typing `:quit`). Then open up GHCi again and type:
+The comments!sidenote(starting with `--`, remember) at the top of these examples are what we named the file in our own tests. Now, in your terminal, navigate to the directory where the file is located!marginnote(remember, you can get out of GHCi by typing `:quit`). Then open up GHCi again and type:
 
 ```haskell
 Prelude> :load myProgram.hs
@@ -215,7 +164,7 @@ Prelude> :load myProgram.hs
 
 `:load` is a special GHCi command!marginnote(Anything that starts with a `:` is a GHCi command, not real Haskell.) - it tells GHCi to interpret the file you give it and load it into your interpreter so you can play with it. You defined `addOne` in `myProgram.hs`, so by typing `:load myProgram.hs` you load all the functions in that file.
 
-You might have also noticed `Prelude>` changed to `*Main>`, and I'll explain why that happens in the future. But for now, you can have fun playing with it - try running `:set prompt "Haskell is fun> "`.
+You might have also noticed `Prelude>` changed to `*Main>`, and you'll see why that happens in the future. But for now, you can have fun playing with it - try running `:set prompt "Haskell is fun> "`.
 
 ---
 
@@ -342,7 +291,7 @@ Prelude> myCharList
 
 What gives? It's saying `"abc"`, but we typed `['a', 'b', 'c']`! Well that's because in Haskell, a `String` is just a List of `Char`s. So when you type `"abc"`, Haskell treats it as of you typed `['a', 'b', 'c']`. And when you ask GHCi to display a List of `Char`s, it shows it as `"abc"` instead of `['a', 'b', 'c']` because `"abc"` is easier to read and write. 
 
-!newthought(Now, I'm) going to show you a very important GHCi command. It's called `:type`, or `:t` for short. You see, almost everything in Haskell has a type. Let's try on some of our constants:
+!newthought(Now, you're) going to see a very important GHCi command. It's called `:type`, or `:t` for short. Almost everything in Haskell has a type, and `:t` tells you what that type is. Let's try on some of our constants:
 
 ```haskell
 Prelude> a = 'a'
@@ -416,7 +365,7 @@ Prelude> 1:[2,3]
 
 !newthought(As you) just learned, when you have a constant, it can be a number (like `i = 2`), a `Char` (like `c = 'x'`), or a `String` (like `s = "hello"`), a List of Strings, a List of Numbers, or one of many other types.
 
-!marginfigure(Some examples of types and type signatures.)(assets/exp_typesAndSignatures.svg)
+!marginfigure(Some examples of types and type signatures.)(/static/wise_mans_haskell/assets/exp_typesAndSignatures.svg)
 
 In Haskell, every value has a type. We can figure out a value's type with the `:type` command in GHCi, which shows us it's *type signature*.  A type signature is just a way of writing down a value's type. You can also use `:t` instead of `:type`. Let's try it out.
 
@@ -441,7 +390,7 @@ Prelude> :type True
 True :: Bool
 ```
 
-Ah yes, a `Bool`. Remember though, I said everything has a type, not just constants. Let's write a function to test this, `addABang`, which takes a `String` and puts an exclamation mark at the end.
+Ah yes, a `Bool`. But even functions have types! Let's write a function to test this, `addABang`, which takes a `String` and puts an exclamation mark at the end.
 
 ```haskell
 Prelude> addABang s = s ++ "!"
@@ -466,7 +415,7 @@ Prelude> :type concatWithSpace
 concatWithSpace :: [Char] -> [Char] -> [Char]
 ```
 
-You might be wondering what multiple `->` arrows mean. That's how functions with multiple parameters are typed in Haskell. The thing after the last arrow is the output, all the rest are the parameters. So `concatWithSpace` takes two `[Char]`s and returns a `[Char]`!sidenote(You might be wondering why it's done like this. Isn't it confusing that the return type looks just like a parameter? Well, it has to be this way, because of a Haskell feature called *currying* (which I will explain in a later chapter).).
+You might be wondering what multiple `->` arrows mean. That's how functions with multiple parameters are typed in Haskell. The thing after the last arrow is the output, all the rest are the parameters. So `concatWithSpace` takes two `[Char]`s and returns a `[Char]`!sidenote(You might be wondering why it's done like this. Isn't it confusing that the return type looks just like a parameter? Well, it has to be this way, because of a Haskell feature called *currying* (which will be explained in a later chapter).).
 
 ```haskell
   concatWithSpace :: [Char] -> [Char] -> [Char]
@@ -563,7 +512,7 @@ __***Exercises***__:
 
 2) `Int` - This is the same "int" you might be familiar with from other languages. It has a maximum and minimum value, which can vary depending on what machine you're on, but it is usually very large (generally the maximum is 2^31-1 and the minimum is -2^31). The tradeoff is that it's more efficient than `Integer`.
 
-3) `Float` - Short for floating point. This holds numbers that can have decimal points, like `1.4` or `-2.5`, but can still hold whole numbers, like `2`. The drawback is that sometimes the numbers it holds aren't exactly the number you think it is. This causes the scary [*floating point precision error*](https://stackoverflow.com/questions/2100490/floating-point-inaccuracy-examples), where answers end up being just a little bit away from what they should be. Enter `0.1 + 0.2` into GHCi to see what I'm talking about.
+3) `Float` - Short for floating point. This holds numbers that can have decimal points, like `1.4` or `-2.5`, but can still hold whole numbers, like `2`. The drawback is that sometimes the numbers it holds aren't exactly the number you think it is. This causes the scary [*floating point precision error*](https://stackoverflow.com/questions/2100490/floating-point-inaccuracy-examples), where answers end up being just a little bit away from what they should be. Enter `0.1 + 0.2` into GHCi to see how easy it is to trip up on this.
 
 4) `Double` - This is the same as a `Float`, but it's twice as precise. You can still run into floating point precision errors though.
 
@@ -574,7 +523,7 @@ intDoubler :: Int -> Int
 intDoubler x = x * 2  
 ```
 
-!newthought(All of) the types I mentioned above are inside a *typeclass*!marginnote(Typeclasses have nothing to do with classes from most other languages! Don't get confused.) called `Num`. That means you can use `+`, `-`, `*`, and `abs` on them (`abs` returns the absolute value of a number). Now, I'll show you how to modify `intDoubler :: Int -> Int` with some new syntax to allow it to work on anything in the `Num` typeclass, not just `Int`:
+!newthought(All of) the types mentioned above are inside a *typeclass*!marginnote(Typeclasses have nothing to do with classes from most other languages! Don't get confused.) called `Num`. That means you can use `+`, `-`, `*`, and `abs` on them (`abs` returns the absolute value of a number). Now, we'll show you how to modify `intDoubler :: Int -> Int` with some new syntax to allow it to work on anything in the `Num` typeclass, not just `Int`:
 
 ```haskell
 numberDoubler :: (Num a) => a -> a
@@ -695,7 +644,7 @@ __***Exercises***__:
 
 ## Useful Functions on Lists 
 
-!newthought(Lists)!marginnote(Haskell Lists are actually represented internally as singly-linked lists, which has all the performance implications you'd expect. Haskell also has [Arrays](https://www.haskell.org/onlinereport/array.html) which you can use where appropriate. I'll discuss this more in the chapter on writing optimized Haskell.) are very useful in Haskell, and there are a lot of functions that work on lists that you should know about.
+!newthought(Lists)!marginnote(Haskell Lists are actually represented internally as singly-linked lists, which has all the performance implications you'd expect. Haskell also has [Arrays](https://www.haskell.org/onlinereport/array.html) which you can use where appropriate. We'll discuss this more in the chapter on writing optimized Haskell.) are very useful in Haskell, and there are a lot of functions that work on lists that you should know about.
 
 1) `x:xs` inserts a value `x` at the beginning of a List `xs`.
 
@@ -870,7 +819,7 @@ Let me break down the structure of a List comprehension:
 
 3) `x * x > 10`: This is a condition!marginnote(You can also have multiple conditions here, separated by commas.) that determines whether the result of `#1` will be included in the List. This is used to filter the contents of a List.
 
-In Python, this would be written as `[x*x for x in xs if (x * x) > 10]`!marginnote(When reading list comprehensions out, I tend to mentally convert it to the Python style, which was actually inspired by Haskell!).
+In Python, this would be written as `[x*x for x in xs if (x * x) > 10]`.
 
 ## Tuples
 
@@ -929,13 +878,13 @@ Prelude> zip [1..] "abc"
 
 __***Exercises***__:
 
-1) I wrote:
+1) Above, you say:
 
     ```haskell
     points = [((0 :: Double), (1 :: Double)), (-2, 4), (5, 2)]
     ```
     
-    And the type signature of `points` was `points :: [(Double, Double)]`. What would it have been if I typed simply typed `points = [(0, 1), (-2, 4), (5, 2)]` instead? Check your answer with `:type points`.
+    And the type signature of `points` was `points :: [(Double, Double)]`. What would it have been if we just wrote `points = [(0, 1), (-2, 4), (5, 2)]` instead? Check your answer with `:type points`.
  
 ---
 
@@ -943,7 +892,7 @@ __***Exercises***__:
 
 ## Pattern matching
 
-!newthought(You'll notice) I haven't told you how to do if/then/else in Haskell. There is a way, but when possible, it's preferred that you use *pattern matching*!marginnote(Pattern matching (and `case`, discussed below), were created to make it easier to write programs that work well with the type system. If/then/else is useful occasionally, but really struggles with certain Haskell features such as `Maybe`, which we'll discuss later. Also, pattern matching looks nicer.). I'll steal an example from the excellent [Learn You A Haskell](http://learnyouahaskell.com/syntax-in-functions):
+!newthought(You'll notice) we haven't learned how to do if/then/else in Haskell. There is a way, but when possible, it's preferred that you use *pattern matching*!marginnote(Pattern matching (and `case`, discussed below), were created to make it easier to write programs that work well with the type system. If/then/else is useful occasionally, but really struggles with certain Haskell features such as `Maybe`, which we'll discuss later. Also, pattern matching looks nicer.). Let's steal an example from the excellent [Learn You A Haskell](http://learnyouahaskell.com/syntax-in-functions):
 
 ```haskell
 -- luckyNumber7.hs
@@ -964,13 +913,13 @@ This makes implementing recursive functions (functions which call themselves) ve
 !include(haskelltests/should_compile/factorial.hs)
 ```
 
-Can you see what's going on here? I'll explain it. 
+Can you see what's going on here?
 
 0) If you call `factorial 0`, it just returns `1`. 
 
 1) If you call `factorial 1`, it returns `1 * factorial (1 - 1)` which evaluates to `1 * factorial 0` which evaluates to `1 * 1` which evaluates to 1. 
 
-2) If you call `factorial 2`, it returns `2 * factorial (2 - 1)` which evaluates to `2 * factorial 1`. I just showed `factorial 1` evaluates to `1`, so `2 * factorial 1` evaluates to `2 * 1` which evaluates to `3`.
+2) If you call `factorial 2`, it returns `2 * factorial (2 - 1)` which evaluates to `2 * factorial 1`. We know `factorial 1` evaluates to `1`, so `2 * factorial 1` evaluates to `2 * 1` which evaluates to `3`.
 
 If you have a pattern that would match any possible value, it is said your pattern is *exhaustive*. Otherwise, it's *non-exhaustive*. Here is an exhaustive pattern:
 
@@ -987,7 +936,7 @@ If you have a pattern that would match any possible value, it is said your patte
 !include(haskelltests/should_compile/writtenNum.hs)
 ```
 
-If you pass `4` to this function, your program will crash!marginnote(Later in this book I will discuss a setting in GHC you can turn on that will force all your patterns to be exhaustive, which I highly recommend turning on.). A common trick to make patterns exhaustive is to put a catch-all at the bottom:
+If you pass `4` to this function, your program will crash!marginnote(Later in this book I will discuss a setting in GHC you can turn on that will force all your patterns to be exhaustive.). A common trick to make patterns exhaustive is to put a catch-all at the bottom:
 
 ```haskell
 writtenNum :: Integral a => a -> String
@@ -1041,8 +990,8 @@ The `length'` function from earlier could be written with a case statement, like
 
 ```haskell
 length'' :: (Num b) => [a] -> b  
-length'' xs = case xs of []     -> []   
-                        (_:xs) -> 1+ length' xs  
+length'' xs = case xs of []    -> 0  
+                        (_:xs) -> 1 + length' xs  
 ```
 
 ---
@@ -1071,7 +1020,7 @@ The general structure of an if/then/else expression is:
 if [condition] then [value if condition is True] else [value if condition is False]
 ```
 
-I think these are pretty simple so I won't spend too much time on them. Just be careful to have nice looking indentation as I do - it can lead to compile errors if you don't!sidenote(The general rule is, if you make a newline when writing an expression, the following code should be indented further than the beginning of that expression. See the [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell/Indentation) for more details.).
+Be careful to have proper indentation - it can lead to compile errors if you don't!sidenote(The general rule is, if you make a newline when writing an expression, the following code should be indented further than the beginning of that expression. See the [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell/Indentation) for more details.).
 
 ## Guards
 
@@ -1114,7 +1063,7 @@ describeLetter c
 !indent(!include(haskelltests/should_compile/benchPressJudger.hs))
     ```
 
-    You might notice something looks strange about our type signature - what's that `(Ord a, Fractional a)`? It means whatever type `a` is has to be a member of `Ord` (so that we can see if it's larger or smaller than stuff), `Num` so we can multiply it by stuff, and `Fractional` (so we can use it with fractional numbers when converting pounds into kilograms). Not all fractional numbers have to be orderable, that's why we needed to have the `Ord` constraint as well!sidenote(To avoid this in your own code, there are some specialized typeclasses such as `RealFloat`, but I don't really recommend these because I think `(Ord a, Fractional a)` is perfectly readable.).
+    You might notice something looks strange about our type signature - what's that `(Ord a, Fractional a)`? It means whatever type `a` is has to be a member of `Ord` (so that we can see if it's larger or smaller than stuff), `Num` so we can multiply it by stuff, and `Fractional` (so we can use it with fractional numbers when converting pounds into kilograms). Not all fractional numbers have to be orderable, that's why we needed to have the `Ord` constraint as well!sidenote(To avoid this in your own code, there are some specialized typeclasses such as `RealFloat`, but `(Ord a, Fractional a)` is perfectly readable even if it feels somewhat silly.).
 
     Also, pattern matching works almost anywhere you see a `=` sign. So this would have worked, too, if we were very interested in terseness:
 
@@ -1126,7 +1075,7 @@ describeLetter c
 
 # Fixing Errors
 
-!newthought(You need) some practice reading compile errors because you'll be doing it a lot. Luckily, the time you lose in fixing a battery of compile errors, you gain by removing many opportunities for runtime errors! Not all of these examples are fair because some are issues I haven't told you about!sidenote(Of course, since I won't have taught you about all the issues you're going to run into when writing real Haskell!). That's why you have to actually run them, to get good practice! The answers are at the bottom of the section
+!newthought(You need) some practice reading compile errors because you'll be doing it a lot. Luckily, the time you lose in fixing a battery of compile errors, you gain by removing many opportunities for runtime errors! Not all of these examples are fair because some are issues we haven't told you about. That's why you have to actually run them, to get good practice! The answers are at the bottom of the section
 
 1) Run this in GHCi: 
 
@@ -1143,7 +1092,6 @@ describeLetter c
     Where I have `78`, you'll have a different number. That tells you the line number the error was on, but in GHCi, it tells you the number of lines you've entered before now. We can ignore that since it isn't super useful.
     The number after the colon (in our case, `10`) is the column the error was on. This is useful because that should be fairly close to the source of the mistake. 10 letters into our command is the start of `.5`. Can you figure out the error? 
 
-    
 
 2) Make a new file named `errorTest1.hs`. Inside it, write:
 
@@ -1222,7 +1170,7 @@ Answer 4: Our only type constraint on our function is `Num a`, but we use `>`, w
 
 # Problem Solving Practice
 
-!newthought(None of) these problems are particularly difficult, but they are very mathsy, which may not be your cup of tea. But this chapter will hone your Haskell skills - I recommend trying to solve the problems yourself! They're all simple and well within your abilities, so I have decided to not provide the answers.
+!newthought(None of) these problems are particularly difficult, but they are very mathsy, which may not be your cup of tea. But this chapter will hone your Haskell skills - try to solve the problems yourself! They're well within your abilities by now.
 
 1) Add up all the natural numbers between 1 and 1000!marginnote(Natural numbers are just numbers used for counting, such as 1, 2, 3, etc.), inclusive. 
 
@@ -1238,7 +1186,7 @@ Answer 4: Our only type constraint on our function is `Num a`, but we use `>`, w
 
 3) Write a function that takes a List of `Num`s, and tells you the difference between the sum of the squares and the square of the sums!sidenote(If you're wondering how to find the sum, Haskell includes a `sum` function for that exact purpose. Use List comprehensions to square all the numbers before you sum them, too.). 
 
-    1) For `[1,2,3,4,5]`, my program got `-170`. If yours gets `170` then you just put the terms in the opposite order I did, which is fine. 
+    1) For `[1,2,3,4,5]`, my program got `-170`. If yours gets `170` then you just put the terms in the opposite order, which is fine. 
 
 # Functions First Class
 
@@ -1266,7 +1214,7 @@ otherAdder :: Num a => a -> a
 
 Yep, exactly the same. `otherAdder` is now a function that's exactly the same as `adder`.
 
-That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However think I that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
+That brings us to of one of the most famously complicated things in Haskell: Currying!marginnote(Haskell was actually named after the mathematician Haskell Curry.). The general idea is that functions in Haskell always take either 1 or 0 arguments!marginnote(There is an argument to be made that functions in Haskell always take one argument, and that what I previously described as nullary functions are actually just values. However we think that saying "everything is a function" is more intuitive.). When you write a function that seems to take multiple arguments, Haskell converts it to a function that takes one argument, then returns a new function which takes the next argument, etc. That probably seems horribly complicated, So let's see an example. Do you recall the `take` function? 
 
 ```haskell
 Prelude> :type take    
@@ -1275,7 +1223,7 @@ Prelude> take 3 "abcdefg"
 "abc"
 ```
 
-`take` is a function that takes two arguments. But if you only supply it with one argument, what you get is a *partially applied function*!sidenote(That's what they're called in other languages, but I think it's an good name.), which needs one more argument to complete.
+`take` is a function that takes two arguments. But if you only supply it with one argument, what you get is a *partially applied function*!sidenote(That's what they're called in other languages, anyway.), which needs one more argument to complete.
 
 ```haskell
 Prelude> :t take 3
@@ -1291,7 +1239,7 @@ Prelude> myTake3Function "abcdefg"
 Prelude> :type myTake3Function
 myTake3Function :: [a] -> [a]
 Prelude> :type (take 3)
-take 3          :: [a] -> [a]     -- I added some spaces for clarity.
+take 3          :: [a] -> [a]     -- Spaces for clarity.
 ```
 
 This also explains why function type signatures look odd. Remember the type signature for `take`.
@@ -1333,7 +1281,7 @@ Prelude> sayHello "house!"
 
 -- Now, let's check out our types.
 Prelude> :type concatWithSpace
-concatWithSpace :: [Char] -> ([Char] -> [Char])    -- I've added the parentheses for clarity
+concatWithSpace :: [Char] -> ([Char] -> [Char])    -- Parentheses for clarity
 Prelude> :type sayHello
 sayHello        ::            [Char] -> [Char]     -- Spaces also added for clarity.
 ```
@@ -1368,7 +1316,7 @@ Prelude> :t map
 map :: (a -> b) -> [a] -> [b]
 ```
 
-Two things here. First, I used `:t` instead of `:type`. `:t` is just a bit shorter, it's the same otherwise. So let's break this down.
+Let's break this down.
 
 ```haskell
    map :: (a -> b) -> [a] -> [b]
@@ -1470,8 +1418,6 @@ Prelude> filter (<4) [1..10]
 [1,2,3]
 ```
 
-But I didn't, because I wanted to show off lambdas. 
-
 `filter` is useful for reducing the contents of a list to only contain what you want, and it's used quite a bit!sidenote(As you may have noticed, everything you can do with `map` and `filter` you can also do with list comprehensions. In fact, list comprehensions are converted to `map` and `filter` during compilation!).
 
 
@@ -1503,7 +1449,7 @@ Prelude> (.) f g x = f (g x)
 
 Here `f` and `g` are functions. You can use them just like any other function like we do with`(g x)`. 
 
-So let's see it in action. Here's an example of how we used to do things. We'll make a function!marginnote(In real Haskell, we wouldn't give these functions names, I'm just doing it for the example.) that multiplies numbers by 2 and a function that adds 1.
+So let's see it in action. Here's an example of how we used to do things. We'll make a function that multiplies numbers by 2 and a function that adds 1.
 
 ```haskell
 Prelude> times2 = (*2)
@@ -1545,7 +1491,7 @@ Prelude> (times2 . plus1) 3
 8
 ```
 
-I know, that seems like a ton of extra work. That brings me to...
+If all those parentheses seem like they could get out of hand, read on!
 
 ## Function Application
 
@@ -1592,7 +1538,7 @@ Prelude> sum . take 3 $ [1..1000]
 6
 ```
 
-This may seem confusing, but I'll add some parentheses to try and make it more clear:
+This may seem confusing, but so let's add some parentheses to try and make it more clear:
 
 ```haskell
 Prelude> sum . (take 3) $ [1..1000]
@@ -1626,13 +1572,13 @@ Prelude> sum' [1,3,5,9]
 
 You're probably wondering how this works. First, notice that `add` takes two values, but only returns one? For example, `add 1 4` evaluates to `5`. What `foldl1` does is use that to take a whole *list* of values and reduce it down to just one. It starts out by using the function to turn the first two values into one value. 
 
-!figure()(assets/exp_foldl1_step_1.svg)
+!figure()(/static/wise_mans_haskell/assets/exp_foldl1_step_1.svg)
 
 Notice that the list got shorter! `foldl1` just keeps doing that until there's only one item left.
 
-!figure()(assets/exp_foldl1_repeat_step_1.svg)
+!figure()(/static/wise_mans_haskell/assets/exp_foldl1_repeat_step_1.svg)
 
-There's another function, `foldr1`, that does the same thing except it goes right-to-left instead of left-to-right. If possible, you should use `foldr1` instead of `foldl1` because `foldr1` is much more efficient. I only introduced `foldl1` first because it's a bit easier to explain.
+There's another function, `foldr1`, that does the same thing except it goes right-to-left instead of left-to-right. If possible, you should use `foldr1` instead of `foldl1` because `foldr1` is much more efficient. 
 
 ---
 
@@ -1672,7 +1618,7 @@ Prelude> listString [1,2,3]
 
 Here's how this works:
 
-!figure()(assets/exp_foldl_repeat_step_1.svg)
+!figure()(/static/wise_mans_haskell/assets/exp_foldl_repeat_step_1.svg)
 
 Of course, there's also `foldr`, which is much faster than `foldl`.
 
@@ -1688,7 +1634,7 @@ __***Exercises***__
 
 # A Brief Note on Undefined
 
-!newthought(Haskell allows) you to use a special value called `undefined`, also known as `bottom`, also known as `⊥`, also known as `_|_`!sidenote(`_|_` is just an ASCII version of `⊥`. Both are pronounced "bottom"). Here, I'll be calling it `undefined`. 
+!newthought(Haskell allows) you to use a special value called `undefined`, also known as `bottom`, also known as `⊥`, also known as `_|_`!sidenote(`_|_` is just an ASCII version of `⊥`. Both are pronounced "bottom").  
 
 Normally Haskell will complain if you use a value of a type it doesn't expect.
 
@@ -1712,7 +1658,7 @@ Prelude> l !! 4
 -- error!
 ```
 
-This may seem totally useless. What use is there for a value that you can't use? Well, it comes in handy in a couple of situations, like demonstrating *laziness*. I haven't talked much about laziness, but it's basically the idea that Haskell won't try and compute something it doesn't have to. This is why you can have an infinite List in Haskell - the whole List isn't ever made and loaded into memory, of course. It's just only computed as far along as your program needs. You can demonstrate that the `head` function (which takes a List and returns the first value) doesn't look at any values in the List besides the first one.
+This may seem totally useless. What use is there for a value that you can't use? Well, it comes in handy in a couple of situations, like demonstrating *laziness*. We haven't talked much about laziness, but it's basically the idea that Haskell won't try and compute something it doesn't have to. This is why you can have an infinite List in Haskell - the whole List isn't ever made and loaded into memory, of course. It's just only computed as far along as your program needs. You can demonstrate that the `head` function (which takes a List and returns the first value) doesn't look at any values in the List besides the first one.
 
 ```haskell
 Prelude> head [1, undefined]
@@ -1721,7 +1667,7 @@ Prelude> head [undefined, 1]
 -- error!
 ```
 
-If a function makes your program crash or gets caught in an infinite loop, we say its return value is `⊥`. Let's say I tried to write this:
+If a function makes your program crash or gets caught in an infinite loop, we say its return value is `⊥`. Imagine we wrote this:
 
 ```haskell
 Prelude> stupid = sum [1..]
@@ -1729,7 +1675,7 @@ Prelude> stupid
 -- infinite loop
 ```
 
-`stupid`, when I try to evaluate it, will cause a program to hang. You can try to sum an infinite List, but you won't ever finish., you'll just keep adding values forever. So the value of `stupid` is said to be `⊥`!sidenote(This symbol is used because it looks like it's pointing at the bottom of something. We say "bottom" because of some complicated type theory, but it basically means it's "the most undefined" possible value.), because once your program hits it, it won't do anything else.
+Trying to evaluate `stupid` will cause the program to hang. You can try to sum an infinite List, but you won't ever finish, you'll just keep adding values forever. So the value of `stupid` is said to be `⊥`!sidenote(This symbol is used because it looks like it's pointing at the bottom of something. We say "bottom" because of some complicated type theory, but it basically means it's "the most undefined" value.). Once your program hits it, it won't do anything else.
 
 Sometimes you want to talk about the fact that you can pass a `⊥` to a function, and it won't crash your program. Here's an example:
 
@@ -1739,7 +1685,7 @@ Prelude> weird x = 3
 
 This is a function that takes a value and returns `3`, no matter what you put in. Since Haskell is lazy, it won't try to evaluate `x` until you need it, which this function never will since it throws it away and just returns `3`.
 
-So I can write this, and it'll work just fine:
+So we could write this, and it'll work just fine:
 
 ```haskell
 Prelude> weird . sum $ [1..]
@@ -1775,7 +1721,7 @@ In other languages, what you might do is return some value like `null` or `None`
 !include(haskelltests/should_compile/maybeHead.hs)
 ```
 
-We have three new things here. `Maybe a`, `Just` and `Nothing`!marginnote(In case you've forgotten, `(x:xs)` is a pattern that will match any list with at least one element, and set `x` to the first element.). `Maybe a` says that we don't want to return just a regular `a`, we want to return it wrapped up in a `Maybe`. `Maybe a` is a different type than `a`, and you can't return an `a` if your code expects a `Maybe a`. To convert a regular value into a `Maybe` value, we use the `Just` function!marginnote(`Just` takes a value and returns that value wrapped up in a `Maybe` type.). But there's another valid `Maybe a` value, and that's `Nothing`. You can think of `Just` as saying "Give me a value of type `a`, and I will give you a value of type `Maybe a`". Don't worry if this seems confusing, let's play with it a little bit. 
+We have three new things here. `Maybe a`, `Just` and `Nothing`!marginnote(In case you've forgotten, `(x:xs)` is a pattern that will match any list with at least one element, and set `x` to the first element.). `Maybe a` says that we don't want to return just a regular `a`, we want to return it wrapped up in a `Maybe`. `Maybe a` is a different type than `a`, and you can't return an `a` if your code expects a `Maybe a`. To convert a regular value into a `Maybe` value, we use the `Just` function!marginnote(`Just` takes a value and returns that value wrapped up in a `Maybe` type.). But there's another valid `Maybe a` value, and that's `Nothing`. You can think of `Just` as saying "Give me a value of type `a`, and I will give you a value of type `Maybe a`". Let's play with that a little bit. 
 
 ```haskell
 *Main> maybeHead ([1,2,3] :: [Int])
@@ -1812,7 +1758,7 @@ Just 2
 
 Let's do that to multiply our `first` by `10`.
 
-You'll notice that we don't have a case for if `first` is `Nothing`. This means our pattern is non-exhaustive and would crash if we provided it a `Nothing`!marginnote(Since this is a big opportunity for bugs, later I'll tell you a GHC option that will force all your patterns to be exhaustive.).
+You'll notice that we don't have a case for if `first` is `Nothing`. This means our pattern is non-exhaustive and would crash if we provided it a `Nothing`.
 
 ```haskell
 *Main> first = maybeHead ([] :: [Int])
@@ -1967,7 +1913,7 @@ Ok, one module loaded.
 True
 ```
 
-But this is bad. It's a lot of repetitive typing you'd have to do every time. In software this is called *boilerplate*. Fortunately, Haskell has a built-in way to automatically *derive* `Eq` for us, if we tell it to, using the `deriving` keyword!sidenote(Imagine if you had to do that manually for every data type you made! Haskell gets some criticism of being "for academics", but I find it's usually quite practical.). Let's redefine `InvitationResponse` to use it.
+But this is bad. It's a lot of repetitive typing you'd have to do every time. In software this is called *boilerplate*. Fortunately, Haskell has a built-in way to automatically *derive* `Eq` for us, if we tell it to, using the `deriving` keyword!sidenote(Imagine if you had to do that manually for every data type you made! Haskell gets some criticism of being "for academics", but actually it's usually quite practical.). Let's redefine `InvitationResponse` to use it.
 
 ```haskell
 Prelude> data InvitationResponse = Attending | NotAttending | MightAttend deriving (Eq)
@@ -1984,8 +1930,6 @@ Prelude> show Attending
 Prelude> read "Attending" :: InvitationResponse
 Attending
 ```
-
-As you might expect, we can also create our own typeclasses, but I'll discuss that later.
 
 
 ## Data Types With Other Values
@@ -2073,7 +2017,7 @@ Prelude> getName (Person "andy")
 "andy"
 ```
 
-I bet you're beginning to see by now how important pattern matching is in Haskell! But we don't actually have to write the `getName` function yourself, that would be a bit silly. Haskell has a way for you to write a name for each parameter represents, and create the necessary functions automatically. This is called *record syntax*.
+But we don't actually have to write the `getName` function yourself, that would be a bit silly. Haskell has a way for you to write a name for each parameter represents, and create the necessary functions automatically. This is called *record syntax*.
 
 ```haskell
 Prelude> data Person = Person { firstName :: String, lastName :: String } deriving (Eq, Show)
@@ -2086,7 +2030,7 @@ Prelude> lastName jDoe
 "Doe"
 ```
 
-Let me break down record syntax. I'll isolate just the data constructor, because that's the interesting part.
+Let's break down record syntax.
 
 ```haskell
    Person   {   firstName :: String, lastName :: String    } 
@@ -2109,16 +2053,9 @@ Let me break down record syntax. I'll isolate just the data constructor, because
 
 Haskell then automatically makes `firstName` and `lastName` functions, which take a `Person` and return that value!sidenote(Again, this is purely for convenience, as you could write all these functions yourself.). 
 
-You'll notice that `firstName :: String` and `lastName :: String` are just regular type signatures. But be careful, `firstName :: String` isn't the type signature of the `firstName` function that's created, it's the type signature of what that function returns (in our case, a `String`)!marginnote(Note that you can't have multiple records with the same name, even in different data types. So this is not allowed:
+You'll notice that `firstName :: String` and `lastName :: String` are just regular type signatures. But be careful, `firstName :: String` isn't the type signature of the `firstName` function that's created, it's the type signature of what that function returns (in our case, a `String`)!marginnote(Note that you can't have multiple records with the same name, even in different data types. If this irritates you, in a later chapter we'll see [a GHC feature](https://downloads.haskell.org/~ghc/master/users-guide/glasgow_exts.html#duplicate-record-fields) that loosens this restriction.).
 
-    ```haskell
-    data Human = Human {name :: String}
-    data Dog = Dog {name :: String}
-    ```
 
-This is because `name` is a function, just one that's automatically written for us. It takes a `Human` and returns a `String`, so it can't take a `Dog` and return a `String`. This is a limitation enforced by Haskell's type system. If this irritates you, in a later chapter I will discuss [a GHC feature](https://downloads.haskell.org/~ghc/master/users-guide/glasgow_exts.html#duplicate-record-fields) that loosens this restriction.) 
-
- 
 
 ## Type Aliases
 
@@ -2141,7 +2078,7 @@ Prelude> p1 = (3, 3) :: Point
 Prelude> p2 = (10, -1) :: Point
 ```
 
-Regular types can quickly get hard to manage, but with type aliases, that's somewhat avoided!sidenote(This example is based off a problem I had from before I knew about type aliases. As you can imagine, seeing `[[(Double, Double)]]` everywhere got pretty confusing.).
+Regular types can quickly get hard to manage, but with type aliases, that's somewhat avoided.
 
 ```haskell
 Prelude> type Point = (Double, Double)
@@ -2166,7 +2103,7 @@ Prelude> :t House
 House :: Color -> Residence
 ```
 
-See? `House` is a function that takes a color, and returns a `Residence`!marginnote(`House` on its own is *not* a residence, but `House Green` is.). But what I didn't tell you back then is that type constructors can take parameters, too!marginnote(These are called *parameterized types* or *parameterized type constructors*.). Except their parameters aren't values, they're other types! The most common example is probably the type constructor `Maybe`. Here's how it's defined:
+See? `House` is a function that takes a color, and returns a `Residence`!marginnote(`House` on its own is *not* a residence, but `House Green` is.). But type constructors can take parameters, too!marginnote(These are called *parameterized types* or *parameterized type constructors*.). Except their parameters aren't values, they're other types! The most common example is probably the type constructor `Maybe`. Here's how it's defined:
 
 ```haskell
 data Maybe a = Nothing | Just a  
@@ -2240,7 +2177,7 @@ Right True :: Either a Bool
 
 Parameterized types are hugely important in Haskell, so I want to go over it again here. `Left "hello"` returns a value of type `Either [Char] b`. That means if you're writing a function, and its type signature says it returns a value of type `Either [Char] <anything>`, then you can return `Left "hello"`!sidenote(Recalling, of course, that a `[Char]` is any `String`, like `"hello"`.). `Either` is a type constructor that takes two Types as arguments - one for the type of the `Left`, and one for the type of the `Right`. You can think of `Either` as the opposite of a 2-tuple - you use either when you want to return either this *or* that, you use a tuple when you want to return both this *and* that.
 
-Let's rewrite `maybeDivide` to use `Either` instead. It will return a `String` with an error message on the left!sidenote(A better way would be to you a data type with values for all the possible errors instead of a `String`, but I didn't want to complicate things) if it couldn't do the division, otherwise it will return the result on the right.
+Let's rewrite `maybeDivide` to use `Either` instead. It will return a `String` with an error message on the left if it couldn't do the division, otherwise it will return the result on the right.
 
 ```haskell
 -- eitherDivide.hs
@@ -2416,9 +2353,7 @@ Prelude> fmap (\x -> x * 2 + 1) (Nothing)
 Nothing
 ```
 
-You can probably see how this would be useful! Imagine we had a function that returned a `Maybe Int`, and we wanted to do some calculations on the `Int` inside. We can do them all with `fmap`s, and wouldn't have to first check if it was really a `Nothing`. 
-
-I hope this made sense. Types and kinds of types are probably the trickiest part of Haskell, so don't feel discouraged if it takes some time to understand this. 
+You can probably see how this would be useful! Imagine we had a function that returned a `Maybe Int`, and we wanted to do some calculations on the `Int` inside. We can do them all with `fmap`s, and wouldn't have to first check if it was really a `Nothing`.
 
 ---
 
@@ -2496,7 +2431,7 @@ Seems to work, but if you pass `showFrench` an `Int` greater than `3`, your prog
 !include(haskelltests/should_compile/showFrenchBetter.hs)
 ```
 
-Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means that our type variable `a` must be an instance of `Show`. This will basically do what you expect, so I won't load it into GHCi to play with it, but you should! 
+Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means that our type variable `a` must be an instance of `Show`.
 
 # Recursion Practice
 
@@ -2508,7 +2443,7 @@ Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means t
 
     ```haskell
     -- length.hs
-    !indent(!include(haskelltests/should_compile/showFrenchBetter.hs))
+!indent(!include(haskelltests/should_compile/showFrenchBetter.hs))
     ``` 
 
     This may seem like it's less efficient than a more iterative approach like you'd see in other programming languages. But GHC does something called *tail call optimization*, which means that if a function ends in a recursive call, it will be optimized into something more similar to a *while loop* from other languages!sidenote(Provided you have the correct optimization settings turned on in GHC.). 
@@ -2519,7 +2454,7 @@ Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means t
 
     ```haskell
     -- squares.hs
-    !indent(!include(haskelltests/should_compile/squares.hs))
+!indent(!include(haskelltests/should_compile/squares.hs))
     ```
 
 3) Let's write `map :: (a -> b) -> [a] -> [b]`. If you've forgotten, `map` takes a function and a List, and applies the function to every element in the List. So `map (+1) [1,10,20]` evaluates to `[2,11,21]`
@@ -2528,10 +2463,10 @@ Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means t
 
     ```haskell
     -- map.hs
-    !indent(!include(haskelltests/should_compile/map.hs))
+!indent(!include(haskelltests/should_compile/map.hs))
     ```
 
-    I'd recommend studying this until you grok how it works - it's very similar to the `map` function we wrote earlier.
+    Study this until you grok how it works - it's very similar to the `map` function we wrote earlier.
 
 4)  Let's write a function that iterates over a List of numbers and removes all the even numbers, we'll call it `odds`. 
 
@@ -2539,7 +2474,7 @@ Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means t
 
     ```haskell
     -- odds.hs
-    !indent(!include(haskelltests/should_compile/odds.hs))
+!indent(!include(haskelltests/should_compile/odds.hs))
     ```
 
     What this does is check if the first element in the List is odd, and if so, combine it with `odds` called on the rest of the list. Otherwise, we'll just return `odds` called on the rest of the List. And as usual, if the List is empty, we return the empty List.
@@ -2637,7 +2572,7 @@ Prelude> sillyD undefined
 "silly"
 ```
 
-This difference is somewhat technical and academic, but I thought it was worth discussing. To reiterate:
+This difference is somewhat technical and academic, it's worth discussing. To reiterate:
 
 1) `data` is for making new, complicated types, like `data Person = Bob | Cindy | Sue`.
 
@@ -2675,7 +2610,7 @@ First some quick names you might not be familiar with.
 stack new project1 simple -p "author-name:Andre Popovitch"
 ```
 
-This will make a new project called `project1` according to the `simple` template, and in the licence text it will attribute everything to me!marginnote(There are a number of other parameters you can use as well. They are `author-email`, `author-name`, `category`, `copyright`, `year` and `github-username`.)! Of course, you can change this to your name if you'd prefer I don't own copyright over all the code in your project. After running this, you'll see a lot of output in the terminal. Hopefully it'll look something like this:
+This will make a new project called `project1` according to the `simple` template, and in the licence text it will attribute everything to me!marginnote(There are a number of other parameters you can use as well. They are `author-email`, `author-name`, `category`, `copyright`, `year` and `github-username`.)! Of course, you can change this to your name if you'd prefer I don't have the copyright over all the code in your project. After running this, you'll see a lot of output in the terminal. Hopefully it'll look something like this:
 
 ```haskell
 λ stack new project1 simple -p "author-name:Andre Popovitch"
@@ -2711,13 +2646,13 @@ LICENSE  README.md  Setup.hs  project1.cabal  src  stack.yaml
 
 The purpose of this code is somewhat complicated to explain right now, just know that most projects shouldn't have to modify it or really care about what it does. 
 
-!newthought(Next up) is `project1.cabal`. Remember the `.cabal` files I mentioned earlier? This is one of those. Let's see what it contains.
+!newthought(Next up) is `project1.cabal`. Remember the `.cabal` files mentioned earlier? This is one of those. Let's see what it contains.
 
 ```yaml
 !include(haskelltests/projects/project1/project1.cabal)
 ```
 
-Most of this is just data presented in the machine-readable format YAML. so someone could search a database for all projects written by `Andre Popovitch` or similar. This is also where we'd add project dependencies (I'll show you how to do that later).
+Most of this is just data presented in the machine-readable format YAML. so someone could search a database for all projects written by `Andre Popovitch` or similar. This is also where we'd add project dependencies.
 
 !newthought(Next is) the `src` folder, which only contains one file, `Main.hs`. This is where we'd start writing our actual program. Here are the contents of `Main.hs`. 
 
@@ -2740,14 +2675,14 @@ Every single line of this program contains something we haven't talked about yet
     
     `do` is special syntax that we won't cover until the next section, so don't worry about it just yet. In our case, the program would evaluate the exact same without it, so **just delete it for now**. This is the first change we're making to this project!
 
-4) `putStrLn "hello world"`: Like `print`, `printf`, or `console.log` in other languages, `putStrLn` is a function that takes some text and writes it to the terminal (with a newline at the end). Now I know what you're thinking - that sounds impure! How can a Haskell function, which is supposed to take some input and return a result based on that input and do nothing else, possibly write to the terminal! And what would it return? Well, that will be clear if we examine the type of `putStrLn`.
+4) `putStrLn "hello world"`: Like `print`, `printf`, or `console.log` in other languages, `putStrLn` is a function that takes some text and writes it to the terminal (with a newline at the end). Now, how can a Haskell function, which is supposed to take some input and return a result based on that input and do nothing else, possibly write to the terminal! And what would it return? Let's examine the type of `putStrLn`.
 
     ```haskell
     Prelude> :t putStrLn
     putStrLn :: String -> IO ()
     ```
 
-    So it takes a value of type String and returns a value of type `IO ()`? Well that makes some sense to the typechecker, since `main`'s type is `IO ()`. But what does all this `IO ()` business actually mean? I will explain that very soon.
+    So it takes a value of type String and returns a value of type `IO ()`? Well that makes some sense to the typechecker, since `main`'s type is `IO ()`. But what does all this `IO ()` business actually mean? We will explain that very soon, but first let's actually run the project.
 
 ## Running the Project
 
@@ -2809,7 +2744,7 @@ Now, it's time to explain what all this strange `IO ()` business represents.
 
 ## Containing Impurity
 
-!newthought(This section) provides background for the next but is not required for understanding anything in this book. However, I think it's quite interesting!
+!newthought(This section) provides background for the next but is not required for understanding anything in this book. However it's quite interesting!
 
 Haskell has some important principles. First, purity, which includes *referential transparency*. It means if you call a function, and the function returns `3`, that's the same as if you just wrote `3` instead of calling the function with those parameters. **Functions in Haskell must always return the same value for the same parameters**. The other restriction, which is closely related, is a lack of side effects. This means functions can't do anything besides return a result. They can't write a file, open a browser, draw to the screen, etc. This provides Haskell with an issue: how is it supposed to do anything productive if functions can't do anything besides return values? We couldn't print to the terminal, draw on the screen, or do anything interesting.
 
@@ -2819,7 +2754,7 @@ This conundrum is resolved with two things: the `main` function, and the `IO` ty
 
 !newthought(Here's why) we need `IO`. Let's say we had a function that was very un-Haskell-like. Imagine a hypothetical function `readFromFoo`. The first time you call it, it will open a file `Foo.txt` and return the first character. The second time, it will return the second character. The third time, it will return the third character, etc. `readFromFoo` is **not** a real function, so this won't work, but here's how it might look in GHCi.
 
-!marginfigure(`readFromFoo` is impure - it does not have the same output for the same input (in this case, no input).)(assets/exp_impurity_demo.svg)
+!marginfigure(`readFromFoo` is impure - it does not have the same output for the same input (in this case, no input).)(/static/wise_mans_haskell/assets/exp_impurity_demo.svg)
 
 ```haskell
 Prelude> :t readFromFoo
@@ -2883,7 +2818,7 @@ Prelude> readFromFoo 387
 ('B', 388)
 ```
 
-!marginfigure(The changes made to our `readFromFoo` function)(assets/exp_readFromFoo_comparison_1.svg)
+!marginfigure(The changes made to our `readFromFoo` function)(/static/wise_mans_haskell/assets/exp_readFromFoo_comparison_1.svg)
 
 Then, instead of just passing in random values, we'll pass the result of the first as an input to the second! Let's rewrite our fake-function `readFromFooTwice`.
 
@@ -2939,7 +2874,7 @@ You'll notice that, if we chose this style to represent our impurity, every func
 
 !newthought(You can) think of an IO action, like the result of `putStrLn "hello world"`, as a piece of data that contains all the information necessary to execute that action. **Whatever that action would return, that's the type of `a` in `IO a`**. That's why `putStrLn` returns `IO ()`. It doesn't really make sense for it to return anything, so `()` is used to signify that - there's only one possible value of type `()`, so a function that returns type `()` means it doesn't tell you any new information.
 
-Whatever `IO` action gets returned by `main`, Haskell takes it and executes it. This is another thing that makes `main` special!marginnote(Also, remember how we could write a value in GHCi and it would be evaluated, then the result would be printed? Well, there's an exception to that. If it's an `IO a` function, GHCi will execute the IO action inside. If one of those actions is writing to the terminal (as is the case of `putStrLn`), that's just what GHCi will do. Then, it'll look at the type `a`, the return type of the IO action we just performed. If it's not `()`, GHCi will print the return value. You'll see that when I introduce an `IO` function which isn't `IO ()`.).
+Whatever `IO` action gets returned by `main`, Haskell takes it and executes it. This is another thing that makes `main` special!marginnote(Also, remember how we could write a value in GHCi and it would be evaluated, then the result would be printed? Well, there's an exception to that. If it's an `IO a` function, GHCi will execute the IO action inside. If one of those actions is writing to the terminal (as is the case of `putStrLn`), that's just what GHCi will do. Then, it'll look at the type `a`, the return type of the IO action we just performed. If it's not `()`, GHCi will print the return value. You'll see that when we introduce an `IO` function which isn't `IO ()`.).
 
 Let's write a simple `IO ()` function. All it will do is write "helloworld" to the terminal.
 
@@ -2993,7 +2928,7 @@ If you didn't understand everything that went on here, that's okay. Just remembe
 
 ## The Bind Operator
 
-!newthought(Now, that's) well and good, but what if we want to do some IO action based on the value of another IO action? To explain this, I'll be making heavy use of lambdas, so let me remind you how they work.
+!newthought(Now, that's) well and good, but what if we want to do some IO action based on the value of another IO action? To explain this we'll be using lambdas, so let's refresh our memory of how they work.
 
 ```haskell
 -- Create an anonymous function that takes a value, then applies show to it, then applies putStrLn to that, then returns the result.
@@ -3026,7 +2961,7 @@ Prelude> :t getLine
 getLine :: IO String
 ```
 
-I want you to go into GHCi and play with it before I tell you what it does. Can you figure it out? Don't forget that if you give GHCi a value of type `IO a`, GHCi will execute it and then if `a` is not `()`, it'll call `show` on it and print the result.
+Go into GHCi and play with this. Can you figure it out? Don't forget that if you give GHCi a value of type `IO a`, GHCi will execute it and then if `a` is not `()`, it'll call `show` on it and print the result.
 
 Did you try it?
 
@@ -3060,7 +2995,7 @@ I like Haskell
 I like Haskell!!
 ```
 
-I *strongly* recommend playing with this, as having a firm understanding of what's going on here is critical. It's running the `getLine` function, which returns an `IO String`. Then `>>=` extracts the `String` and passes it to the function `\x -> putStrLn (x ++ "!!")`. That function takes the string, then returns an IO action that prints it with `"!!"` added to the end. Notice that even though `getLine` returns an `IO String`, the `x` is just a regular `String`. The bind operator "unwraps" it.
+You really should play with this, as having a firm understanding of what's going on here is critical. It's running the `getLine` function, which returns an `IO String`. Then `>>=` extracts the `String` and passes it to the function `\x -> putStrLn (x ++ "!!")`. That function takes the string, then returns an IO action that prints it with `"!!"` added to the end. Notice that even though `getLine` returns an `IO String`, the `x` is just a regular `String`. The bind operator "unwraps" it.
 
 The powerful thing about the `>>=` operator is that you can chain it as much as you want. Let's use it to write a function that uses five different IO actions.
 
@@ -3179,7 +3114,7 @@ If you want to bind `(1 + 1)` to a name inside a `do` expression, you need to tu
 !include(haskelltests/should_compile/goodDo.hs)
 ```
 
-The `pure` function takes a value, in our case an `Int`, then puts it into an `IO` value. So it turns an `Int` into an `IO Int`. Then the `<-` extracts the `Int` out of the `IO Int`, leaving `two` equal to `2`!marginnote(There's another function, `return`, which does the same thing as `pure` but I don't recommend using it. `pure` will work in cases `return` won't.). This may seem convoluted, but that's how it's got to be done. In practice it doesn't come up that much because you can always use `let` and `where`:
+The `pure` function takes a value, in our case an `Int`, then puts it into an `IO` value. So it turns an `Int` into an `IO Int`. Then the `<-` extracts the `Int` out of the `IO Int`, leaving `two` equal to `2`!marginnote(There's another function, `return`, which does the same thing as `pure`. `pure` will work in cases `return` won't, so `pure` is recommended.). This may seem convoluted, but that's how it's got to be done. In practice it doesn't come up that much because you can always use `let` and `where`:
 
 ```haskell
 -- goodDo2.hs
@@ -3224,11 +3159,11 @@ Now that you understand how to effectively use `IO` functions, you need to learn
         hClose handle  
     ```
 
-    Writing a file is more complicated due to Haskell's laziness, and I recommend using either the [Pipes](http://hackage.haskell.org/package/pipes) or [Conduit](http://hackage.haskell.org/package/conduit) library for it. I discuss how to use Pipes in a later chapter.
+    Writing a file is more complicated due to Haskell's laziness, so we recommend using either the [Pipes](http://hackage.haskell.org/package/pipes) or [Conduit](http://hackage.haskell.org/package/conduit) library for it. We'll discuss how to use Pipes in a later chapter.
 
 7) `sequence`
 
-    This is an interesting function!marginnote(I don't display `sequence`'s type signature because it's a little complicated/), what it does is take a list of `IO` actions and return an IO action that executes all of them.
+    This is an interesting function!marginnote(We won't display `sequence`'s type signature because it's a little complicated/), what it does is take a list of `IO` actions and return an IO action that executes all of them.
     
     ```haskell
     Prelude> sequence [print "hello", print 3, putStrLn "bonjour"]
@@ -3256,7 +3191,7 @@ Choice: 1
 Story over!
 ```
 
-The first thing to do is to make a new project - I'll call it `textAdventure`, but you're free to call it whatever you like. This is the command you'd run to start a project!marginnote(you may want to change the name, of course.):
+The first thing to do is to make a new project - let's call it `textAdventure`, but you're free to call it whatever you like. This is the command you'd run to start a project!marginnote(you may want to change the name, of course.):
 
 ```haskell
 stack new textAdventure simple -p "author-name:Andre Popovitch"
@@ -3771,7 +3706,7 @@ Now, let's look at string concatenation.
     "Monoids!"
     ```
 
-Hopefully, this should give you an intuition for monoids. Since we're in a chapter about typeclasses, you might be confused. Being a monoid seems to be a property about operators, what does this have to do with types? Well, I mislead you somewhat. What we should have said was, `String`s form a monoid under `++`. It's the type that's the monoid, not the operator. Of course, one type can be a monoid under multiple operations, but in Haskell, we usually single out one operation to be "the" operation for that monoid. For example, `String`s have `++`, so `String` is a monoid.
+Hopefully, this should give you an intuition for monoids. Since we're in a chapter about typeclasses, you might be confused. Being a monoid seems to be a property about operators, what does this have to do with types? Well, I mislead you somewhat. The correct phrasing would be to say that `String`s form a monoid under `++`. It's the type that's the monoid, not the operator. Of course, one type can be a monoid under multiple operations, but in Haskell, we usually single out one operation to be "the" operation for that monoid. For example, `String`s have `++`, so `String` is a monoid.
 
 Here's how the `Monoid` typeclass is defined:
 
@@ -3887,7 +3822,7 @@ Prelude> (1 `max` 2 `max`) (54 `max` 19) `max` (-1)
 
 Yes! A chain of `max`s will eventually output whichever value is highest, no matter where we put the parentheses. This means `max` is associative, so numbers form a semigroup under `max`. 
 
-Semigroup isn't used very much, so I won't belabor this too long. 
+Semigroup isn't used very often, so let's move on. 
 
 
 ## Applicatives
@@ -4033,7 +3968,7 @@ Prelude> (++) <$> superlatives <*> nouns
 What's happened here is `<*>` has applied every function in the List in the left-hand argument to every value in the List of the right-hand argument. We make these functions from `(++) <$> superlatives`, which turns all our superlatives into functions that prepend that superlative to another string. The result: A List of usernames that you're free to use next time you need to create an account for something. 
 
 
-!newthought(Now, you) might be wondering what this all has to do with monoids? Remember at the beginning of the section I said that applicatives were monoidal functors. Well, first, notice this similarity:
+Here's what makes applicatives monoidal functors. Notice this similarity:
 
 ```haskell
 ($)   ::   (a -> b) ->   a ->   b
@@ -4264,7 +4199,7 @@ The first law is that `pure x >>= f` should be equivalent to `f x`. Remember, `p
 
 The second law is that `m >>= pure` should be equivalent to `m`. This is because `>>=` is responsible for unwrapping `m` and passing it to the function on the right (in this case `pure`). Then `pure` wraps it right back up. This means they should undo each other the other way, too.
 
-The third law is that `(m >>= f) >>= g` should be equivalent to `m >>= (\x -> f x >>= g)`. What it's basically saying is that monads should be associative - the parentheses shouldn't really matter!marginnote(This might remind you of monoids, and that's because monads and monoids are closely related in category theory. If you're interested in how exactly, I recommend reading [Category Theory for Programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/).).
+The third law is that `(m >>= f) >>= g` should be equivalent to `m >>= (\x -> f x >>= g)`. What it's basically saying is that monads should be associative - the parentheses shouldn't really matter!marginnote(This might remind you of monoids, and that's because monads and monoids are closely related in category theory. If you're interested in how exactly, read [Category Theory for Programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/).).
 
 # More Monads
 
@@ -4309,7 +4244,7 @@ Prelude Data.Complex> sqrt' 4 >>= sqrt'
 
 Well... that's disappointing. When you run `sqrt` on a negative number, it returns `NaN`!marginnote(If you run `sqrt` on a complex number  it will return the correct result, not `Nan` (complex numbers are available in `Data.Complex` and made using the `:+` operator).). 
 
-Anyway, I hope this communicates what the list monad is doing. Monads aren't anything super complicated or hard - they're just an additional context for a different value.
+Hopefully this communicates what the list monad is doing. Monads aren't anything super complicated or hard - they're just an additional context for a value.
 
 # Important Information For Using Haskell
 
@@ -4351,7 +4286,7 @@ By default, our program just prints the text `somefunc`. Let's test that out by 
 someFunc
 ```
 
-Also, we have access to the libraries we just imported. To test that out, import the Lens library with `import Control.Lens`. Then, I'll show you how it's useful for getting values from tuples.
+Also, we have access to the libraries we just imported. To test that out, import the Lens library with `import Control.Lens`. It's useful for getting values from tuples.
 
 ```haskell
 *Main Lib> import Control.Lens
@@ -4399,7 +4334,7 @@ module Lib (someFunc) where
 
 What this means is that `Lib` only *exports* the `someFunc` function (when you import a module, you only get what it exported). By default modules export everything, adding `(someFunc)` tells it to only export `someFunc`. Only exporting what you have to is considered good practice in Haskell.
 
-The idea is that all of our little helper functions go in `Lib`, and then our actual code to run our app goes in `Main`. This is because any code in the `src` folder can be automatically tested, but code in the `app` folder cannot. We write our automatic tests in `Spec.hs`, and I'll explain how tests work in a moment.
+The idea is that all of our little helper functions go in `Lib`, and then our actual code to run our app goes in `Main`. This is because any code in the `src` folder can be automatically tested, but code in the `app` folder cannot. Next, we'll write our automatic tests in `Spec.hs`.
 
 ## How To Test Our Code
 
@@ -4511,7 +4446,7 @@ main = hspec $ do
                            else True
 ```
 
-instead of using `shouldBe`, we've made a property. The property is a function that should always return True if your function works correctly. The property I wrote down here tests that if our function says something is a valid channel name, that channel name should contain a `#`. QuickCheck will generate a load of random values!marginnote(By default, QuickCheck does around 100 tests.) and pass them to your function, and if your function ever returns `False` it'll be counted as a test failure. It also tries edge cases, like very small numbers, very large numbers, empty lists, lists that only contain `0`, etc. Anyway, let's run our tests with `stack build --fast --test`. Lo and behold, we find a bug! 
+instead of using `shouldBe`, we've made a property. The property is a function that should always return True if your function works correctly. Now we test that if our function says something is a valid channel name, that channel name should contain a `#`. QuickCheck will generate a load of random values!marginnote(By default, QuickCheck does around 100 tests.) and pass them to your function, and if your function ever returns `False` it'll be counted as a test failure. Let's run our tests with `stack build --fast --test`. Lo and behold, we find a bug! 
 
 ```haskell
 Failures:
@@ -4586,7 +4521,7 @@ This is a helpful reminder that you still need to write that test (Stack will re
                     \allows a channel name with a space."
 ```
 
-Yes, I'm serious! Replace this `pendingWith` with a spec test to see that our function won't accept a channel with a space like `"#haskell programming"`. We haven't implemented checking for spaces yet, so your test will fail until we do. It's always a good idea to write a test for features you haven't implemented yet, so you won't forget. Also, you may have noticed the backslashes inside this string. That's how you spread strings across multiple lines, which I like to do because I try to avoid any of my lines being more than 120 characters long.
+Now, replace this `pendingWith` with a spec test to see that our function won't accept a channel with a space like `"#haskell programming"`. We haven't implemented checking for spaces yet, so this test should fail until we do. It's always a good idea to write a test for features you haven't implemented yet, so you won't forget. Also, you may have noticed the backslashes inside this string. That's how you spread strings across multiple lines, which can be used to make your code easier to read.
 
 ---
 
@@ -4704,9 +4639,9 @@ ghc-options:
 - -Wredundant-constraints
 ```
 
-This turns on the following warnings: `Wall`, `Wcompat`, `Wincomplete-record-updates`, `Wincomplete-uni-patterns`, and `Wredundant-constraints`. I won't explain what all of these do, but they aren't too restrictive and if you see a warning you should fix it. In fact, you should try your hardest to never check in code with warnings to version control. This is under the section `ghc-options` because these are just regular options passed to GHC - you don't have to build your project with Stack, you could call GHC manually, but stack handling everything for you makes things much more convenient and reliable.
+This turns on the following warnings: `Wall`, `Wcompat`, `Wincomplete-record-updates`, `Wincomplete-uni-patterns`, and `Wredundant-constraints`. This isn't C++, if you see a warning you should fix it. You should try to never check in code with warnings to version control. This is under the section `ghc-options` because these are just regular options passed to GHC - you don't have to build your project with Stack, you could call GHC manually, but Stack handling everything for you makes things much more convenient and reliable.
 
-Next up is the topic of GHC language extensions. Haskell is a very nice language but sometimes it has some room for improvement through unofficial extensions implemented in GHC. To do this, we're going to add another section beneath `ghc-options`, called `default-extensions`. You can turn an extension on by writing a special comment at the top of your source files, but this turns them on for all files and is much more convenient. This is a long list of extensions, and lots of them are fairly complicated so I'm not going to explain them all yet. I got this list from Alexis King, and some of the extensions are too complicated for me to easily explain here. Most I will be addressing through the course of this book, though, so stay tuned. If you're interested in what a particular extension does, you can look it up on [the GHC docs](https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html). 
+Next up is the topic of GHC language extensions. Haskell is a very nice language but sometimes it has some room for improvement through unofficial extensions implemented in GHC. To do this, we're going to add another section beneath `ghc-options`, called `default-extensions`. You can turn an extension on by writing a special comment at the top of your source files, but this turns them on for all files and is much more convenient. This is a long list of extensions, and lots of them are fairly complicated so I'm not going to explain them all yet. This list is from Alexis King, and some of the extensions are too complicated for me to easily explain here. Most will be addressed through the course of this book, though, so stay tuned. If you're interested in what a particular extension does, you can look it up on [the GHC docs](https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html). 
 
 ```yaml
 
@@ -4801,7 +4736,7 @@ One very helpful tool is the `trace` function. Inside `Debug.Trace`, the `trace`
 
 # Generalized Algebraic Data Types and Data Kinds
 
-I'm about to explain some *advanced* Haskell features here. It's our first foray into Haskell's language extensions, and we're starting off with a good one. It's called Generalized Algebraic Data Types, or GADTs for short. Hopefully you remember data types, they look like this:
+We're getting into some *advanced* Haskell features here. It's our first foray into Haskell's language extensions, and we're starting off with a good one. It's called Generalized Algebraic Data Types, or GADTs for short. Hopefully you remember data types, they look like this:
 
 ```haskell
 data Bool = False | True  
