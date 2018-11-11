@@ -1,5 +1,5 @@
-addone :: Int -> Int
-addone x = x + 1
+addOne :: Int -> Int
+addOne x = x + 1
 
-addtwo :: Int -> Int
-addtwo x = addone (addone x)
+addTwo :: Int -> Int
+addTwo x = addOne (addOne x)
