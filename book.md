@@ -1166,7 +1166,7 @@ Answer 2: All declarations must start in the same column in Haskell. Having some
 
 Answer 3: We have `foo = a + a`, but we need to have `foo a = a + a`. Otherwise, Haskell has no idea where `a` is coming from. Same issue for `bar`.
 
-Answer 4: Our only type constraint on our function is `Num a`, but we use `>`, which is given to us by `Ord`, not `Num`!marginnote(This commons source of confusion stems from the fact that not all numbers can be ordered, like complex numbers.).
+Answer 4: Our only type constraint on our function is `Num a`, but we use `>`, which is given to us by `Ord`, not `Num`!marginnote(This common source of confusion stems from the fact that not all numbers can be ordered, like complex numbers.).
 
 # Problem Solving Practice
 
