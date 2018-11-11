@@ -101,7 +101,9 @@ Can you see what's going on here? We've written a function called `addOne`!margi
 
 __***Exercises***__:
 
-1) Write a function that adds two to a number, called `addTwo`. 
+1) Write a function that adds two to a number, `addTwo`. 
+
+2) Write a function that adds multiplies a number by two, called `timesTwo`. 
 
 ---
 
@@ -632,11 +634,15 @@ The result is a function that can double anything in the `Num` typeclass, which 
 
     That's right, this one involves two different typeclasses. If you have more than one typeclass in your function's type signature, they should have `()` parentheses around them and be separated by commas. You can describe this function as taking an Integral and returning a Num.
 
+6) `Fractional` - this is the typeclass for numbers that don't have to be whole numbers. `Fractional` contains both `Float` and `Double`.
+
 ---
 
 __***Exercises***__:
 
 1) What do you think the type signature of `+` is? Type `:type (+)` to check your answer. 
+
+2) What do you think the type signature of `/` is? Type `:type (/)` to check your answer. 
 
 ---
 
@@ -1166,7 +1172,7 @@ Answer 2: All declarations must start in the same column in Haskell. Having some
 
 Answer 3: We have `foo = a + a`, but we need to have `foo a = a + a`. Otherwise, Haskell has no idea where `a` is coming from. Same issue for `bar`.
 
-Answer 4: Our only type constraint on our function is `Num a`, but we use `>`, which is given to us by `Ord`, not `Num`!marginnote(This common source of confusion stems from the fact that not all numbers can be ordered, like complex numbers.).
+Answer 4: Our only type constraint on our function is `Num a`, but we use `>`, which is given to us by `Ord`, not `Num`!marginnote(This commons source of confusion stems from the fact that not all numbers can be ordered, like complex numbers.).
 
 # Problem Solving Practice
 
