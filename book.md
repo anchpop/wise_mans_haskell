@@ -1738,7 +1738,7 @@ See? No more crash. But we have an issue: our output isn't an `Int` anymore, it'
 first :: Maybe Int
 ```
 
-This means we've lost our ability to do Math on it. `Maybe Int` is a different type than `Int`, and we can't add, subtract, multiply, or do anything else to it. However, luckily, `Maybe` plays nice with pattern matching. Let's write a function that takes a `Maybe Int`, and returns a `Maybe Int` with the number increased by `1`. If you pass it a `Nothing`, it'll return `Nothing`. We'll also include our `maybeHead` function from earlier just to have them in the same file.
+This makes it a bit less convenient. `Maybe Int` is a different type than `Int`, and we can't add, subtract, multiply, or do anything else to it. In order to work around thi s we can use pattern matching. We'll write a function that takes a `Maybe Int` and increments the number inside by `1`. If you pass it a `Nothing`, it'll return `Nothing`. We'll also include our `maybeHead` function from earlier just to have them in the same file.
 
 
 ```haskell
@@ -1746,7 +1746,7 @@ This means we've lost our ability to do Math on it. `Maybe Int` is a different t
 !include(haskelltests/should_compile/maybeAddOne.hs)
 ```
 
-Time to see it in action!
+And here's how it works:
 
 ```haskell
 *Main> first = maybeHead ([1,2,3] :: [Int])
@@ -1756,7 +1756,13 @@ Just 1
 Just 2
 ```
 
-Let's do that to multiply our `first` by `10`.
+We can also use `case` expressions to avoid writing a whole function. As an example, let's quickly multiply `first` by `10`:
+
+```haskell
+*Main> first = maybeHead ([1,2,3] :: [Int])
+*Main> case first of (Just x) -> Just (x*10)
+Just 10
+```
 
 You'll notice that we don't have a case for if `first` is `Nothing`. This means our pattern is non-exhaustive and would crash if we provided it a `Nothing`.
 
@@ -1766,14 +1772,13 @@ You'll notice that we don't have a case for if `first` is `Nothing`. This means 
 --- error!
 ```
 
-
-!newthought(We don't) have to be super specific about what types our `Maybe` can use. Remember how we did `Maybe Int`? We could just as easily have changed the type signature to look like this:
+!newthought(Type constraints) are allowed when using `Maybe`. We wrote `Maybe Int`, but we could have used the following instead:
 
 ```haskell
 maybeAddOne :: (Num a) => Maybe a -> Maybe a
 ```
 
-Which is better because it's more general. If this seems confusing, don't worry, in the next chapter we'll address it more. 
+Which is better because it's more general, since it will add `1` to any number instead of specifically `Int`s. We have to have the `Num a` constraint because we intend on doing arithmetic with the number.
 
 ---
 
@@ -1804,7 +1809,7 @@ __***Exercises***__:
     neck (_:x:_) = x
     ```
     
-    Rewrite it to return a `Maybe a` instead of an `a`, and not crash when provided a list with less than two elements.
+    Rewrite it to return a `Maybe a` instead of an `a`, and not return `Nothing` when provided a list with less than two elements.
 
 ---
 
@@ -1921,7 +1926,7 @@ Prelude> Attending == Attending
 True
 ```
 
-That's much better. We should also add `Show` and `Read`, because they make sense here!sidenote(The typeclasses you can automatically derive are `Eq`, `Ord`, `Enum`, `Bounded`, `Show`, and `Read`.).
+That's much better. We should also add `Show` and `Read`, because they make sense here!sidenote(By default, the typeclasses you can automatically derive are `Eq`, `Ord`, `Enum`, `Bounded`, `Show`, and `Read`.).
 
 ```haskell
 Prelude> data InvitationResponse = Attending | NotAttending | MightAttend deriving (Eq, Show, Read)
@@ -4644,7 +4649,6 @@ This turns on the following warnings: `Wall`, `Wcompat`, `Wincomplete-record-upd
 Next up is the topic of GHC language extensions. Haskell is a very nice language but sometimes it has some room for improvement through unofficial extensions implemented in GHC. To do this, we're going to add another section beneath `ghc-options`, called `default-extensions`. You can turn an extension on by writing a special comment at the top of your source files, but this turns them on for all files and is much more convenient. This is a long list of extensions, and lots of them are fairly complicated so I'm not going to explain them all yet. This list is from Alexis King, and some of the extensions are too complicated for me to easily explain here. Most will be addressed through the course of this book, though, so stay tuned. If you're interested in what a particular extension does, you can look it up on [the GHC docs](https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html). 
 
 ```yaml
-
 ghc-options:
 - -Wall
 - -Wcompat
