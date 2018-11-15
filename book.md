@@ -9,7 +9,7 @@ date: !today
 
 !newthought(I'm Andre Popovitch). This is my book on learning Haskell, an excellent functional programming language. It's not finished yet but hopefully it will be soon - it should be quite useful already. I assume some programming knowledge, but nothing too in depth. If you've played with Python or Javascript and know how to open a command prompt/terminal, that'll be plenty. 
 
-**What to do if you see a typo**: Mention me with @likliklik in the [Functional Programming Discord](https://discord.gg/6XQC7KA), [email me](mailto:andre@popovit.ch), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell). These are also great ways to ask questions!
+**What to do if you see a typo**: Message me on [Twitter](https://twitter.com/PopovitchAndre?lang=en), mention me with @likliklik in the [Functional Programming Discord](https://discord.gg/6XQC7KA), [email me](mailto:andre@popovit.ch), or leave an issue on [the GitHub](https://github.com/anchpop/wise_mans_haskell). These are also great ways to ask questions!
 
 !newthought(I wrote) this book because all the other good Haskell tutorials either cost money or were too verbose. That's surprising, considering GHC (the most popular Haskell compiler) has been around since 1992.
 
@@ -185,6 +185,15 @@ __***Exercises***__:
 3) In GHCi, write a function called `doubleDifference` that takes two values, subtracts the second from the first, then doubles the result. Stuck? Try looking at some of the functions we made earlier in this chapter.
 
 ---
+
+Now would also be a good time to turn on multiline mode in GHCi with `:set +m`. This allows you more to easily write expressions in GHCi that span multiple lines.
+
+```haskell
+Prelude> :set +m
+Prelude> 2 + 4 + (
+Prelude|   9 / 3)
+9.0
+```
 
 # Types and type signatures
 
@@ -1069,7 +1078,7 @@ describeLetter c
 !indent(!include(haskelltests/should_compile/benchPressJudger.hs))
     ```
 
-    You might notice something looks strange about our type signature - what's that `(Ord a, Fractional a)`? It means whatever type `a` is has to be a member of `Ord` (so that we can see if it's larger or smaller than stuff), `Num` so we can multiply it by stuff, and `Fractional` (so we can use it with fractional numbers when converting pounds into kilograms). Not all fractional numbers have to be orderable, that's why we needed to have the `Ord` constraint as well!sidenote(To avoid this in your own code, there are some specialized typeclasses such as `RealFloat`, but `(Ord a, Fractional a)` is perfectly readable even if it feels somewhat silly.).
+    You might notice something looks strange about our type signature - what's that `(Ord a, Fractional a)`? It means whatever type `a` is has to be a member of `Ord` (so that we can see if it's larger or smaller than stuff), and `Fractional` (so we can use it with fractional numbers when converting pounds into kilograms). Not all fractional numbers have to be orderable, that's why we needed to have the `Ord` constraint as well!sidenote(To avoid this in your own code, there are some specialized typeclasses such as `RealFloat`, but `(Ord a, Fractional a)` is perfectly readable even if it feels somewhat silly.).
 
     Also, pattern matching works almost anywhere you see a `=` sign. So this would have worked, too, if we were very interested in terseness:
 
@@ -1709,7 +1718,7 @@ Haskell is lazy and so our `weird` function doesn't even look at the value of it
 
 !newthought(Undefined can) also be a very useful tool. Let's say you're writing a program and you're not really sure how to write a function you need. You can just define it as `undefined` and then you can go work on something else. Your program won't work until you define that function for real, of course, but you can call it elsewhere and Haskell will do its work in making sure your types check out. Newer versions of GHC make this even easier, with what's called a *type holes*. Anywhere GHC expects a value you can add a `_` and GHC will still allow you to compile but gives you a warning that your function won't work at runtime.
 
-# When things might go wrong
+# When Things Might go Wrong - Maybe
 
 !newthought(Often we) want to write a function that just doesn't make sense for all possible inputs. For example, the `head` function!marginnote(`head` extracts the first element from a list.). It works great for most lists, but for empty lists, it crashes your program.
 
@@ -2067,6 +2076,7 @@ Haskell then automatically makes `firstName` and `lastName` functions, which tak
 You'll notice that `firstName :: String` and `lastName :: String` are just regular type signatures. But be careful, `firstName :: String` isn't the type signature of the `firstName` function that's created, it's the type signature of what that function returns (in our case, a `String`)!marginnote(Note that you can't have multiple records with the same name, even in different data types. If this irritates you, in a later chapter we'll see [a GHC feature](https://downloads.haskell.org/~ghc/master/users-guide/glasgow_exts.html#duplicate-record-fields) that loosens this restriction.).
 
 
+*a *    * b* 3 * 4
 
 ## Type Aliases
 
