@@ -2464,7 +2464,7 @@ Notice how we changed `ShowFrench a` to `(Show a) => ShowFrench a`. This means t
 
     ```haskell
     -- length.hs
-!indent(!include(haskelltests/should_compile/showFrenchBetter.hs))
+!indent(!include(haskelltests/should_compile/length.hs))
     ``` 
 
     This may seem like it's less efficient than a more iterative approach like you'd see in other programming languages. But GHC does something called *tail call optimization*, which means that if a function ends in a recursive call, it will be optimized into something more similar to a *while loop* from other languages!sidenote(Provided you have the correct optimization settings turned on in GHC.). 
@@ -4564,7 +4564,7 @@ __***Exercises***__:
 
 Often, we would like to explain what a certain function does, in a way that's not easily represented in the function's name. For example, maybe we would like to say that our `isValidChannelName` function will return `True` in cases where the first character is `#` and the `String` does not contain a space. This is called *documentation*. We can do this with a comment, but there's a special way to annotate our comments so they can be made into a pretty website, using a tool called *Haddock*.
 
-Here's our `isValidChannelName` function, with a descriptive comment:
+Here's our `isValidChannelName` function, with a descriptive comment: 
 
 ```haskell
 -- |'isValidChannelName' takes a 'String' and will return 'True' if the 'String' begins with a '#' and does not contain a space. 
@@ -4612,7 +4612,7 @@ Now, you can *build* your haddock documentation with stack using the `--haddock`
 stack build --test --fast --haddock-deps
 ```
 
-Now, we can read the documentation for a dependency with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open lens`. However, it's written in a somewhat intimidating style so I recommend looking at `hspec` instead. This is better than reading the docs online because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
+Now, we can read the documentation for any of our dependencies with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open hspec`.  This is better than reading the docs online because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
 
 You can also get a searchable version of these docs with *Hoogle*. You must first run a command to generate Hoogle's index:
 
@@ -4658,6 +4658,7 @@ ghc-options:
 - -Wincomplete-record-updates
 - -Wincomplete-uni-patterns
 - -Wredundant-constraints
+- -fno-warn-unused-do-bind
 ```
 
 This turns on the following warnings: `Wall`, `Wcompat`, `Wincomplete-record-updates`, `Wincomplete-uni-patterns`, and `Wredundant-constraints`. This isn't C++, if you see a warning you should fix it. You should try to never check in code with warnings to version control. This is under the section `ghc-options` because these are just regular options passed to GHC - you don't have to build your project with Stack, you could call GHC manually, but Stack handling everything for you makes things much more convenient and reliable.
@@ -4671,6 +4672,7 @@ ghc-options:
 - -Wincomplete-record-updates
 - -Wincomplete-uni-patterns
 - -Wredundant-constraints
+- -fno-warn-unused-do-bind
 
 default-extensions:
 - BangPatterns
