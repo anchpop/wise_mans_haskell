@@ -29,7 +29,7 @@ I said this book wouldn't be verbose, so let's move on. And have fun!
 This section is for people with previous experience programming. If you have no previous experience, feel free to skip this chapter.
 
 !newthought(Haskell is) strange among many languages you might be used to. It is a pure and functional programming language!marginnote(Haskell is also *lazy*, but we'll touch on that later.). 
-If you know what this means, you can skip to the next chapter. Otherwise, read on! 
+If you know what this means, you can skip to the next chapter. Otherwise, read on!
 
 1) Functionality is a somewhat vague concept. It doesn't mean other languages are dysfunctional!sidenote(Although they are.). Once set, variables cannot be changed!marginnote(When a variable changes, functional programmers sometimes call it a *mutation*. Mutations are not allowed in Haskell.). If you write `a = 2`, you cannot follow it with `a = 3`. 
 

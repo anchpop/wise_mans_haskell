@@ -1,4 +1,4 @@
-maybeAddOne :: (Num a) => Maybe a -> Maybe a
+maybeAddOne :: Maybe Int -> Maybe Int
 maybeAddOne (Just x) = Just (x + 1)
 maybeAddOne Nothing = Nothing
 
