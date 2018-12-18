@@ -178,7 +178,7 @@ __***Exercises***__:
     foo x = x * 3
     ```
 
-    If you're unsure, you can try entering it into GHCi.
+    If you're unsure, you can try entering it into GHCi and playing with it.
 
 2) In GHCi, write a function called `circumference`, which takes a number and multiplies it by `3.14`.
 
@@ -1571,7 +1571,7 @@ As you can see, we use `.` between all our functions, then `$` to the value we w
 
 ## Folds
 
-!newthought(There's another) function you should be familiar with: `foldl1`. It's useful when you want to reduce a whole list to a single value.  Let's use `foldl1` to implement `sum'`, a function that takes a list of numbers and sums them all up. We'll need to make a new function, `add`, that takes two numbers and adds them.
+!newthought(There's another) function you should be familiar with: `foldl1`. It's useful when you want to reduce a whole list to a single value. Let's use `foldl1` to implement `sum'`, a function that takes a list of numbers and sums them all up. We'll need to make a new function, `add`, that takes two numbers and adds them.
 
 ```haskell
 -- Write a function that takes two numbers and adds them.
@@ -1601,7 +1601,7 @@ __***Exercises***__
 
 1) Write a function called `product'` which multiplies the items in the list, instead of adding.
 
-2) Write the `foldl1` function yourself, calling it `foldl1'`. The answer is in the `writefoldl1.hs` file.
+2) Write the `foldl1` function yourself, calling it `foldl1'`. It should have the type signature `foldl1' :: (a -> a -> a) -> [a] -> a`. The answer is in the `writefoldl1.hs` file.
 
     1) Hint! You need recursion.
 
@@ -2513,7 +2513,7 @@ __***Exercises***__:
 
     Hint: Look at our `squares` function and our `map'` function. 
 
-2) Rewrite your filter function using [guards](## Guards).
+2) Rewrite your filter function using [guards](/wmh/more-about-functions-useful-syntax#guards).
 
 ---
 
