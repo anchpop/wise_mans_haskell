@@ -3098,7 +3098,7 @@ Results: You said 'aye aye, captain' the first time, and 'aye aye, captain!' the
 ```
 
 
-To do this using `do`, there's an extra piece of notation we need. It looks like a backwards arrow: `<-`!marginnote(It's totally unrelated to the forward arrow in a lambda (`\x ->`).).git c
+To do this using `do`, there's an extra piece of notation we need. It looks like a backwards arrow: `<-`!marginnote(It's totally unrelated to the forward arrow in a lambda (`\x ->`).
 
 ```haskell
 --- spongebobResultsDo.hs
@@ -3168,7 +3168,7 @@ Now that you understand how to effectively use `IO` functions, you need to learn
 
 6) `openFile :: FilePath -> IOMode -> IO Handle`
 
-    This is part of the `System.IO` package, which means that in order to use it, you have to write `import System.IO` at the top of every file that uses it. What it does is take a path to a file (which is just a `String`) and an `IOMode` (which is either `ReadMode`, `WriteMode`, `AppendMode`, or `ReadWriteMode`), and return a "file handle" which is basically a reference to a file. If you opened the file in `ReadMode` or `ReadWriteMode` you can get the contents with the `hGetContents` function. When you're done with the file, run `hClose` on the handle to tell the computer you don't need it anymore. Let's how to read a file.
+    This is part of the `System.IO` package, which means that in order to use it, you have to write `import System.IO` at the top of every file that uses it. What it does is take a path to a file (which is just a `String`) and an `IOMode` (which is either `ReadMode`, `WriteMode`, `AppendMode`, or `ReadWriteMode`), and return a "file handle" which is basically a reference to a file. If you opened the file in `ReadMode` or `ReadWriteMode` you can get the contents with the `hGetContents` function. When you're done with the file, run `hClose` on the handle to tell the computer you don't need it anymore. Here's how to read a file:
 
     ```haskell
     import System.IO  
@@ -3184,7 +3184,7 @@ Now that you understand how to effectively use `IO` functions, you need to learn
 
 7) `sequence`
 
-    This is an interesting function!marginnote(We won't display `sequence`'s type signature because it's a little complicated/), what it does is take a list of `IO` actions and return an IO action that executes all of them.
+    This is an interesting function, what it does is take a list of `IO` actions and return an IO action that executes all of them.
     
     ```haskell
     Prelude> sequence [print "hello", print 3, putStrLn "bonjour"]
@@ -3195,6 +3195,8 @@ Now that you understand how to effectively use `IO` functions, you need to learn
     ```
 
     Note that it's return type is not `IO ()`, it's `IO [a]`, so GHCi will attempt to print its output. That's what `[(),(),()]` is at the bottom. It's output is the output of all the IO actions in the list.
+
+    I didn't write the type signature for `sequence` because it's a little intimidating, but you're welcome to take a look at it yourself with `:t`.
 
 ## Project 1 - A Text Adventure Game
 
