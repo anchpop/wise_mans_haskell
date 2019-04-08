@@ -2495,7 +2495,7 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b  
 ```
 
-You might be curious what that `f a` is (notice that it's the same `f` from `Functor f`). It's something we haven't seen before. The `f` *represents a type constructor*, and it later an `a` (which can be of any type) and returns a concrete type!marginnote(This means that type constructors can be instances of type classes, not just concrete types. This is very powerful because it lets us make functions that work on all lists, like `fmap`, but also works on other type constructors, like `Maybe` (which we'll see in a moment).)! So `Functor` is a typeclass that applies to type constructors, not complete types. `[]` is an instance of `Functor`, of course. Let's see how that's defined.
+You might be curious what that `f a` is (notice that it's the same `f` from `Functor f`). It's something we haven't seen before. The `f` *represents a type constructor*, and it takes an `a` (which can be of any type) and returns a concrete type!marginnote(This means that type constructors can be instances of type classes, not just concrete types. This is very powerful because it lets us make functions that work on all lists, like `fmap`, but also works on other type constructors, like `Maybe` (which we'll see in a moment).)! So `Functor` is a typeclass that applies to type constructors, not complete types. `[]` is an instance of `Functor`, of course. Let's see how that's defined.
 
 ```haskell
 instance Functor [] where  
