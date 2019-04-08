@@ -4171,7 +4171,7 @@ Here's what makes applicatives monoidal functors. Notice this similarity:
 
 Remember, `$` is function application. So `f $ x` is equivalent to `f x`. It takes a function and a value and applies that function to that value.
 
-`<$>` is `fmap`. To use `Maybe` as an example, `f <$> (Just x)` is the same as `Just (f x)`. It take s a function and a functor, and applies that function to the contents of the functor,
+`<$>` is `fmap`. To use `Maybe` as an example, `f <$> (Just x)` is the same as `Just (f x)`. It takes a function and a functor, and applies that function to the contents of the functor.
 
 `<*>` is `fmap`, only it works on applicatives and the function you pass it is also wrapped up. So `(Just f) <*> (Just x)` is equivalent to `Just (f x)`.
 
