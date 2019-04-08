@@ -4809,7 +4809,7 @@ Now, you can *build* your haddock documentation with stack using the `--haddock`
 stack build --test --fast --haddock-deps
 ```
 
-Now, we can read the documentation for any of our dependencies with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open hspec`.  This is better than reading the docs online because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
+Now, we can read the documentation for any of our dependencies with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open lens`.  This is better than reading the docs online because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
 
 You can also get a searchable version of these docs with *Hoogle*. You must first run a command to generate Hoogle's index:
 
