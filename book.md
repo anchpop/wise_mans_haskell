@@ -4993,7 +4993,7 @@ Dollars 26.7
 
 To reiterate, `Yen`, `Euro` and `Dollars` are special functions called *data constructors*. In our case, they take a `Double` and return a value of type `Currency`.
 
-So that's is data constructors, but we can also have type constructors. These are pretty useful, especially for situations like `Maybe`. Here's how `Maybe` is defined:
+So that's data constructors, but we can also have type constructors. These are pretty useful, especially for situations like `Maybe`. Here's how `Maybe` is defined:
 
 ```haskell
 data Maybe a = Nothing | Just a  
@@ -5021,7 +5021,7 @@ Prelude> :t End
 End :: IntList
 ```
 
-The second is by passing `Cons` an `Int` and another `IntList`.!marginnote(`Cons` stands for *constructor*.)
+The second is by passing `Cons` an `Int` and another `IntList`.!marginnote(`Cons` stands for *construct* and comes from the Lisp family of languages.)
 
 ```haskell
 Prelude> Cons 3 End
