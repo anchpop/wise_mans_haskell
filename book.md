@@ -4208,7 +4208,7 @@ The `String`s are combined with `mappend`, and the values on the right are mappe
 
 !newthought(*Monads* have) a reputation of being difficult to learn. James Iry was making a joke when he said "A monad is just a monoid in the category of endofunctors, what's the problem?", but he wasn't totally right!sidenote(That'd be a better description for an applicative, although you can argue it applies to monads). 
 
-Monads are pretty simple. Just like you can imagine functors being applicatives with extra features, you can imagine a monad being an applicative with extra features. Indeed,Everything in the `Monad` typeclass is also in the `Applicative` typeclass. Since everything in the `Applicative` typeclass is also in the `Functor` typeclass, that means that all monads are applicatives and functors! But they're far more powerful than either applicatives or functors, which is why you see them everywhere in Haskell, from lists to `IO` and even to the humble `Maybe`.
+Monads are pretty simple. Just like you can imagine functors being applicatives with extra features, you can imagine a monad being an applicative with extra features. Indeed, everything in the `Monad` typeclass is also in the `Applicative` typeclass. Since everything in the `Applicative` typeclass is also in the `Functor` typeclass, that means that all monads are applicatives and functors! But they're far more powerful than either applicatives or functors, which is why you see them everywhere in Haskell, from lists to `IO` and even to the humble `Maybe`.
 
 Here's a reminder for all the terms we've introduced in this chapter.
 
