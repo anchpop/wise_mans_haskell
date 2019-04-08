@@ -5063,7 +5063,7 @@ Type constructors take some types and return a new type, and GADTs drastically i
 !include(haskelltests/should_compile/GADTsTest1.hs)
 ```
 
-`Uninhabited` is a type that contains no values!marginnote(`Uninhabited` actually does contain the special value `undefined`, which is contained by all types. But we'll ignore `undefined` for now.)  This means `Uninhabited` is almost entirely useless. Functions need to do two things: take and return values. If a function takes a value of type `Uninhabited`, we can never call it, because we'd have to pass it a value of type `Uninhabited` and there aren't any. And if a function returned type `Uninhabited`, there'd be no way to even write it! For this reason it's called a *phantom type*, a type which exists but we can't use it to write any useful functions. 
+`Uninhabited` is a type that contains no values!marginnote(`Uninhabited` actually does contain the special value `undefined`, which is contained by all types. But we'll ignore `undefined` for now.).  This means `Uninhabited` is almost entirely useless. Functions need to do two things: take and return values. If a function takes a value of type `Uninhabited`, we can never call it, because we'd have to pass it a value of type `Uninhabited` and there aren't any. And if a function returned type `Uninhabited`, there'd be no way to even write it! For this reason it's called a *phantom type*, a type which exists but we can't use it to write any useful functions. 
 
 But we can use phantom types in a useful way, with type constructors! Those take types, not values, so the fact that our type doesn't have any values isn't an issue. `Maybe` is a type constructor which takes one types, so we can have `Maybe Int`, `Maybe Char`, and even `Maybe Uninhabited`. We can actually make a value of type `Maybe Uninhabited`, too!
 
@@ -5081,7 +5081,7 @@ A common use of GADTs is to use an uninhabited type as a "tag" for another type,
 !include(haskelltests/should_compile/SafeHead.hs)
 ```
 
-Don't worry about the specifics of `where` but just yet, let's jump to actually using `List`.
+Don't worry about the specifics of `where` yet, let's jump to actually using `List`.
 
 Let's make a `List` of `Char`s.
 
