@@ -1762,7 +1762,7 @@ __***Exercises***__
 
 1) Rewrite `sum'` using `foldl` instead of `foldl1`. Hint: you can add anything to 0 and get the same number.
 
-2) Write the `foldl1` function yourself. The base case is the empty list. Look at your `foldl1'` function for inspiration.
+2) Write the `foldl` function yourself. The base case is the empty list. Look at your `foldl1'` function for inspiration.
 
 ---
 
