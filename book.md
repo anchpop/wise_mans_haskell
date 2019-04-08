@@ -5121,7 +5121,7 @@ data List a tag where
 
 Before, `End` was a list of type `List a`. Now, `End` is a list of type `List a Empty`. 
 
-Before, `Cons` took an `a` and a type `List a` and returned a `List a`. Now, `Cons` takes a value of type `a` and a value of type type `List a tag` and returns a value of type `List a NonEmpty`.
+Before, `Cons` took an `a` and a type `List a` and returned a `List a`. Now, `Cons` takes a value of type `a` and a value of type `List a tag` and returns a value of type `List a NonEmpty`.
 
 This may all seem very confusing, so don't worry if it seems a bit hazy. There's another language extension that makes GADTs much more useful, called `DataKinds`, which we'll introduce now and hopefully reinforce GADTs. It makes it very easy to write a safe `tail` function, which is what we'll try next.
 
