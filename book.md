@@ -5117,7 +5117,7 @@ data List a tag where
         Cons :: a -> List a tag -> List a NonEmpty
 ```
 
-`data Empty` and `data NonEmpty` are pretty simple - they're phantom types which contain no values. They're used so we can "tag" our `List` type with useful values. The interesting definition is actually the `List` type, because it uses some syntax we haven't seen before. Earlier in this chapter we defined `List` with `data List a = End | Cons a (List a)`, where `End` and `Cons` were the data constructors. GADTs lets us do this in a more powerful way, with `where`. We still define two data constructors, `End` and `Cons`, but because we're using the new `where` Syntax we get to specify the output type of our data constructor. 
+`data Empty` and `data NonEmpty` are pretty simple - they're phantom types which contain no values. They're used so we can "tag" our `List` type with useful values. The interesting definition is actually the `List` type, because it uses some syntax we haven't seen before. Earlier in this chapter we defined `List` with `data List a = End | Cons a (List a)`, where `End` and `Cons` were the data constructors. GADTs lets us do this in a more powerful way, with `where`. We still define two data constructors, `End` and `Cons`, but because we're using the new `where` syntax we get to specify the output type of our data constructor. 
 
 Before, `End` was a list of type `List a`. Now, `End` is a list of type `List a Empty`. 
 
