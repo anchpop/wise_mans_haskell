@@ -4235,7 +4235,7 @@ class Applicative m => Monad m where
     return :: a -> m a
 ```
 
-These functions should look pretty familiar. `return` is just `pure`, which you should recognize from `Applicative`s!marginnote(`return` is a relic of the time Haskell developers didn't know about applicatives, it only still exists for backwards compatibility reasons. `pure` will work with any `Applicative` while `return` will only work with `Monad`s, so `pure` is strictly better.). It takes a value and wraps it up in an `Applicative` (or in this case, not just any `Applicative`, but a `Monad`). 
+These functions should look pretty familiar. `return` is just `pure`, which you should recognize from `Applicative`s!marginnote(`return` is a relic of the time Haskell developers didn't know about applicatives, it only still exists for backwards compatibility. `pure` will work with any `Applicative` while `return` will only work with `Monad`s, so `pure` is strictly better.). It takes a value and wraps it up in an `Applicative` (or in this case, not just any `Applicative`, but a `Monad`). 
 
 The other function monads provide us is `>>=` the bind operator. There's also `>>`, but it's just a simpler version of `>>=` so we'll skip over it for now.
 
@@ -4268,7 +4268,7 @@ Prelude> maybeHead []
 Nothing
 ```
 
-This takes a `[a]` and returns a `Maybe a`. But what if we wanted to pas it a `Maybe [a]`? We do this with `>>=`!marginnote(Compare `a -> m b` to `[a] -> Maybe a`. `maybeHead` takes a parameter of a certain type (`[a]`), and returns a parameter of a different type (`a`) wrapped in a `Maybe`.).
+This takes a `[a]` and returns a `Maybe a`. But what if we wanted to pass it a `Maybe [a]`? We do this with `>>=`!marginnote(Compare `a -> m b` to `[a] -> Maybe a`. `maybeHead` takes a parameter of a certain type (`[a]`), and returns a parameter of a different type (`a`) wrapped in a `Maybe`.).
 
 ```haskell
 Prelude> xs = Just [1,2,3]
