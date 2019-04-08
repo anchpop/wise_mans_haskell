@@ -2540,7 +2540,7 @@ __***Exercises***__:
 
 ## Making Our Own Typeclasses
 
-!newthought(As you) know, we have access to quite a few typeclasses in Haskell, such as `Eq`, `Ord`, `Show`, and `Num`. Let's see how `Eq` `might be defined!marginnote(Note that this is not the full definition because it lacks the default implementations, which we'll add in a moment.):
+!newthought(As you) know, we have access to quite a few typeclasses in Haskell, such as `Eq`, `Ord`, `Show`, and `Num`. Let's see how `Eq` might be defined!marginnote(Note that this is not the full definition because it lacks the default implementations, which we'll add in a moment.):
 
 ```haskell
 class Eq a where  
