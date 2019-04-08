@@ -4212,7 +4212,11 @@ Monads are pretty simple. Just like you can imagine functors being applicatives 
 
 Here's a reminder for all the terms we've introduced in this chapter.
 
-1) A functor is something that can be mapped over (using `fmap` or `<$>` in Haskell). Examples include Lists and `Maybe`. `fmap` takes a function and a functor, and applies the function to the contents of the functor. So `fmap (+1) (Just 3)` evaluates to `Just 4`. A functor must
+1) A functor is something that can be mapped over (using `fmap` or `<$>` in Haskell). Examples include Lists and `Maybe`. `fmap` takes a function and a functor, and applies the function to the contents of the functor. So `fmap (+1) (Just 3)` evaluates to `Just 4`. A functor must follow the two functor laws:
+
+    1) The identity law: `fmap id x = x`
+
+    2) The composition law: `fmap (f . g) = fmap f . fmap g`
 
 2) An applicative is a functor, so it still has `fmap`, but it also has two additional operations!marginnote(Most functors are applicatives these days.). 
 
