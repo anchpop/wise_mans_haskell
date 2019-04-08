@@ -4658,7 +4658,7 @@ main = hspec $ do
       it "disallows channels without # in the first character" $ do
         isValidChannelName "haskell" `shouldBe` (False :: Bool)
         
-      it "allows channels should contain a '#'" $ do
+      it "allowed channels should contain a '#'" $ do
         property $ \xs -> if isValidChannelName xs
                            then elem '#' (xs :: String)
                            else True
