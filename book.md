@@ -4220,9 +4220,9 @@ Here's a reminder for all the terms we've introduced in this chapter.
 
 2) An applicative is a functor, so it still has `fmap`, but it also has two additional operations!marginnote(Most functors are applicatives these days.). 
 
-    1) It has `pure`, which takes a value and wraps it up in an applicative. So `pure 3 :: [Int]` evaluates to `[3]`, and `pure 3 :: Maybe Int`
+    1) It has `pure`, which takes a value and wraps it up in an applicative. So `pure 3 :: [Int]` evaluates to `[3]`, and `pure 3 :: Maybe Int` evaluates to `Just 3`.
 
-    2) It has `<*>`, which is just like `fmap` except both the function being passed and the value to apply it to are both wrapped up in applicatives. So `Just <*> (Just 3)` evaluates to `Just 4` (Compare that to `(+1) <$> (Just 3)`, which also evaluates to `Just 4`).
+    2) It has `<*>`, which is just like `fmap` except both the function being passed and the parameter are wrapped up in applicatives. So `Just (+1) <*> (Just 3)` evaluates to `Just 4` (Compare that to `(+1) <$> (Just 3)`, which also evaluates to `Just 4`).
 
 To understand monads, many people find the use of analogies helpful. Monads usually provide *context* to a value, sometimes called *computational context*. They're used like modifiers to other types. For example, you may have a `String`. If this `String` represents someone's licence plate, it might not always exist, such as when that person does not have a car. So you might choose to represent this with a `Maybe String`, so my licence plate would be `Just "ABCD123"` and my friends who take the subway would be `Nothing`. `Maybe` has given us some context for the `String`, we've said it may not exist. But you may have noticed an issue here - what if someone has multiple cars! That would call for a different context, the context of *zero or more*. To represent that, we'd use a `[String]`. These are the monads we're going to be spending most of our time discussing - `Maybe` and `[]`. 
 
