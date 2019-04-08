@@ -3970,7 +3970,7 @@ Prelude> ("Hello ", "Goodbye ") `mappend` ("world.", "planet.")
 ("Hello world.","Goodbye planet.")
 ```
 
-Let's see how that works with the `Sum` an `Product` types.
+Let's see how that works with the `Sum` and `Product` types.
 
 ```haskell
 Prelude> import Data.Monoid
