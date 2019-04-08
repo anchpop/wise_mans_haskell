@@ -4101,7 +4101,7 @@ Prelude> (Just (+5)) <*> (pure 5)
 Just 10
 ```
 
-And it can also be chained, like this!marginnote(Recall the `take` function, for which `take 3 [1..]` evaluates to `[1,2,3]`. It take a list and truncates it.)!
+And it can also be chained, like this!marginnote(Recall the `take` function, for which `take 3 [1..]` evaluates to `[1,2,3]`. It takes a list and truncates it.)!
 
 ```Haskell
 Prelude> (Just take) <*> (Just 3) <*> (Just [1,2,3,4])
