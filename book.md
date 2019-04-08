@@ -4970,7 +4970,7 @@ Here, `Bool` is a type and `False` and `True` are values. Instead of plain value
 data Currency = Dollars Double | Yen Double | Euros Double     deriving (Show)
 ```
 
-Now `Dollars` is a function which takes an `Int` and returns a value of type `Currency`. 
+Now `Dollars` is a function which takes a `Double` and returns a value of type `Currency`. 
 
 ```haskell
 Prelude> Dollars 2
