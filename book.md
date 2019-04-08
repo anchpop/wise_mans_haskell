@@ -4140,7 +4140,7 @@ __***Exercises***__:
 1) Rewrite
 
     ```haskell
-    take <$> Just 5 <*> Just [1,2,3,4,5,6,7,8,9,10]`
+    take <$> Just 5 <*> Just [1,2,3,4,5,6,7,8,9,10]
     ```
     
     so it uses `fmap` instead of `<$>`
