@@ -1,4 +1,4 @@
-With the relase of [Joy of Haskell](https://joyofhaskell.com/), I consider this resource no longer necessary. I created it because I felt there were few good beginner Haskell tutorials (I'm not very fond of Learn You a Haskell and I wanted something with exercises). For that reason, I've decided to stop maintaining it and took down it's website. Thank you everyone!
+With the relase of [Joy of Haskell](https://joyofhaskell.com/), I consider this resource no longer necessary. I created it because I felt there were few good beginner Haskell tutorials (I'm not very fond of Learn You a Haskell and I wanted something with exercises). For that reason, I've decided to stop maintaining it and took down its website. Thank you everyone! It was a fun ride.
 
 ### For posterity 
 
