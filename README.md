@@ -1,3 +1,7 @@
+With the relase of [Joy of Haskell](https://joyofhaskell.com/), I consider this resource no longer necessary. I created it because I felt there were few good beginner Haskell tutorials (I'm not very fond of Learn You a Haskell and I wanted something with exercises). For that reason, I've decided to stop maintaining it and took down it's website. Thank you everyone!
+
+### For posterity 
+
 This is a beginner's Haskell guide by me, Andre Popovitch! My goal is for this to be a useful resource to give a Haskell newcomer. I welcome any typo fixes, wording changes, etc. so if you have any of these to contribute, please leave an issue/pull request. You can also find me on the [Functional Programming Discord](https://discord.gg/6XQC7KA) under the name @likliklik, or at my email (`andre@popovit.ch`). I'm always happy to help answer Haskell questions.
 
 While this is a beginner's guide, I want to cover advanced and useful topics! Here are the topics that are currently on the agenda:
