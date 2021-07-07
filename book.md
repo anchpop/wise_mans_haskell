@@ -1762,7 +1762,7 @@ __***Exercises***__
 
 1) Rewrite `sum'` using `foldl` instead of `foldl1`. Hint: you can add anything to 0 and get the same number.
 
-2) Write the `foldl1` function yourself. The base case is the empty list. Look at your `foldl1'` function for inspiration.
+2) Write the `foldl` function yourself. The base case is the empty list. Look at your `foldl1'` function for inspiration.
 
 ---
 
@@ -2495,7 +2495,7 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b  
 ```
 
-You might be curious what that `f a` is (notice that it's the same `f` from `Functor f`). It's something we haven't seen before. The `f` *represents a type constructor*, and it later an `a` (which can be of any type) and returns a concrete type!marginnote(This means that type constructors can be instances of type classes, not just concrete types. This is very powerful because it lets us make functions that work on all lists, like `fmap`, but also works on other type constructors, like `Maybe` (which we'll see in a moment).)! So `Functor` is a typeclass that applies to type constructors, not complete types. `[]` is an instance of `Functor`, of course. Let's see how that's defined.
+You might be curious what that `f a` is (notice that it's the same `f` from `Functor f`). It's something we haven't seen before. The `f` *represents a type constructor*, and it takes an `a` (which can be of any type) and returns a concrete type!marginnote(This means that type constructors can be instances of type classes, not just concrete types. This is very powerful because it lets us make functions that work on all lists, like `fmap`, but also works on other type constructors, like `Maybe` (which we'll see in a moment).)! So `Functor` is a typeclass that applies to type constructors, not complete types. `[]` is an instance of `Functor`, of course. Let's see how that's defined.
 
 ```haskell
 instance Functor [] where  
@@ -2540,7 +2540,7 @@ __***Exercises***__:
 
 ## Making Our Own Typeclasses
 
-!newthought(As you) know, we have access to quite a few typeclasses in Haskell, such as `Eq`, `Ord`, `Show`, and `Num`. Let's see how `Eq` `might be defined!marginnote(Note that this is not the full definition because it lacks the default implementations, which we'll add in a moment.):
+!newthought(As you) know, we have access to quite a few typeclasses in Haskell, such as `Eq`, `Ord`, `Show`, and `Num`. Let's see how `Eq` might be defined!marginnote(Note that this is not the full definition because it lacks the default implementations, which we'll add in a moment.):
 
 ```haskell
 class Eq a where  
@@ -3970,7 +3970,7 @@ Prelude> ("Hello ", "Goodbye ") `mappend` ("world.", "planet.")
 ("Hello world.","Goodbye planet.")
 ```
 
-Let's see how that works with the `Sum` an `Product` types.
+Let's see how that works with the `Sum` and `Product` types.
 
 ```haskell
 Prelude> import Data.Monoid
@@ -4101,7 +4101,7 @@ Prelude> (Just (+5)) <*> (pure 5)
 Just 10
 ```
 
-And it can also be chained, like this!marginnote(Recall the `take` function, for which `take 3 [1..]` evaluates to `[1,2,3]`. It take a list and truncates it.)!
+And it can also be chained, like this!marginnote(Recall the `take` function, for which `take 3 [1..]` evaluates to `[1,2,3]`. It takes a list and truncates it.)!
 
 ```Haskell
 Prelude> (Just take) <*> (Just 3) <*> (Just [1,2,3,4])
@@ -4140,7 +4140,7 @@ __***Exercises***__:
 1) Rewrite
 
     ```haskell
-    take <$> Just 5 <*> Just [1,2,3,4,5,6,7,8,9,10]`
+    take <$> Just 5 <*> Just [1,2,3,4,5,6,7,8,9,10]
     ```
     
     so it uses `fmap` instead of `<$>`
@@ -4171,7 +4171,7 @@ Here's what makes applicatives monoidal functors. Notice this similarity:
 
 Remember, `$` is function application. So `f $ x` is equivalent to `f x`. It takes a function and a value and applies that function to that value.
 
-`<$>` is `fmap`. To use `Maybe` as an example, `f <$> (Just x)` is the same as `Just (f x)`. It take s a function and a functor, and applies that function to the contents of the functor,
+`<$>` is `fmap`. To use `Maybe` as an example, `f <$> (Just x)` is the same as `Just (f x)`. It takes a function and a functor, and applies that function to the contents of the functor.
 
 `<*>` is `fmap`, only it works on applicatives and the function you pass it is also wrapped up. So `(Just f) <*> (Just x)` is equivalent to `Just (f x)`.
 
@@ -4208,17 +4208,21 @@ The `String`s are combined with `mappend`, and the values on the right are mappe
 
 !newthought(*Monads* have) a reputation of being difficult to learn. James Iry was making a joke when he said "A monad is just a monoid in the category of endofunctors, what's the problem?", but he wasn't totally right!sidenote(That'd be a better description for an applicative, although you can argue it applies to monads). 
 
-Monads are pretty simple. Just like you can imagine functors being applicatives with extra features, you can imagine a monad being an applicative with extra features. Indeed,Everything in the `Monad` typeclass is also in the `Applicative` typeclass. Since everything in the `Applicative` typeclass is also in the `Functor` typeclass, that means that all monads are applicatives and functors! But they're far more powerful than either applicatives or functors, which is why you see them everywhere in Haskell, from lists to `IO` and even to the humble `Maybe`.
+Monads are pretty simple. Just like you can imagine functors being applicatives with extra features, you can imagine a monad being an applicative with extra features. Indeed, everything in the `Monad` typeclass is also in the `Applicative` typeclass. Since everything in the `Applicative` typeclass is also in the `Functor` typeclass, that means that all monads are applicatives and functors! But they're far more powerful than either applicatives or functors, which is why you see them everywhere in Haskell, from lists to `IO` and even to the humble `Maybe`.
 
 Here's a reminder for all the terms we've introduced in this chapter.
 
-1) A functor is something that can be mapped over (using `fmap` or `<$>` in Haskell). Examples include Lists and `Maybe`. `fmap` takes a function and a functor, and applies the function to the contents of the functor. So `fmap (+1) (Just 3)` evaluates to `Just 4`. A functor must
+1) A functor is something that can be mapped over (using `fmap` or `<$>` in Haskell). Examples include Lists and `Maybe`. `fmap` takes a function and a functor, and applies the function to the contents of the functor. So `fmap (+1) (Just 3)` evaluates to `Just 4`. A functor must follow the two functor laws:
+
+    1) The identity law: `fmap id x = x`
+
+    2) The composition law: `fmap (f . g) = fmap f . fmap g`
 
 2) An applicative is a functor, so it still has `fmap`, but it also has two additional operations!marginnote(Most functors are applicatives these days.). 
 
-    1) It has `pure`, which takes a value and wraps it up in an applicative. So `pure 3 :: [Int]` evaluates to `[3]`, and `pure 3 :: Maybe Int`
+    1) It has `pure`, which takes a value and wraps it up in an applicative. So `pure 3 :: [Int]` evaluates to `[3]`, and `pure 3 :: Maybe Int` evaluates to `Just 3`.
 
-    2) It has `<*>`, which is just like `fmap` except both the function being passed and the value to apply it to are both wrapped up in applicatives. So `Just <*> (Just 3)` evaluates to `Just 4` (Compare that to `(+1) <$> (Just 3)`, which also evaluates to `Just 4`).
+    2) It has `<*>`, which is just like `fmap` except both the function being passed and the parameter are wrapped up in applicatives. So `Just (+1) <*> (Just 3)` evaluates to `Just 4` (Compare that to `(+1) <$> (Just 3)`, which also evaluates to `Just 4`).
 
 To understand monads, many people find the use of analogies helpful. Monads usually provide *context* to a value, sometimes called *computational context*. They're used like modifiers to other types. For example, you may have a `String`. If this `String` represents someone's licence plate, it might not always exist, such as when that person does not have a car. So you might choose to represent this with a `Maybe String`, so my licence plate would be `Just "ABCD123"` and my friends who take the subway would be `Nothing`. `Maybe` has given us some context for the `String`, we've said it may not exist. But you may have noticed an issue here - what if someone has multiple cars! That would call for a different context, the context of *zero or more*. To represent that, we'd use a `[String]`. These are the monads we're going to be spending most of our time discussing - `Maybe` and `[]`. 
 
@@ -4231,7 +4235,7 @@ class Applicative m => Monad m where
     return :: a -> m a
 ```
 
-These functions should look pretty familiar. `return` is just `pure`, which you should recognize from `Applicative`s!marginnote(`return` is a relic of the time Haskell developers didn't know about applicatives, it only still exists for backwards compatibility reasons. `pure` will work with any `Applicative` while `return` will only work with `Monad`s, so `pure` is strictly better.). It takes a value and wraps it up in an `Applicative` (or in this case, not just any `Applicative`, but a `Monad`). 
+These functions should look pretty familiar. `return` is just `pure`, which you should recognize from `Applicative`s!marginnote(`return` is a relic of the time Haskell developers didn't know about applicatives, it only still exists for backwards compatibility. `pure` will work with any `Applicative` while `return` will only work with `Monad`s, so `pure` is strictly better.). It takes a value and wraps it up in an `Applicative` (or in this case, not just any `Applicative`, but a `Monad`). 
 
 The other function monads provide us is `>>=` the bind operator. There's also `>>`, but it's just a simpler version of `>>=` so we'll skip over it for now.
 
@@ -4264,7 +4268,7 @@ Prelude> maybeHead []
 Nothing
 ```
 
-This takes a `[a]` and returns a `Maybe a`. But what if we wanted to pas it a `Maybe [a]`? We do this with `>>=`!marginnote(Compare `a -> m b` to `[a] -> Maybe a`. `maybeHead` takes a parameter of a certain type (`[a]`), and returns a parameter of a different type (`a`) wrapped in a `Maybe`.).
+This takes a `[a]` and returns a `Maybe a`. But what if we wanted to pass it a `Maybe [a]`? We do this with `>>=`!marginnote(Compare `a -> m b` to `[a] -> Maybe a`. `maybeHead` takes a parameter of a certain type (`[a]`), and returns a parameter of a different type (`a`) wrapped in a `Maybe`.).
 
 ```haskell
 Prelude> xs = Just [1,2,3]
@@ -4654,7 +4658,7 @@ main = hspec $ do
       it "disallows channels without # in the first character" $ do
         isValidChannelName "haskell" `shouldBe` (False :: Bool)
         
-      it "allows channels should contain a '#'" $ do
+      it "allowed channels should contain a '#'" $ do
         property $ \xs -> if isValidChannelName xs
                            then elem '#' (xs :: String)
                            else True
@@ -4805,7 +4809,7 @@ Now, you can *build* your haddock documentation with stack using the `--haddock`
 stack build --test --fast --haddock-deps
 ```
 
-Now, we can read the documentation for any of our dependencies with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open hspec`.  This is better than reading the docs online because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
+Now, we can read the documentation for any of our dependencies with `stack haddock --open <something>`. For example, we can look at the documentation for `lens` with `stack haddock --open lens`.  This is better than reading the docs online because you're guaranteed to be reading the docs for the right version of whatever library you're using. 
 
 You can also get a searchable version of these docs with *Hoogle*. You must first run a command to generate Hoogle's index:
 
@@ -4966,7 +4970,7 @@ Here, `Bool` is a type and `False` and `True` are values. Instead of plain value
 data Currency = Dollars Double | Yen Double | Euros Double     deriving (Show)
 ```
 
-Now `Dollars` is a function which takes an `Int` and returns a value of type `Currency`. 
+Now `Dollars` is a function which takes a `Double` and returns a value of type `Currency`. 
 
 ```haskell
 Prelude> Dollars 2
@@ -4989,7 +4993,7 @@ Dollars 26.7
 
 To reiterate, `Yen`, `Euro` and `Dollars` are special functions called *data constructors*. In our case, they take a `Double` and return a value of type `Currency`.
 
-So that's is data constructors, but we can also have type constructors. These are pretty useful, especially for situations like `Maybe`. Here's how `Maybe` is defined:
+So that's data constructors, but we can also have type constructors. These are pretty useful, especially for situations like `Maybe`. Here's how `Maybe` is defined:
 
 ```haskell
 data Maybe a = Nothing | Just a  
@@ -5017,7 +5021,7 @@ Prelude> :t End
 End :: IntList
 ```
 
-The second is by passing `Cons` an `Int` and another `IntList`.!marginnote(`Cons` stands for *constructor*.)
+The second is by passing `Cons` an `Int` and another `IntList`.!marginnote(`Cons` stands for *construct* and comes from the Lisp family of languages.)
 
 ```haskell
 Prelude> Cons 3 End
@@ -5059,7 +5063,7 @@ Type constructors take some types and return a new type, and GADTs drastically i
 !include(haskelltests/should_compile/GADTsTest1.hs)
 ```
 
-`Uninhabited` is a type that contains no values!marginnote(`Uninhabited` actually does contain the special value `undefined`, which is contained by all types. But we'll ignore `undefined` for now.)  This means `Uninhabited` is almost entirely useless. Functions need to do two things: take and return values. If a function takes a value of type `Uninhabited`, we can never call it, because we'd have to pass it a value of type `Uninhabited` and there aren't any. And if a function returned type `Uninhabited`, there'd be no way to even write it! For this reason it's called a *phantom type*, a type which exists but we can't use it to write any useful functions. 
+`Uninhabited` is a type that contains no values!marginnote(`Uninhabited` actually does contain the special value `undefined`, which is contained by all types. But we'll ignore `undefined` for now.).  This means `Uninhabited` is almost entirely useless. Functions need to do two things: take and return values. If a function takes a value of type `Uninhabited`, we can never call it, because we'd have to pass it a value of type `Uninhabited` and there aren't any. And if a function returned type `Uninhabited`, there'd be no way to even write it! For this reason it's called a *phantom type*, a type which exists but we can't use it to write any useful functions. 
 
 But we can use phantom types in a useful way, with type constructors! Those take types, not values, so the fact that our type doesn't have any values isn't an issue. `Maybe` is a type constructor which takes one types, so we can have `Maybe Int`, `Maybe Char`, and even `Maybe Uninhabited`. We can actually make a value of type `Maybe Uninhabited`, too!
 
@@ -5077,7 +5081,7 @@ A common use of GADTs is to use an uninhabited type as a "tag" for another type,
 !include(haskelltests/should_compile/SafeHead.hs)
 ```
 
-Don't worry about the specifics of `where` but just yet, let's jump to actually using `List`.
+Don't worry about the specifics of `where` yet, let's jump to actually using `List`.
 
 Let's make a `List` of `Char`s.
 
@@ -5113,11 +5117,11 @@ data List a tag where
         Cons :: a -> List a tag -> List a NonEmpty
 ```
 
-`data Empty` and `data NonEmpty` are pretty simple - they're phantom types which contain no values. They're used so we can "tag" our `List` type with useful values. The interesting definition is actually the `List` type, because it uses some syntax we haven't seen before. Earlier in this chapter we defined `List` with `data List a = End | Cons a (List a)`, where `End` and `Cons` were the data constructors. GADTs lets us do this in a more powerful way, with `where`. We still define two data constructors, `End` and `Cons`, but because we're using the new `where` Syntax we get to specify the output type of our data constructor. 
+`data Empty` and `data NonEmpty` are pretty simple - they're phantom types which contain no values. They're used so we can "tag" our `List` type with useful values. The interesting definition is actually the `List` type, because it uses some syntax we haven't seen before. Earlier in this chapter we defined `List` with `data List a = End | Cons a (List a)`, where `End` and `Cons` were the data constructors. GADTs lets us do this in a more powerful way, with `where`. We still define two data constructors, `End` and `Cons`, but because we're using the new `where` syntax we get to specify the output type of our data constructor. 
 
 Before, `End` was a list of type `List a`. Now, `End` is a list of type `List a Empty`. 
 
-Before, `Cons` took an `a` and a type `List a` and returned a `List a`. Now, `Cons` takes a value of type `a` and a value of type type `List a tag` and returns a value of type `List a NonEmpty`.
+Before, `Cons` took an `a` and a type `List a` and returned a `List a`. Now, `Cons` takes a value of type `a` and a value of type `List a tag` and returns a value of type `List a NonEmpty`.
 
 This may all seem very confusing, so don't worry if it seems a bit hazy. There's another language extension that makes GADTs much more useful, called `DataKinds`, which we'll introduce now and hopefully reinforce GADTs. It makes it very easy to write a safe `tail` function, which is what we'll try next.
 
