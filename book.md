@@ -2370,7 +2370,7 @@ __***Exercises***__:
 
     Really try this, because understanding Haskell data types is important.
 
-    Answer: `Either` is the type constructor, which takes to parameters, `a` and `b`. The two value constructors are Left (which takes an `a`) and Right (which takes a `b`).
+    Answer: `Either` is the type constructor, which takes two parameters, `a` and `b`. The two value constructors are Left (which takes an `a`) and Right (which takes a `b`).
 
 ---
 
